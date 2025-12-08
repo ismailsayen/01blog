@@ -1,4 +1,4 @@
-package com.blog;
+package com.blog.books;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
