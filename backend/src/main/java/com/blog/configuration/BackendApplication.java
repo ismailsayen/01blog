@@ -1,12 +1,14 @@
 package com.blog.configuration;
 
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
-@EntityScan("com.blog.books")
-@SpringBootApplication(scanBasePackages={
-	"com","com.blog"
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+@EntityScan("com.blog.user.model")
+@EnableJpaRepositories(basePackages = "com.blog.auth.repositories")
+@SpringBootApplication(scanBasePackages = {
+		"com", "com.blog"
 })
 public class BackendApplication {
 
