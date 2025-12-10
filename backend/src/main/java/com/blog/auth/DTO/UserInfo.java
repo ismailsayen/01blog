@@ -1,4 +1,4 @@
-package com.blog.user.DTO;
+package com.blog.auth.DTO;
 
 import java.util.Collection;
 import java.util.Collections;
