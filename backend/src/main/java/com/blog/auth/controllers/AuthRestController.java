@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthRestController {
     @Autowired
     private AuthService authService;
-
+    
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
     public String login(@RequestBody UserDTO.LoginData entity) throws AuthenticationException {
