@@ -28,6 +28,7 @@ public class AuthRestController {
     }
 
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public UserEntity register(@RequestBody UserEntity entity) {
         return authService.saveUser(entity);
     }

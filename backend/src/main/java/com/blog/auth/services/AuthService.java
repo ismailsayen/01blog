@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.blog.auth.DTO.UserDTO;
-import com.blog.auth.jwt.jwtGenerator;
+import com.blog.auth.jwt.JwtService;
 import com.blog.auth.repositories.AuthRepository;
 import com.blog.user.model.UserEntity;
 
@@ -25,7 +25,7 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authManager;
     @Autowired
-    private jwtGenerator jwt;
+    private JwtService jwt;
 
     public UserEntity saveUser(UserEntity user) {
         user.setPassword(encoder.encode(user.getPassword()));
@@ -34,10 +34,11 @@ public class AuthService {
     }
 
     public String verify(UserDTO.LoginData user) throws AuthenticationException {
+        Long userId = authRepo.findIdByEmail(user.getEmail());
         Authentication authentication = authManager
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         if (authentication.isAuthenticated()) {
-            return jwt.generateToken(user.getEmail());
+            return jwt.generateToken(userId);
         }
         return "fail";
     }
