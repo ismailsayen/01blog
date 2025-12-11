@@ -21,7 +21,7 @@ public class UserDetailsImpl implements UserDetailsService {
 
         UserEntity user = authRepo.findByEmail(email);
         if (user == null) {
-            throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
+            throw new UnsupportedOperationException("Invalid credentials: email or password is incorrect.");
         }
         return new UserInfo(user);
     }
