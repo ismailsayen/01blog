@@ -15,6 +15,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import com.blog.auth.repositories.AuthRepository;
 import com.blog.auth.services.UserDetailsImpl;
 
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,29 +36,35 @@ public class JwtFilter extends OncePerRequestFilter {
     private HandlerExceptionResolver handlerExceptionResolver;
 
     @Override
+    @SuppressWarnings("UseSpecificCatch")
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+        String requestURI = request.getServletPath();
+        if (requestURI.equals("/login") || requestURI.equals("/register")) {
+            filterChain.doFilter(request, response);
+            return;
+
+        }
 
         try {
             String authHeader = request.getHeader("Authorization");
-            String token = null;
-            String idUser = null;
-            if (authHeader != null && authHeader.startsWith("Bearer ")) {
-                token = authHeader.substring(7);
-                idUser = JwtService.extractId(token);
-                String email = authRepository.findEmailById(idUser);
-                System.out.println(email);
-                UserDetails userDetails = context.getBean(UserDetailsImpl.class).loadUserByUsername(email);
-                if (JwtService.validToken(token, userDetails)) {
-                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
-                            null,
-                            userDetails.getAuthorities());
-                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authToken);
-                }
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                throw new JwtException("JWT token is missing");
             }
-            filterChain.doFilter(request, response);
+
+            String token = authHeader.substring(7);
+            String idUser = JwtService.extractId(token);
+            String email = authRepository.findEmailById(idUser);
+            UserDetails userDetails = context.getBean(UserDetailsImpl.class).loadUserByUsername(email);
+            if (JwtService.validToken(token, userDetails)) {
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
+                        null,
+                        userDetails.getAuthorities());
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
         } catch (Exception e) {
+
             handlerExceptionResolver.resolveException(request, response, null, e);
         }
     }

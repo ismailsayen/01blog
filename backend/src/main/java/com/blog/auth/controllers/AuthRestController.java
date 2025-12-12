@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.auth.DTO.UserDTO;
 import com.blog.auth.services.AuthService;
-import com.blog.user.model.UserEntity;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -29,7 +29,7 @@ public class AuthRestController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserEntity register(@RequestBody UserEntity entity) {
+    public UserDTO.RegisterData register( @Valid @RequestBody UserDTO.RegisterData entity) {
         return authService.saveUser(entity);
     }
 

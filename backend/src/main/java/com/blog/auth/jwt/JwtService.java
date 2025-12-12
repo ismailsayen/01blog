@@ -23,12 +23,8 @@ public class JwtService {
     @Value("${SECRET_KEY}")
     private String JWT_KEY;
     public String generateToken(Long userID) {
-        log.info(JWT_KEY);
         Map<String, Object> claims = new HashMap<>();
-        // claims.put("email", email);
-        // claims.put("role", "USER");
-        // claims.put("userId", 1);
-
+        
         return Jwts.builder()
                 .claims()
                 .add(claims)

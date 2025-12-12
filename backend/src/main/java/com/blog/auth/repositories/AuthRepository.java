@@ -13,7 +13,6 @@ public interface AuthRepository extends JpaRepository<UserEntity, Long> {
 
     @Query("SELECT u.id FROM UserEntity u WHERE u.email = :email")
     Long findIdByEmail(@Param("email") String email);
-
     @Query("SELECT u.email FROM UserEntity u WHERE u.id = :id")
     String findEmailById(String id);
 }
