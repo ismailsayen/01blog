@@ -1,6 +1,5 @@
 package com.blog.auth.controllers;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -20,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthRestController {
     @Autowired
     private AuthService authService;
-    
+
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
     public String login(@RequestBody UserDTO.LoginData entity) throws AuthenticationException {
@@ -29,7 +28,7 @@ public class AuthRestController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO.RegisterData register( @Valid @RequestBody UserDTO.RegisterData entity) {
+    public UserDTO.RegisterOutput register(@Valid @RequestBody UserDTO.RegisterInput entity) {
         return authService.saveUser(entity);
     }
 

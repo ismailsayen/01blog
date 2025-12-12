@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.blog.auth.DTO.UserDTO;
+import com.blog.auth.Exception.AuthException;
 import com.blog.auth.jwt.JwtService;
 import com.blog.auth.repositories.AuthRepository;
 import com.blog.user.model.UserEntity;
@@ -27,17 +28,29 @@ public class AuthService {
     @Autowired
     private JwtService jwt;
 
-    public UserDTO.RegisterData saveUser(UserDTO.RegisterData user) {
+    public UserDTO.RegisterOutput saveUser(UserDTO.RegisterInput user) {
         user.setPassword(encoder.encode(user.getPassword()));
         UserEntity entity = UserEntity.builder()
                 .email(user.getEmail()).password(user.getPassword())
                 .userName(user.getUserName())
                 .build();
         authRepo.save(entity);
-        return user;
+
+        UserDTO.RegisterOutput result = UserDTO.RegisterOutput.builder()
+                .id(entity.getId())
+                .email(entity.getEmail())
+                .userName(entity.getUserName())
+                .role(entity.getRole())
+                .build();
+
+        return result;
     }
 
     public String verify(UserDTO.LoginData user) throws AuthenticationException {
+        if (user.getEmail() == null || user.getPassword() == null) {
+            throw new AuthException("Invalid credentials: email or password is incorrect.");
+        }
+
         Authentication authentication = authManager
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         if (authentication.isAuthenticated()) {
@@ -46,10 +59,4 @@ public class AuthService {
         }
         return "fail";
     }
-
-    // private boolean isValidUsername(String userName) {
-    // Pattern pattern =
-    // Pattern.compile("^(?:[A-Za-z0-9]{3,15}|(?=.{1,20}$)[A-Za-z0-9]+[A-Za-z0-9]+)$");
-    // return pattern.matcher(userName).matches();
-    // }
 }
