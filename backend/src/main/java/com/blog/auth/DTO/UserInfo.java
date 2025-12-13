@@ -19,7 +19,7 @@ public class UserInfo implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
+        return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override
@@ -30,6 +30,9 @@ public class UserInfo implements UserDetails {
     @Override
     public String getUsername() {
         return user.getEmail();
+    }
+    public Long getId() {
+        return user.getId();
     }
 
 }
