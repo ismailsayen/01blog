@@ -1,5 +1,7 @@
 package com.blog.auth.DTO;
 
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -44,6 +46,7 @@ public class UserDTO {
         private Long id;
         private String userName;
         private String email;
+        private LocalDate createdAt;
         private String role;
     }
 }

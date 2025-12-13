@@ -28,7 +28,7 @@ public class AuthRestController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO.RegisterOutput register(@Valid @RequestBody UserDTO.RegisterInput entity) {
+    public UserDTO.RegisterOutput register(@Valid @RequestBody UserDTO.RegisterInput entity) throws  IllegalArgumentException {
         return authService.saveUser(entity);
     }
 

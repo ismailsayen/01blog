@@ -1,5 +1,8 @@
 package com.blog.user.model;
 
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,8 +25,12 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String userName;
+    @Column(unique = true)
     private String email;
     private String password;
+    @Column(columnDefinition = "date")
+    private final LocalDate createdAt = LocalDate.now();
     private final String role = "user";
 }

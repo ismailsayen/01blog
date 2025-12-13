@@ -28,23 +28,27 @@ public class AuthService {
     @Autowired
     private JwtService jwt;
 
-    public UserDTO.RegisterOutput saveUser(UserDTO.RegisterInput user) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        UserEntity entity = UserEntity.builder()
-                .email(user.getEmail()).password(user.getPassword())
-                .userName(user.getUserName())
-                .build();
-        authRepo.save(entity);
+    public UserDTO.RegisterOutput saveUser(UserDTO.RegisterInput user)  {
+            user.setPassword(encoder.encode(user.getPassword()));
+            UserEntity entity = UserEntity.builder()
+                    .email(user.getEmail()).password(user.getPassword())
+                    .userName(user.getUserName())
+                    .build();
+            authRepo.save(entity);
 
-        UserDTO.RegisterOutput result = UserDTO.RegisterOutput.builder()
-                .id(entity.getId())
-                .email(entity.getEmail())
-                .userName(entity.getUserName())
-                .role(entity.getRole())
-                .build();
+            UserDTO.RegisterOutput result = UserDTO.RegisterOutput.builder()
+                    .id(entity.getId())
+                    .email(entity.getEmail())
+                    .userName(entity.getUserName())
+                    .role(entity.getRole())
+                    .createdAt(entity.getCreatedAt())
+                    .build();
 
-        return result;
-    }
+            return result;
+     
+    
+        }
+    
 
     public String verify(UserDTO.LoginData user) throws AuthenticationException {
         if (user.getEmail() == null || user.getPassword() == null) {
