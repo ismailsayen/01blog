@@ -34,5 +34,8 @@ public class UserInfo implements UserDetails {
     public Long getId() {
         return user.getId();
     }
+    public UserEntity getUser() {
+        return user;
+    }
 
 }

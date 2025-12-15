@@ -17,11 +17,11 @@ import io.jsonwebtoken.JwtException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-      @ExceptionHandler(Exception.class)
-    public ResponseEntity<ProblemDetail> handleUniqueConstraint(Exception ex) {
-        ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(pd);
-    }
+    //   @ExceptionHandler(Exception.class)
+    // public ResponseEntity<ProblemDetail> handleUniqueConstraint(Exception ex) {
+    //     ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+    //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(pd);
+    // }
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ProblemDetail> catchAuthenticationException(AuthenticationException ex) {
