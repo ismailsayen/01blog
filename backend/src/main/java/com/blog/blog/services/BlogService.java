@@ -15,14 +15,23 @@ public class BlogService {
     @Autowired
     BlogRepository blgRepo;
 
-    public String addPostService(BlogDTO.BlogInput input, UserInfo user) {
+    public BlogDTO.BlogOutput addPostService(BlogDTO.BlogInput input, UserInfo user) {
         BlogEntity blgEnt = BlogEntity.builder()
                 .title(input.getTitle())
                 .content(input.getContent())
                 .user(user.getUser())
                 .build();
         blgRepo.save(blgEnt);
-        return "0L";
+        return BlogDTO.BlogOutput.builder()
+                .id(blgEnt.getId())
+                .title(blgEnt.getTitle())
+                .commentsCount(0L)
+                .likeCount(0L)
+                .createdAt(blgEnt.getCreatedAt())
+                .content(blgEnt.getContent())
+                .userId(user.getId())
+                .userName(user.getUsername())
+                .build();
     }
 
     public List<BlogDTO.BlogOutput> getAllPosts() {

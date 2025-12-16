@@ -34,14 +34,12 @@ public class BlogEntity {
     private String title;
     @Column(columnDefinition = "TEXT")
     private String content;
-    private final Long likeCout = 0L;
-    private final Long dislikeCout = 0L;
-    private final Long commentsCout = 0L;
+    private final Long likeCount = 0L;
+    private final Long commentsCount = 0L;
     @Column(columnDefinition = "date")
     private final LocalDate createdAt = LocalDate.now();
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
-   
     private UserEntity user;
 }

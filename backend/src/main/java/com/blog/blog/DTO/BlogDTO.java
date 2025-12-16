@@ -30,12 +30,12 @@ public class BlogDTO {
     @AllArgsConstructor
     public static class BlogOutput {
         private Long id;
-        private Long comments_cout;
+        private Long commentsCount;
         private String content;
-        private LocalDate created_at;
-        private Long dislikec_out;
-        private Long like_cout;
+        private LocalDate createdAt;
+        private Long likeCount;
         private String title;
-        private Long user_id;
+        private Long userId;
+        private String userName;
     }
 }

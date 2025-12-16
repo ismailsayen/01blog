@@ -14,14 +14,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import io.jsonwebtoken.JwtException;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    //   @ExceptionHandler(Exception.class)
-    // public ResponseEntity<ProblemDetail> handleUniqueConstraint(Exception ex) {
-    //     ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
-    //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(pd);
-    // }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ProblemDetail> handleUniqueConstraint(Exception ex) {
+        log.info(ex.getLocalizedMessage());
+        ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(pd);
+    }
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ProblemDetail> catchAuthenticationException(AuthenticationException ex) {

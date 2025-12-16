@@ -11,6 +11,6 @@ import com.blog.blog.models.BlogEntity;
 
 @Repository
 public interface BlogRepository extends JpaRepository<BlogEntity, Long> {
-    @Query(value = "SELECT b.* FROM blogs b",nativeQuery=true)
+    @Query(value = "SELECT b.*, u.user_name FROM blogs b INNER JOIN users u ON b.user_id=u.id", nativeQuery = true)
     List<BlogDTO.BlogOutput> findAllData();
 }

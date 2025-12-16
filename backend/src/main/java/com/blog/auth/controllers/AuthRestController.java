@@ -20,13 +20,12 @@ public class AuthRestController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/login")
-    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/auth/login")
     public String login(@RequestBody UserDTO.LoginData entity) throws AuthenticationException {
         return authService.verify(entity);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO.RegisterOutput register(@Valid @RequestBody UserDTO.RegisterInput entity) throws  IllegalArgumentException {
         return authService.saveUser(entity);
