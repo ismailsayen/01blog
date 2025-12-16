@@ -2,6 +2,7 @@ package com.blog.configuration;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -9,25 +10,40 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ProblemDetail> handleUniqueConstraint(Exception ex) {
-        log.info(ex.getLocalizedMessage());
+    public ResponseEntity<ProblemDetail> catchAny(Exception ex) {
+        log.error("Unhandled exception", ex);
+        ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(pd);
+    }
+
+@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ProblemDetail> catchNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+        ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(pd);
+    }
+
+    @ExceptionHandler({ NoSuchElementException.class, NoResourceFoundException.class })
+    public ResponseEntity<ProblemDetail> catchNoResource(Exception ex) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(pd);
     }
 
-    @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<ProblemDetail> catchAuthenticationException(AuthenticationException ex) {
+    @ExceptionHandler({ MethodArgumentTypeMismatchException.class, AuthenticationException.class })
+    public ResponseEntity<ProblemDetail> catchAuthenticationException(Exception ex) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pd);
     }

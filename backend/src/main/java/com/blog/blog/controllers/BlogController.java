@@ -1,11 +1,14 @@
 package com.blog.blog.controllers;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +21,7 @@ import com.blog.blog.services.BlogService;
 
 import jakarta.validation.Valid;
 
-@RequestMapping("/post")
+@RequestMapping("/blog")
 @RestController
 public class BlogController {
     @Autowired
@@ -26,13 +29,24 @@ public class BlogController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BlogDTO.BlogOutput addPostController(@Valid @RequestBody BlogDTO.BlogInput input,
+    public BlogDTO.BlogOutput addBlogController(@Valid @RequestBody BlogDTO.BlogInput input,
             @AuthenticationPrincipal UserInfo user) {
         return blgService.addPostService(input, user);
     }
 
     @GetMapping
-    public List<BlogDTO.BlogOutput> getPostController() {
-        return blgService.getAllPosts();
+    public List<BlogDTO.BlogOutput> getAllBlogController() {
+        return blgService.getAllBlogs();
+    }
+
+    @GetMapping("/{idBlog}")
+    public BlogDTO.BlogOutput getBLogById(@PathVariable Long idBlog) throws NoSuchElementException {
+        return blgService.findBlogById(idBlog);
+    }
+
+    @DeleteMapping("/{idBlog}")
+    @ResponseStatus(HttpStatus.OK)
+    public String DeleteBlog(@PathVariable Long idBlog)  {
+        return blgService.DeletePost(idBlog);
     }
 }
