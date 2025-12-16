@@ -1,5 +1,7 @@
 package com.blog.blog.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +18,14 @@ public class BlogService {
     public String addPostService(BlogDTO.BlogInput input, UserInfo user) {
         BlogEntity blgEnt = BlogEntity.builder()
                 .title(input.getTitle())
-                .content(input.getTitle())
-                .users(user.getUser())
+                .content(input.getContent())
+                .user(user.getUser())
                 .build();
         blgRepo.save(blgEnt);
         return "0L";
+    }
+
+    public List<BlogDTO.BlogOutput> getAllPosts() {
+        return blgRepo.findAllData();
     }
 }

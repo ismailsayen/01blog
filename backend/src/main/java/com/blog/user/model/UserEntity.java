@@ -41,7 +41,7 @@ public class UserEntity {
     private final LocalDate createdAt = LocalDate.now();
     private final String role = "user";
     
-    @OneToMany(mappedBy = "users", cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     private final Set<BlogEntity> blogs = new HashSet<>();
 
 }

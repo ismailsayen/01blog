@@ -18,9 +18,11 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 
 @Table(name = "Blogs")
@@ -30,6 +32,7 @@ public class BlogEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String content;
     private final Long likeCout = 0L;
     private final Long dislikeCout = 0L;
@@ -39,5 +42,6 @@ public class BlogEntity {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
-    private UserEntity users;
+   
+    private UserEntity user;
 }
