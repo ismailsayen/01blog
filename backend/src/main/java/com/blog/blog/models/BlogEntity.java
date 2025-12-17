@@ -38,6 +38,8 @@ public class BlogEntity {
     private final Long commentsCount = 0L;
     @Column(columnDefinition = "date")
     private final LocalDate createdAt = LocalDate.now();
+    @Column(columnDefinition = "date")
+    private final LocalDate lastUpdateAt = null;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")

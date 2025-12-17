@@ -33,6 +33,7 @@ public class BlogDTO {
         private Long commentsCount;
         private String content;
         private LocalDate createdAt;
+        private LocalDate lastUpdateAt;
         private Long likeCount;
         private String title;
         private Long userId;

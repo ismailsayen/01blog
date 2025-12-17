@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,8 +32,8 @@ public class BlogController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BlogDTO.BlogOutput addBlogController(@Valid @RequestBody BlogDTO.BlogInput input,
-            @AuthenticationPrincipal UserInfo user) {
-        return blgService.addPostService(input, user);
+            @AuthenticationPrincipal UserInfo auth) {
+        return blgService.addPostService(input, auth);
     }
 
     @GetMapping
@@ -49,5 +50,11 @@ public class BlogController {
     @ResponseStatus(HttpStatus.OK)
     public String DeleteBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth) throws ForbiddenAction {
         return blgService.DeletePost(idBlog, auth);
+    }
+
+    @PatchMapping("/{idBlog}")
+    public String UpdateBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth) throws ForbiddenAction {
+
+        return blgService.updateBlog(idBlog, auth);
     }
 }

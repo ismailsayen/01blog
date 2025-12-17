@@ -20,11 +20,11 @@ public class BlogService {
     @Autowired
     BlogRepository blgRepo;
 
-    public BlogDTO.BlogOutput addPostService(BlogDTO.BlogInput input, UserInfo user) {
+    public BlogDTO.BlogOutput addPostService(BlogDTO.BlogInput input, UserInfo auth) {
         BlogEntity blgEnt = BlogEntity.builder()
                 .title(input.getTitle())
                 .content(input.getContent())
-                .user(user.getUser())
+                .user(auth.getUser())
                 .build();
         blgRepo.save(blgEnt);
 
@@ -35,8 +35,8 @@ public class BlogService {
                 .likeCount(0L)
                 .createdAt(blgEnt.getCreatedAt())
                 .content(blgEnt.getContent())
-                .userId(user.getId())
-                .userName(user.getUsername())
+                .userId(auth.getId())
+                .userName(auth.getUsername())
                 .build();
     }
 
@@ -53,10 +53,9 @@ public class BlogService {
         return blgRepo.findBlogById(idBlog).get();
     }
 
-    public String DeletePost(Long idBlog, UserInfo auth) throws NoSuchElementException, ForbiddenAction {
-        
-        BlogEntity blog = blgRepo.findById(idBlog)
-                .orElseThrow(() -> new NoSuchElementException("Blog not found."));
+    public String DeletePost(Long idBlog, UserInfo auth) throws ForbiddenAction {
+
+        BlogEntity blog = getBlogById(idBlog);
         if (!blog.getUser().getId().equals(auth.getId()) && !isAdmin(auth.getAuthorities())) {
             throw new ForbiddenAction("You don't have the permission to do this action.");
         }
@@ -64,10 +63,23 @@ public class BlogService {
         blgRepo.delete(blog);
         return "the blog is deleted successfuly.";
     }
-
-    private boolean isAdmin(Collection<? extends GrantedAuthority> authorities) {
-
-        return authorities.stream()
-                          .anyMatch(a -> a.getAuthority().equals("admin"));
+    
+    public String updateBlog(Long idBlog, UserInfo auth) throws ForbiddenAction {
+        BlogEntity blog = getBlogById(idBlog);
+        if (!blog.getUser().getId().equals(auth.getId())) {
+            throw new ForbiddenAction("You don't have the permission to do this action.");
+        }
+        // blog.setTitle(title);
+        return "Updated Succesfully.";
     }
+    private boolean isAdmin(Collection<? extends GrantedAuthority> authorities) {
+        return authorities.stream()
+                .anyMatch(a -> a.getAuthority().equals("admin"));
+    }
+
+    private BlogEntity getBlogById(Long idBlog) throws NoSuchElementException {
+        return blgRepo.findById(idBlog)
+                .orElseThrow(() -> new NoSuchElementException("Blog not found."));
+    }
+
 }

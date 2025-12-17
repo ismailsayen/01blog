@@ -15,7 +15,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RestController("/")
+@RestController
 public class AuthRestController {
     @Autowired
     private AuthService authService;
