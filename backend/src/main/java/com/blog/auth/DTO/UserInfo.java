@@ -29,7 +29,7 @@ public class UserInfo implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return user.getUserName();
     }
     public Long getId() {
         return user.getId();

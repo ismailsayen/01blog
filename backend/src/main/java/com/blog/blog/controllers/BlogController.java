@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.DTO.BlogDTO;
+import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.blog.services.BlogService;
 
 import jakarta.validation.Valid;
@@ -46,7 +47,7 @@ public class BlogController {
 
     @DeleteMapping("/{idBlog}")
     @ResponseStatus(HttpStatus.OK)
-    public String DeleteBlog(@PathVariable Long idBlog)  {
-        return blgService.DeletePost(idBlog);
+    public String DeleteBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth) throws ForbiddenAction {
+        return blgService.DeletePost(idBlog, auth);
     }
 }

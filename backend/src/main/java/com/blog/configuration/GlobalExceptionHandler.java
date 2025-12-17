@@ -17,20 +17,26 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
+import com.blog.blog.models.Exception.ForbiddenAction;
+
 import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetail> catchAny(Exception ex) {
+        System.out.println("-------------------------------------------");
         log.error("Unhandled exception", ex);
+        System.out.println("-------------------------------------------");
+
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(pd);
     }
 
-@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ProblemDetail> catchNotSupportedException(HttpRequestMethodNotSupportedException ex) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage());
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(pd);
@@ -52,6 +58,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ProblemDetail> catchJwt(JwtException ex) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(pd);
+    }
+
+    @ExceptionHandler(ForbiddenAction.class)
+    public ResponseEntity<ProblemDetail> catchForbiddenAction(ForbiddenAction ex) {
+        ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(pd);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

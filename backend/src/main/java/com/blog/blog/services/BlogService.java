@@ -1,15 +1,18 @@
 package com.blog.blog.services;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.DTO.BlogDTO;
 import com.blog.blog.models.BlogEntity;
+import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.blog.repositories.BlogRepository;
 
 @Service
@@ -45,13 +48,26 @@ public class BlogService {
         Optional<BlogDTO.BlogOutput> res = blgRepo.findBlogById(idBlog);
 
         if (res.isEmpty()) {
-            throw new NoSuchElementException("NO data.");
+            throw new NoSuchElementException("No data found for the given blog ID.");
         }
         return blgRepo.findBlogById(idBlog).get();
     }
 
-    public String DeletePost(Long idBlog) {
-        blgRepo.deleteById(idBlog);
+    public String DeletePost(Long idBlog, UserInfo auth) throws NoSuchElementException, ForbiddenAction {
+        
+        BlogEntity blog = blgRepo.findById(idBlog)
+                .orElseThrow(() -> new NoSuchElementException("Blog not found."));
+        if (!blog.getUser().getId().equals(auth.getId()) && !isAdmin(auth.getAuthorities())) {
+            throw new ForbiddenAction("You don't have the permission to do this action.");
+        }
+
+        blgRepo.delete(blog);
         return "the blog is deleted successfuly.";
+    }
+
+    private boolean isAdmin(Collection<? extends GrantedAuthority> authorities) {
+
+        return authorities.stream()
+                          .anyMatch(a -> a.getAuthority().equals("admin"));
     }
 }
