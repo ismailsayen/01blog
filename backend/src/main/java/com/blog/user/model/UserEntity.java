@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.blog.blog.models.BlogEntity;
+import com.blog.comment.models.CommentEntity;
 import com.blog.utils.DateNowFormatted;
 
 import jakarta.persistence.CascadeType;
@@ -33,15 +34,22 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     @Column(unique = true)
     private String userName;
+
     @Column(unique = true)
     private String email;
     private String password;
+
     @Column(columnDefinition = "TIMESTAMP")
     private final LocalDateTime createdAt = DateNowFormatted.nowDateTime();
     private final String role = "user";
-    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "userBlog", cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     private final Set<BlogEntity> blogs = new HashSet<>();
+
+    @OneToMany(mappedBy = "userComment", cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    private final Set<CommentEntity> comments = new HashSet<>();
 
 }

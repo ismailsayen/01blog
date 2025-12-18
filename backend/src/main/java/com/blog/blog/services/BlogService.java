@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.DTO.BlogDTO;
@@ -16,6 +17,7 @@ import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.blog.repositories.BlogRepository;
 import com.blog.utils.DateNowFormatted;
 
+@Transactional
 @Service
 public class BlogService {
     @Autowired
@@ -25,7 +27,7 @@ public class BlogService {
         BlogEntity blgEnt = BlogEntity.builder()
                 .title(input.getTitle())
                 .content(input.getContent())
-                .user(auth.getUser())
+                .userBlog(auth.getUser())
                 .build();
         blgRepo.save(blgEnt);
 
@@ -57,7 +59,7 @@ public class BlogService {
     public String DeletePost(Long idBlog, UserInfo auth) throws ForbiddenAction {
 
         BlogEntity blog = getBlogById(idBlog);
-        if (!blog.getUser().getId().equals(auth.getId()) && !isAdmin(auth.getAuthorities())) {
+        if (!blog.getUserBlog().getId().equals(auth.getId()) && !isAdmin(auth.getAuthorities())) {
             throw new ForbiddenAction("You don't have the permission to do this action.");
         }
 
@@ -67,7 +69,7 @@ public class BlogService {
 
     public String updateBlog(Long idBlog, UserInfo auth, BlogDTO.BlogInput data) throws ForbiddenAction {
         BlogEntity blog = getBlogById(idBlog);
-        if (!blog.getUser().getId().equals(auth.getId())) {
+        if (!blog.getUserBlog().getId().equals(auth.getId())) {
             throw new ForbiddenAction("You don't have the permission to do this action.");
         }
         blog.setTitle(data.getTitle());
