@@ -1,6 +1,6 @@
 package com.blog.blog.DTO;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -32,8 +32,8 @@ public class BlogDTO {
         private Long id;
         private Long commentsCount;
         private String content;
-        private LocalDate createdAt;
-        private LocalDate lastUpdateAt;
+        private LocalDateTime createdAt;
+        private LocalDateTime lastUpdateAt;
         private Long likeCount;
         private String title;
         private Long userId;

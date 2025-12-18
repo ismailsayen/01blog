@@ -53,8 +53,9 @@ public class BlogController {
     }
 
     @PatchMapping("/{idBlog}")
-    public String UpdateBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth) throws ForbiddenAction {
+    public String UpdateBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth,
+            @Valid @RequestBody BlogDTO.BlogInput input) throws ForbiddenAction {
 
-        return blgService.updateBlog(idBlog, auth);
+        return blgService.updateBlog(idBlog, auth,input);
     }
 }

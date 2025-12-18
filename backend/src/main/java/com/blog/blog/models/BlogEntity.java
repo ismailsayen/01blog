@@ -1,11 +1,12 @@
 package com.blog.blog.models;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.blog.user.model.UserEntity;
+import com.blog.utils.DateNowFormatted;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,12 +35,12 @@ public class BlogEntity {
     private String title;
     @Column(columnDefinition = "TEXT")
     private String content;
-    private final Long likeCount = 0L;
-    private final Long commentsCount = 0L;
-    @Column(columnDefinition = "date")
-    private final LocalDate createdAt = LocalDate.now();
-    @Column(columnDefinition = "date")
-    private final LocalDate lastUpdateAt = null;
+    private Long likeCount;
+    private Long commentsCount;
+    @Column(columnDefinition = "TIMESTAMP")
+    private final LocalDateTime createdAt = DateNowFormatted.nowDateTime();
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime lastUpdateAt;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")

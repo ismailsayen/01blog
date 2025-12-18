@@ -14,6 +14,7 @@ import com.blog.blog.DTO.BlogDTO;
 import com.blog.blog.models.BlogEntity;
 import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.blog.repositories.BlogRepository;
+import com.blog.utils.DateNowFormatted;
 
 @Service
 public class BlogService {
@@ -63,15 +64,19 @@ public class BlogService {
         blgRepo.delete(blog);
         return "the blog is deleted successfuly.";
     }
-    
-    public String updateBlog(Long idBlog, UserInfo auth) throws ForbiddenAction {
+
+    public String updateBlog(Long idBlog, UserInfo auth, BlogDTO.BlogInput data) throws ForbiddenAction {
         BlogEntity blog = getBlogById(idBlog);
         if (!blog.getUser().getId().equals(auth.getId())) {
             throw new ForbiddenAction("You don't have the permission to do this action.");
         }
-        // blog.setTitle(title);
+        blog.setTitle(data.getTitle());
+        blog.setContent(data.getContent());
+        blog.setLastUpdateAt(DateNowFormatted.nowDateTime());
+        blgRepo.save(blog);
         return "Updated Succesfully.";
     }
+
     private boolean isAdmin(Collection<? extends GrantedAuthority> authorities) {
         return authorities.stream()
                 .anyMatch(a -> a.getAuthority().equals("admin"));

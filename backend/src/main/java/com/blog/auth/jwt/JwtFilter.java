@@ -14,6 +14,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import com.blog.auth.repositories.AuthRepository;
 import com.blog.auth.services.UserDetailsImpl;
+import com.blog.user.model.UserEntity;
 
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -53,8 +54,10 @@ public class JwtFilter extends OncePerRequestFilter {
 
             String token = authHeader.substring(7);
             String idUser = JwtService.extractId(token);
-            String email = authRepository.findEmailById(idUser);
-            UserDetails userDetails = context.getBean(UserDetailsImpl.class).loadUserByUsername(email);
+            UserEntity userEntity = authRepository.findById(Long.valueOf(idUser))
+                    .orElseThrow(() -> new JwtException("Invalid credentials: email or password is incorrect."));
+
+            UserDetails userDetails = context.getBean(UserDetailsImpl.class).loadUserByUsername(userEntity.getEmail());
             if (JwtService.validToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
                         null,
