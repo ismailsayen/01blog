@@ -2,6 +2,8 @@ package com.blog.comment.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +22,14 @@ public class CommentController {
     CommentService cmntService;
 
     @PostMapping
-    public String commentPost(@AuthenticationPrincipal UserInfo auth, @Valid @RequestBody CommentDTO.Create data) {
-        System.out.println("-------------------------------------------> " + auth.getId());
-        System.out.println("-------------------------------------------> " + data.getContent());
-        return cmntService.addComment();
+    public String commentPost(@Valid @RequestBody CommentDTO.Create data,
+            @AuthenticationPrincipal UserInfo auth) {
+        return cmntService.addComment(data, auth);
     }
 
+    @DeleteMapping("/{cmntId}")
+    public String deleteComment(@PathVariable Long cmntId) {
+        
+        return cmntService.deleteComment(cmntId);
+    }
 }

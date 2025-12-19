@@ -84,7 +84,7 @@ public class BlogService {
                 .anyMatch(a -> a.getAuthority().equals("admin"));
     }
 
-    private BlogEntity getBlogById(Long idBlog) throws NoSuchElementException {
+    public BlogEntity getBlogById(Long idBlog) throws NoSuchElementException {
         return blgRepo.findById(idBlog)
                 .orElseThrow(() -> new NoSuchElementException("Blog not found."));
     }
