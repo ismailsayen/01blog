@@ -55,7 +55,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({ JwtException.class })
-    public ResponseEntity<ProblemDetail> catchJwt(JwtException ex) {
+    public ResponseEntity<ProblemDetail> catchJwt(Exception ex) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(pd);
     }

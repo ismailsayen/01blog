@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.models.BlogEntity;
+import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.blog.services.BlogService;
 import com.blog.comment.DTO.CommentDTO;
 import com.blog.comment.models.CommentEntity;
@@ -37,10 +38,12 @@ public class CommentService {
         return "comment added successfully";
     }
 
-    public String deleteComment(Long cmntId) throws NoSuchElementException {
+    public String deleteComment(Long cmntId, UserInfo auth) throws NoSuchElementException,ForbiddenAction {
         CommentEntity comment = cmntRepo.findById(cmntId)
                 .orElseThrow(() -> new NoSuchElementException("No comment found."));
-
+        if (!BlogService.isAdmin(auth.getAuthorities()) && !comment.getUserComment().getId().equals(auth.getId())) {
+             throw new ForbiddenAction("You don't have the permission to do this action.");
+        }
         BlogEntity blog = comment.getBlogCommented();
         blog.setCommentsCount(blog.getCommentsCount() == null ? 0
                 : blog.getCommentsCount() - 1 < 0 ? 0 : blog.getCommentsCount() - 1);
@@ -48,4 +51,5 @@ public class CommentService {
         cmntRepo.delete(comment);
         return "comment deleted successfully.";
     }
+
 }

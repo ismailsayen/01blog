@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.auth.DTO.UserInfo;
+import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.comment.DTO.CommentDTO;
 import com.blog.comment.services.CommentService;
 
@@ -28,8 +29,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/{cmntId}")
-    public String deleteComment(@PathVariable Long cmntId) {
-        
-        return cmntService.deleteComment(cmntId);
+    public String deleteComment(@PathVariable Long cmntId, @AuthenticationPrincipal UserInfo auth) throws ForbiddenAction {
+        return cmntService.deleteComment(cmntId,auth);
     }
 }

@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EntityScan({ "com.blog.user.model", "com.blog.blog.models", "com.blog.comment.models" })
+@EntityScan({ "com.blog.user.model", "com.blog.blog.models", "com.blog.comment.models", "com.blog.reaction.models" })
 @EnableJpaRepositories(basePackages = { "com.blog.auth.repositories", "com.blog.blog.repositories",
-		"com.blog.comment.repositories" })
+		"com.blog.comment.repositories", "com.blog.reaction.repositories" })
 @SpringBootApplication(scanBasePackages = {
 		"com", "com.blog"
 })

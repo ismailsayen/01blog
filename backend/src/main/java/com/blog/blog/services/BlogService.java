@@ -79,7 +79,7 @@ public class BlogService {
         return "Updated Succesfully.";
     }
 
-    private boolean isAdmin(Collection<? extends GrantedAuthority> authorities) {
+    public static boolean isAdmin(Collection<? extends GrantedAuthority> authorities) {
         return authorities.stream()
                 .anyMatch(a -> a.getAuthority().equals("admin"));
     }
