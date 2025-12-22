@@ -19,7 +19,6 @@ public class ReactionController {
 
     @PostMapping("/{blogId}")
     public String addOrDeleteReaction(@PathVariable Long blogId,@AuthenticationPrincipal UserInfo auth) {
-        
         return rctService.addOrDeleteReaction(blogId,auth);
     }
     

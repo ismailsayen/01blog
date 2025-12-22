@@ -1,15 +1,17 @@
-package com.blog.blog.models;
+package com.blog.report.models;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.blog.user.model.UserEntity;
-import com.blog.utils.DateNowFormatted;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,32 +24,33 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 
-@Table(name = "Blogs")
+@Table(name = "reports")
 @Entity
-public class BlogEntity {
+public class ReportEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
 
-    @Column(columnDefinition = "TEXT")
-    private String content;
-    private Long likeCount;
-    private Long commentsCount;
+    private String reason;
 
-    @Column(columnDefinition = "TIMESTAMP")
-    private final LocalDateTime createdAt = DateNowFormatted.nowDateTime();
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
 
-    @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime lastUpdateAt;
+    @Column(nullable = false)
+    private Long targetId;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id",nullable=false)
-    private UserEntity userBlog;
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity userReported;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ReportTargetType targetType;
 }

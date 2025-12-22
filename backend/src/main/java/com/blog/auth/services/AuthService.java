@@ -31,8 +31,10 @@ public class AuthService {
     public UserDTO.RegisterOutput saveUser(UserDTO.RegisterInput user)  {
             user.setPassword(encoder.encode(user.getPassword()));
             UserEntity entity = UserEntity.builder()
-                    .email(user.getEmail()).password(user.getPassword())
+                    .email(user.getEmail())
+                    .password(user.getPassword())
                     .userName(user.getUserName())
+                    .role("USER")
                     .build();
             authRepo.save(entity);
 

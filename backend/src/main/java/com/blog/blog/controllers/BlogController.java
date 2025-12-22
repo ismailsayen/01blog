@@ -49,7 +49,7 @@ public class BlogController {
     @DeleteMapping("/{idBlog}")
     @ResponseStatus(HttpStatus.OK)
     public String DeleteBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth) throws ForbiddenAction {
-        return blgService.DeletePost(idBlog, auth);
+        return blgService.DeleteBlog(idBlog, auth);
     }
 
     @PatchMapping("/{idBlog}")

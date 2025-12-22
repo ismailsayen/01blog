@@ -56,7 +56,7 @@ public class BlogService {
         return blgRepo.findBlogById(idBlog).get();
     }
 
-    public String DeletePost(Long idBlog, UserInfo auth) throws ForbiddenAction {
+    public String DeleteBlog(Long idBlog, UserInfo auth) throws ForbiddenAction {
 
         BlogEntity blog = getBlogById(idBlog);
         if (!blog.getUserBlog().getId().equals(auth.getId()) && !isAdmin(auth.getAuthorities())) {
@@ -81,7 +81,7 @@ public class BlogService {
 
     public static boolean isAdmin(Collection<? extends GrantedAuthority> authorities) {
         return authorities.stream()
-                .anyMatch(a -> a.getAuthority().equals("admin"));
+                .anyMatch(a -> a.getAuthority().equals("ADMIN"));
     }
 
     public BlogEntity getBlogById(Long idBlog) throws NoSuchElementException {
