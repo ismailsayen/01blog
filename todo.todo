@@ -1,0 +1,3 @@
+- get convenable data from blogs.
+- Only Admin can getAll,see and delete report
+- delete report if user, blog or comment are deleted

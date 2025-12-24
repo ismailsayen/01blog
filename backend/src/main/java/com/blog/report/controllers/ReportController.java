@@ -1,10 +1,19 @@
 package com.blog.report.controllers;
 
+import java.util.List;
+
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.auth.DTO.UserInfo;
@@ -28,6 +37,28 @@ public class ReportController {
             case COMMENT -> reportService.addCommentReport(auth, data);
             default -> reportService.addProfileReport(auth, data);
         };
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping
+    public List<ReportDTO.AllReports> getNewReports() {
+        Sort sort = Sort.by("created_at").descending();
+        Pageable pageable = PageRequest.of(0, 10, sort);
+        return reportService.getNewReports(pageable);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/get")
+    public ReportDTO.Report getReport(@RequestParam Long reportId, @RequestParam String reportType)
+            throws BadRequestException {
+        if (reportId == null || reportType == null ||
+                (!reportType.equalsIgnoreCase("BLOG")
+                        && !reportType.equalsIgnoreCase("COMMENT")
+                        && !reportType.equalsIgnoreCase("PROFILE"))) {
+            throw new BadRequestException("Bad Request");
+        }
+
+        return reportService.getReport(reportId, getReportTargetType(reportType.toUpperCase()));
     }
 
     private ReportTargetType getReportTargetType(String type) {

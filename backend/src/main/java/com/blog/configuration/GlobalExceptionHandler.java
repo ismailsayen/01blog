@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import org.apache.coyote.BadRequestException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -48,7 +51,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(pd);
     }
 
-    @ExceptionHandler({ MethodArgumentTypeMismatchException.class, AuthenticationException.class })
+    @ExceptionHandler({ BadRequestException.class,MethodArgumentTypeMismatchException.class, AuthenticationException.class , HttpMessageNotReadableException.class })
     public ResponseEntity<ProblemDetail> catchAuthenticationException(Exception ex) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pd);
@@ -60,8 +63,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(pd);
     }
 
-    @ExceptionHandler(ForbiddenAction.class)
-    public ResponseEntity<ProblemDetail> catchForbiddenAction(ForbiddenAction ex) {
+    @ExceptionHandler({ForbiddenAction.class,AuthorizationDeniedException.class})
+    public ResponseEntity<ProblemDetail> catchForbiddenAction(Exception ex) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(pd);
     }

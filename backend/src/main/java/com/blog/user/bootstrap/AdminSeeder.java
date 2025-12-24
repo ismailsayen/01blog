@@ -21,7 +21,7 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        Optional<UserEntity> admin = authRepo.findByRole("ADMIN");
+        Optional<UserEntity> admin = authRepo.findByRole("ROLE_ADMIN");
         admin.ifPresentOrElse(System.out::println, () -> {
             UserEntity adminCreate = UserEntity.builder()
                     .userName("ismailSAYEN 02")

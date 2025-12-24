@@ -39,8 +39,7 @@ public class CommentService {
     }
 
     public String deleteComment(Long cmntId, UserInfo auth) throws NoSuchElementException,ForbiddenAction {
-        CommentEntity comment = cmntRepo.findById(cmntId)
-                .orElseThrow(() -> new NoSuchElementException("No comment found."));
+        CommentEntity comment = getComment(cmntId);
         if (!BlogService.isAdmin(auth.getAuthorities()) && !comment.getUserComment().getId().equals(auth.getId())) {
              throw new ForbiddenAction("You don't have the permission to do this action.");
         }
@@ -51,5 +50,8 @@ public class CommentService {
         cmntRepo.delete(comment);
         return "comment deleted successfully.";
     }
-
+    public CommentEntity getComment(Long id){
+        return cmntRepo.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("No profile found."));
+    }
 }

@@ -1,12 +1,13 @@
 package com.blog.report.models;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.blog.user.model.UserEntity;
+import com.blog.utils.DateNowFormatted;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,7 +41,7 @@ public class ReportEntity {
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
-    private Date createdAt;
+    private final LocalDateTime reportedAt = DateNowFormatted.nowDateTime();
 
     @Column(nullable = false)
     private Long targetId;
