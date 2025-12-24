@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +62,12 @@ public class ReportController {
 
         return reportService.getReport(reportId, getReportTargetType(reportType.toUpperCase()));
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("/{reportId}")
+    public String deleteReport(@PathVariable Long reportId){
 
+        return reportService.deleteReport(reportId);
+    }
     private ReportTargetType getReportTargetType(String type) {
         return switch (type.toUpperCase()) {
             case "BLOG" -> ReportTargetType.BLOG;

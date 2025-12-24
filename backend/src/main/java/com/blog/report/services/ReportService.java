@@ -79,8 +79,16 @@ public class ReportService {
         return getReportByIdAndType(reportId, reportTargetType);
     }
 
-    public ReportDTO.Report getReportByIdAndType(Long id, ReportTargetType reportTargetType) throws NoSuchElementException {
+    public ReportDTO.Report getReportByIdAndType(Long id, ReportTargetType reportTargetType)
+            throws NoSuchElementException {
         return reportRepo.findByIdAndTargetType(id, reportTargetType.toString())
                 .orElseThrow(() -> new NoSuchElementException("Report not found."));
+    }
+
+    public String deleteReport(Long reportId) {
+        ReportEntity report = reportRepo.findById(reportId)
+                .orElseThrow(() -> new NoSuchElementException("Report not found."));
+        reportRepo.delete(report);
+        return "Post deleted successfully";
     }
 }

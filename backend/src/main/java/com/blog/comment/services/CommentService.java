@@ -13,6 +13,8 @@ import com.blog.blog.services.BlogService;
 import com.blog.comment.DTO.CommentDTO;
 import com.blog.comment.models.CommentEntity;
 import com.blog.comment.repositories.CommentRepo;
+import com.blog.report.models.ReportTargetType;
+import com.blog.report.repositories.ReportRepository;
 
 @Transactional
 @Service
@@ -23,6 +25,9 @@ public class CommentService {
 
     @Autowired
     CommentRepo cmntRepo;
+
+    @Autowired
+    ReportRepository reportRepo;
 
     public String addComment(CommentDTO.Create data, UserInfo auth) throws NoSuchElementException {
         BlogEntity blog = blgService.getBlogById(data.getBlogId());
@@ -38,20 +43,22 @@ public class CommentService {
         return "comment added successfully";
     }
 
-    public String deleteComment(Long cmntId, UserInfo auth) throws NoSuchElementException,ForbiddenAction {
+    public String deleteComment(Long cmntId, UserInfo auth) throws NoSuchElementException, ForbiddenAction {
         CommentEntity comment = getComment(cmntId);
         if (!BlogService.isAdmin(auth.getAuthorities()) && !comment.getUserComment().getId().equals(auth.getId())) {
-             throw new ForbiddenAction("You don't have the permission to do this action.");
+            throw new ForbiddenAction("You don't have the permission to do this action.");
         }
         BlogEntity blog = comment.getBlogCommented();
         blog.setCommentsCount(blog.getCommentsCount() == null ? 0
                 : blog.getCommentsCount() - 1 < 0 ? 0 : blog.getCommentsCount() - 1);
-
+        
         cmntRepo.delete(comment);
+        reportRepo.deleteByTargetIdAndTargetType(cmntId, ReportTargetType.COMMENT);
         return "comment deleted successfully.";
     }
-    public CommentEntity getComment(Long id){
+
+    public CommentEntity getComment(Long id) {
         return cmntRepo.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("No profile found."));
+                .orElseThrow(() -> new NoSuchElementException("No Comment found."));
     }
 }

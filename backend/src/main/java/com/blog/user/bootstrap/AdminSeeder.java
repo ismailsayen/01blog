@@ -27,7 +27,7 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
                     .userName("ismailSAYEN 02")
                     .email("ismailSayen02@gmail.com")
                     .password(encoder.encode("1234"))
-                    .role("ADMIN")
+                    .role("ROLE_ADMIN")
                     .build();
             authRepo.save(adminCreate);
         });

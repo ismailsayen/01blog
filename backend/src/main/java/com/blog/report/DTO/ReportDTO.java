@@ -28,8 +28,8 @@ public class ReportDTO {
     @AllArgsConstructor
     public static class Report {
         private Long id;
-        private LocalDateTime reportedAt;
         private String reason;
+        private LocalDateTime reportedAt;
         private Long targetId;
         private String targetType;
         private Long reportedBy;
@@ -42,8 +42,8 @@ public class ReportDTO {
     @AllArgsConstructor
     public static class AllReports {
         private Long id;
-        private LocalDateTime reportedAt;
         private String reason;
+        private LocalDateTime reportedAt;
         private Long targetId;
         private String targetType;
         private Long reportedBy;

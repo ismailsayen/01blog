@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.blog.report.DTO.ReportDTO;
 import com.blog.report.DTO.ReportDTO.AllReports;
 import com.blog.report.models.ReportEntity;
+import com.blog.report.models.ReportTargetType;
 
 @Repository
 public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
@@ -21,4 +22,6 @@ public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
     @Query(value = "SELECT p.*, u.user_name, c.content  FROM reports p INNER JOIN users u ON p.user_id=u.id  LEFT JOIN comments c ON p.target_type = 'COMMENT' AND p.target_id = c.id where p.id=:id AND p.target_type=:target_type", nativeQuery = true)
     public Optional<ReportDTO.Report> findByIdAndTargetType(@Param("id") Long id,
             @Param("target_type") String target_type);
+
+    public void deleteByTargetIdAndTargetType(Long id,ReportTargetType targetType );
 }

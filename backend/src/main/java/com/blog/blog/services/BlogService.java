@@ -15,6 +15,8 @@ import com.blog.blog.DTO.BlogDTO;
 import com.blog.blog.models.BlogEntity;
 import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.blog.repositories.BlogRepository;
+import com.blog.report.models.ReportTargetType;
+import com.blog.report.repositories.ReportRepository;
 import com.blog.utils.DateNowFormatted;
 
 @Transactional
@@ -22,6 +24,8 @@ import com.blog.utils.DateNowFormatted;
 public class BlogService {
     @Autowired
     BlogRepository blgRepo;
+    @Autowired
+    ReportRepository reportRepo;
 
     public BlogDTO.BlogOutput addPostService(BlogDTO.BlogInput input, UserInfo auth) {
         BlogEntity blgEnt = BlogEntity.builder()
@@ -64,6 +68,7 @@ public class BlogService {
         }
 
         blgRepo.delete(blog);
+        reportRepo.deleteByTargetIdAndTargetType(blog.getId(),ReportTargetType.BLOG);
         return "the blog is deleted successfuly.";
     }
 

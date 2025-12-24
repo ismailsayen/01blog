@@ -34,7 +34,7 @@ public class AuthService {
                     .email(user.getEmail())
                     .password(user.getPassword())
                     .userName(user.getUserName())
-                    .role("USER")
+                    .role("ROLE_USER")
                     .build();
             authRepo.save(entity);
 
