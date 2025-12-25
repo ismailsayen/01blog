@@ -4,14 +4,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.models.BlogEntity;
 import com.blog.blog.services.BlogService;
 import com.blog.reaction.models.ReactionEntity;
-import com.blog.reaction.repositories.ReactionRepository;
-
-import jakarta.transaction.Transactional;
+import com.blog.reaction.repositories.ReactionRepository
+;
 
 @Transactional
 @Service

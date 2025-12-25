@@ -2,7 +2,6 @@ package com.blog.report.models;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -39,8 +38,7 @@ public class ReportEntity {
 
     private String reason;
 
-    @CreationTimestamp
-    @Column(updatable = false, name = "created_at")
+    @Column(columnDefinition = "TIMESTAMP", updatable = false, name = "created_at")
     private final LocalDateTime reportedAt = DateNowFormatted.nowDateTime();
 
     @Column(nullable = false)

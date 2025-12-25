@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.auth.repositories.UserRepository;
@@ -18,9 +19,8 @@ import com.blog.report.DTO.ReportDTO.AllReports;
 import com.blog.report.models.ReportEntity;
 import com.blog.report.models.ReportTargetType;
 import com.blog.report.repositories.ReportRepository;
-import com.blog.user.model.UserEntity;
-
-import jakarta.transaction.Transactional;
+import com.blog.user.model.UserEntity
+;
 
 @Transactional
 @Service

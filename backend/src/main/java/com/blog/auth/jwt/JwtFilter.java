@@ -54,10 +54,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
             String token = authHeader.substring(7);
             String idUser = JwtService.extractId(token);
-            System.out.println("-----------------------JWTFilter------------------");
             UserEntity userEntity = authRepository.findById(Long.valueOf(idUser))
                     .orElseThrow(() -> new JwtException("Invalid credentials: email or password is incorrect."));
-            System.out.println("--------------------------------------------------");
             UserDetails userDetails = context.getBean(UserDetailsImpl.class).loadUserByUsername(userEntity.getEmail());
             if (JwtService.validToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
@@ -68,7 +66,6 @@ public class JwtFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         } catch (JwtException e) {
-
             handlerExceptionResolver.resolveException(request, response, null, e);
         }
     }

@@ -1,3 +1,5 @@
 - get convenable data from blogs.
 - add a controller to get report by target_type paginated.
 - understand EntityManager
+- JPA Entity Lifecycle
+- Hibernate Persistence Context
