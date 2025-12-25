@@ -7,14 +7,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.blog.auth.DTO.UserInfo;
-import com.blog.auth.repositories.AuthRepository;
+import com.blog.auth.repositories.UserRepository;
 import com.blog.user.model.UserEntity;
 
 @Service
 public class UserDetailsImpl implements UserDetailsService {
 
     @Autowired
-    private AuthRepository authRepo;
+    private UserRepository authRepo;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

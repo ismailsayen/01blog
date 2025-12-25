@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import com.blog.auth.repositories.AuthRepository;
+import com.blog.auth.repositories.UserRepository;
 import com.blog.auth.services.UserDetailsImpl;
 import com.blog.user.model.UserEntity;
 
@@ -31,7 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     ApplicationContext context;
     @Autowired
-    AuthRepository authRepository;
+    UserRepository authRepository;
 
     @Autowired
     private HandlerExceptionResolver handlerExceptionResolver;

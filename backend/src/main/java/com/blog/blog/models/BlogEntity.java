@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.blog.comment.models.CommentEntity;
+import com.blog.reaction.models.ReactionEntity;
 import com.blog.user.model.UserEntity;
 import com.blog.utils.DateNowFormatted;
 
@@ -59,6 +60,6 @@ public class BlogEntity {
     @OneToMany(mappedBy = "BlogCommented", cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     private final Set<CommentEntity> comments = new HashSet<>();
 
-    @OneToMany(mappedBy = "BlogCommented", cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    private final Set<CommentEntity> blogReacted = new HashSet<>();
+    @OneToMany(mappedBy = "blogReacted", cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    private final Set<ReactionEntity> blogReacted = new HashSet<>();
 }

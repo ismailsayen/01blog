@@ -7,29 +7,33 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.blog.auth.repositories.AuthRepository;
+import com.blog.auth.repositories.UserRepository;
 import com.blog.user.model.UserEntity;
 
 @Component
 public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
-    AuthRepository authRepo;
+    UserRepository authRepo;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+    @Transactional
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        Optional<UserEntity> admin = authRepo.findByRole("ROLE_ADMIN");
-        admin.ifPresentOrElse(System.out::println, () -> {
-            UserEntity adminCreate = UserEntity.builder()
-                    .userName("ismailSAYEN 02")
-                    .email("ismailSayen02@gmail.com")
-                    .password(encoder.encode("1234"))
-                    .role("ROLE_ADMIN")
-                    .build();
-            authRepo.save(adminCreate);
-        });
+        Optional<Long> adminID = authRepo.findByRole("ROLE_ADMIN");
+        if(adminID.isPresent()){
+            System.out.println("ADMIN");
+            return;
+        }
+        UserEntity adminCreate = UserEntity.builder()
+                .userName("ismailSAYEN 02")
+                .email("ismailSayen02@gmail.com")
+                .password(encoder.encode("1234"))
+                .role("ROLE_ADMIN")
+                .build();
+        authRepo.save(adminCreate);
     }
 }

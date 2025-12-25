@@ -10,10 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.blog.user.model.UserEntity;
 
 @Repository
-public interface AuthRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findByEmail(String email);
 
-    Optional<UserEntity> findByRole(String role);
+    @Query("SELECT u.id FROM UserEntity u WHERE u.role = :role")
+    Optional<Long> findByRole(@Param("role") String role);
 
     @Query("SELECT u.id FROM UserEntity u WHERE u.email = :email")
     Long findIdByEmail(@Param("email") String email);

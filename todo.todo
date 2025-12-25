@@ -1,2 +1,3 @@
 - get convenable data from blogs.
-- add fetch lazy to all joinned tables.
+- add a controller to get report by target_type paginated.
+- understand EntityManager

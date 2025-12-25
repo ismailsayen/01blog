@@ -62,12 +62,31 @@ public class ReportController {
 
         return reportService.getReport(reportId, getReportTargetType(reportType.toUpperCase()));
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/filter")
+    public List<ReportDTO.AllReports> getReportByType(@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam String reportType)
+            throws BadRequestException {
+
+        if (reportType == null ||
+                (!reportType.equalsIgnoreCase("BLOG")
+                        && !reportType.equalsIgnoreCase("COMMENT")
+                        && !reportType.equalsIgnoreCase("PROFILE"))) {
+            throw new BadRequestException("Bad Request");
+        }
+        Sort sort = Sort.by("created_at").descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return reportService.getReportByType(pageable, getReportTargetType(reportType.toUpperCase()));
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{reportId}")
-    public String deleteReport(@PathVariable Long reportId){
-
+    public String deleteReport(@PathVariable Long reportId) {
         return reportService.deleteReport(reportId);
     }
+
     private ReportTargetType getReportTargetType(String type) {
         return switch (type.toUpperCase()) {
             case "BLOG" -> ReportTargetType.BLOG;

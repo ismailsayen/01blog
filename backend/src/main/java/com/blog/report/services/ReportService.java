@@ -8,12 +8,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.blog.auth.DTO.UserInfo;
-import com.blog.auth.repositories.AuthRepository;
+import com.blog.auth.repositories.UserRepository;
 import com.blog.blog.models.BlogEntity;
 import com.blog.blog.services.BlogService;
 import com.blog.comment.models.CommentEntity;
 import com.blog.comment.services.CommentService;
 import com.blog.report.DTO.ReportDTO;
+import com.blog.report.DTO.ReportDTO.AllReports;
 import com.blog.report.models.ReportEntity;
 import com.blog.report.models.ReportTargetType;
 import com.blog.report.repositories.ReportRepository;
@@ -31,7 +32,7 @@ public class ReportService {
     @Autowired
     CommentService cmntService;
     @Autowired
-    AuthRepository userRepo;
+    UserRepository userRepo;
 
     public String addBlogReport(UserInfo auth, ReportDTO.CreateReport data) {
         BlogEntity blog = blgService.getBlogById(data.getTargetId());
@@ -59,7 +60,7 @@ public class ReportService {
 
     public String addProfileReport(UserInfo auth, ReportDTO.CreateReport data) {
         UserEntity userEntity = userRepo.findById(data.getTargetId())
-                .orElseThrow(() -> new NoSuchElementException("No comment found."));
+                .orElseThrow(() -> new NoSuchElementException("No Profile found."));
         ReportEntity report = ReportEntity.builder()
                 .reason(data.getReason())
                 .targetId(userEntity.getId())
@@ -90,5 +91,9 @@ public class ReportService {
                 .orElseThrow(() -> new NoSuchElementException("Report not found."));
         reportRepo.delete(report);
         return "Post deleted successfully";
+    }
+
+    public List<AllReports> getReportByType(Pageable pageable, ReportTargetType reportTargetType) {
+        return reportRepo.findByTargetType(reportTargetType.toString(),pageable);
     }
 }

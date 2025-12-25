@@ -7,22 +7,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserDTO;
 import com.blog.auth.Exception.AuthException;
 import com.blog.auth.jwt.JwtService;
-import com.blog.auth.repositories.AuthRepository;
+import com.blog.auth.repositories.UserRepository;
 import com.blog.user.model.UserEntity;
-
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+@Transactional
 @Service
 public class AuthService {
     @Autowired
     private BCryptPasswordEncoder encoder;
     @Autowired
-    private AuthRepository authRepo;
+    private UserRepository authRepo;
     @Autowired
     private AuthenticationManager authManager;
     @Autowired

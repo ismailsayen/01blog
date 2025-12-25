@@ -1,5 +1,6 @@
 package com.blog.report.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -23,5 +24,8 @@ public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
     public Optional<ReportDTO.Report> findByIdAndTargetType(@Param("id") Long id,
             @Param("target_type") String target_type);
 
-    public void deleteByTargetIdAndTargetType(Long id,ReportTargetType targetType );
+    public void deleteByTargetIdAndTargetType(Long id, ReportTargetType targetType);
+
+    @Query(value = "SELECT DISTINCT p.*, u.user_name FROM reports p INNER JOIN users u ON p.target_type=:target_type", nativeQuery = true)
+    public List<AllReports> findByTargetType(@Param("target_type") String target_type, Pageable pageable);
 }
