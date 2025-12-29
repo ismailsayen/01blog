@@ -1,0 +1,21 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <input type="text" id="userName" formControlName="userName" required>
+    @if (userName?.invalid && (userName?.dirty || userName?.touched)) {
+    <div>
+        <p style="color: red    ;">must not be null</p>
+    </div>
+    }
+    <input type="email" formControlName="email" required>
+    @if (email?.invalid && (email?.dirty || email?.touched)) {
+    <div>
+        <p style="color: red    ;">must not be null</p>
+    </div>
+    }
+    <input type="password" formControlName="password" required>
+    @if (password?.invalid&& (password?.dirty || password?.touched)) {
+    <div>
+        <p style="color: red    ;">must not be null</p>
+    </div>
+    }
+    <button type="submit">register</button>
+</form>
