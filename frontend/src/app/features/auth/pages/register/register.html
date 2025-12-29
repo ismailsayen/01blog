@@ -1,21 +1,34 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <input type="text" id="userName" formControlName="userName" required>
+
+    <input type="text" formControlName="userName" placeholder="User Name">
     @if (userName?.invalid && (userName?.dirty || userName?.touched)) {
-    <div>
-        <p style="color: red    ;">must not be null</p>
-    </div>
+    @if (userName?.hasError("required")) {
+    <div style="color:red">User name is required.</div>
     }
-    <input type="email" formControlName="email" required>
+    @if (userName?.hasError("minlength")) {
+    <div style="color:red">User name must be at least 4 characters.</div>
+    }
+    @if (userName?.hasError("maxlength")) {
+    <div style="color:red">User name must be at most 20 characters.</div>
+    }
+    }
+
+    <input type="email" formControlName="email" placeholder="Email">
     @if (email?.invalid && (email?.dirty || email?.touched)) {
-    <div>
-        <p style="color: red    ;">must not be null</p>
-    </div>
+    @if (email?.hasError("required")) {
+    <div style="color:red">Email is required.</div>
     }
-    <input type="password" formControlName="password" required>
-    @if (password?.invalid&& (password?.dirty || password?.touched)) {
-    <div>
-        <p style="color: red    ;">must not be null</p>
-    </div>
+    @if (email?.hasError("email")) {
+    <div style="color:red">Email format is invalid.</div>
     }
-    <button type="submit">register</button>
+    }
+
+    <input type="password" formControlName="password" placeholder="Password">
+    @if (password?.invalid && (password?.dirty || password?.touched)) {
+    @if (password?.hasError("required")) {
+    <div style="color:red">Password is required.</div>
+    }
+    }
+
+    <button type="submit">Register</button>
 </form>
