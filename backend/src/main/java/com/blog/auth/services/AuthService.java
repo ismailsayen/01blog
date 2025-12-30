@@ -14,6 +14,7 @@ import com.blog.auth.Exception.AuthException;
 import com.blog.auth.jwt.JwtService;
 import com.blog.auth.repositories.UserRepository;
 import com.blog.user.model.UserEntity;
+
 @Transactional
 @Service
 public class AuthService {
@@ -26,31 +27,30 @@ public class AuthService {
     @Autowired
     private JwtService jwt;
 
-    public UserDTO.RegisterOutput saveUser(UserDTO.RegisterInput user)  {
-            user.setPassword(encoder.encode(user.getPassword()));
-            UserEntity entity = UserEntity.builder()
-                    .email(user.getEmail())
-                    .password(user.getPassword())
-                    .userName(user.getUserName())
-                    .role("ROLE_USER")
-                    .build();
-            authRepo.save(entity);
+    public UserDTO.UserOutput saveUser(UserDTO.RegisterInput user) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        UserEntity entity = UserEntity.builder()
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .userName(user.getUserName())
+                .role("ROLE_USER")
+                .build();
+        authRepo.save(entity);
 
-            UserDTO.RegisterOutput result = UserDTO.RegisterOutput.builder()
-                    .id(entity.getId())
-                    .email(entity.getEmail())
-                    .userName(entity.getUserName())
-                    .role(entity.getRole())
-                    .createdAt(entity.getCreatedAt())
-                    .build();
+        UserDTO.UserOutput result = UserDTO.UserOutput.builder()
+                .id(entity.getId())
+                .email(entity.getEmail())
+                .userName(entity.getUserName())
+                .role(entity.getRole())
+                .createdAt(entity.getCreatedAt())
+                .token(jwt.generateToken(entity.getId()))
+                .build();
 
-            return result;
-     
-    
-        }
-    
+        return result;
 
-    public String verify(UserDTO.LoginData user) throws AuthenticationException {
+    }
+
+    public UserDTO.UserOutput verify(UserDTO.LoginData user) throws AuthenticationException {
         if (user.getEmail() == null || user.getPassword() == null) {
             throw new AuthException("Invalid credentials: email or password is incorrect.");
         }
@@ -58,9 +58,17 @@ public class AuthService {
         Authentication authentication = authManager
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         if (authentication.isAuthenticated()) {
-            Long userId = authRepo.findIdByEmail(user.getEmail());
-            return jwt.generateToken(userId);
+            UserEntity entity = authRepo.findByEmail(user.getEmail());
+            System.out.println("-------------------------------------");
+            return UserDTO.UserOutput.builder()
+                    .id(entity.getId())
+                    .email(entity.getEmail())
+                    .userName(entity.getUserName())
+                    .role(entity.getRole())
+                    .createdAt(entity.getCreatedAt())
+                    .token(jwt.generateToken(entity.getId()))
+                    .build();
         }
-        return "fail";
+        return null;
     }
 }

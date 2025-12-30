@@ -3,7 +3,6 @@ package com.blog.auth.jwt;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,8 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+import com.blog.auth.DTO.UserInfo;
 import com.blog.auth.repositories.UserRepository;
-import com.blog.auth.services.UserDetailsImpl;
 import com.blog.user.model.UserEntity;
 
 import io.jsonwebtoken.JwtException;
@@ -28,8 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     JwtService JwtService;
-    @Autowired
-    ApplicationContext context;
     @Autowired
     UserRepository authRepository;
 
@@ -46,6 +43,7 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
 
         }
+
         try {
             String authHeader = request.getHeader("Authorization");
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -56,7 +54,8 @@ public class JwtFilter extends OncePerRequestFilter {
             String idUser = JwtService.extractId(token);
             UserEntity userEntity = authRepository.findById(Long.valueOf(idUser))
                     .orElseThrow(() -> new JwtException("Invalid credentials: email or password is incorrect."));
-            UserDetails userDetails = context.getBean(UserDetailsImpl.class).loadUserByUsername(userEntity.getEmail());
+            UserDetails userDetails = new UserInfo(userEntity);
+
             if (JwtService.validToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
                         null,

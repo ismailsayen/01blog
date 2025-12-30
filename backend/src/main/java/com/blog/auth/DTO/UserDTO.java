@@ -42,11 +42,12 @@ public class UserDTO {
     @Data
     @AllArgsConstructor
     @Builder
-    public static class RegisterOutput {
+    public static class UserOutput {
         private Long id;
         private String userName;
         private String email;
         private LocalDateTime createdAt;
         private String role;
+        private String token;
     }
 }

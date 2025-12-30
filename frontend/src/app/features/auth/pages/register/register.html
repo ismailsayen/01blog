@@ -2,15 +2,15 @@
 
     <input type="text" formControlName="userName" placeholder="User Name">
     @if (userName?.invalid && (userName?.dirty || userName?.touched)) {
-    @if (userName?.hasError("required")) {
-    <div style="color:red">User name is required.</div>
-    }
-    @if (userName?.hasError("minlength")) {
-    <div style="color:red">User name must be at least 4 characters.</div>
-    }
-    @if (userName?.hasError("maxlength")) {
-    <div style="color:red">User name must be at most 20 characters.</div>
-    }
+        @if (userName?.hasError("required")) {
+        <div style="color:red">User name is required.</div>
+        }
+        @if (userName?.hasError("minlength")) {
+        <div style="color:red">User name must be at least 4 characters.</div>
+        }
+        @if (userName?.hasError("maxlength")) {
+        <div style="color:red">User name must be at most 20 characters.</div>
+        }
     }
 
     <input type="email" formControlName="email" placeholder="Email">
@@ -25,9 +25,15 @@
 
     <input type="password" formControlName="password" placeholder="Password">
     @if (password?.invalid && (password?.dirty || password?.touched)) {
-    @if (password?.hasError("required")) {
-    <div style="color:red">Password is required.</div>
-    }
+        @if (password?.hasError("required")) {
+        <div style="color:red">User name is required.</div>
+        }
+        @if (password?.hasError("minlength")) {
+        <div style="color:red">User name must be at least 4 characters.</div>
+        }
+        @if (password?.hasError("maxlength")) {
+        <div style="color:red">User name must be at most 20 characters.</div>
+        }
     }
 
     <button type="submit">Register</button>
