@@ -18,7 +18,7 @@ public class UserDTO {
     @Data
     @AllArgsConstructor
     public static class LoginData {
-
+        @NotBlank(message = "Invalid credentials: email or password is incorrect.")
         @Email(message = "Invalid credentials: email or password is incorrect.")
         private String email;
         @NotBlank(message = "Invalid credentials: email or password is incorrect.")

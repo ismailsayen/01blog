@@ -11,16 +11,12 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
-export class Login implements OnInit {
+export class Login  {
   authService = inject(AuthService);
   tokenService = inject(TokenService);
   router = inject(Router);
 
-  ngOnInit(): void {
-    if (this.authService.currentUser()) {
-      this.router.navigateByUrl('/');
-    }
-  }
+
   loginForm = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -51,7 +47,9 @@ export class Login implements OnInit {
         this.tokenService.setTokent(res.token);
         this.router.navigateByUrl('/');
       },
-      error: (err) => console.log(err),
+      error: (err) => {
+        this.authService.currentUser.set(null);
+      },
     });
   }
 }

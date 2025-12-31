@@ -10,15 +10,11 @@ import { Router } from '@angular/router';
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
-export class Register implements OnInit {
+export class Register {
   authService = inject(AuthService);
   tokenService = inject(TokenService);
   router = inject(Router);
-  ngOnInit(): void {
-    if (this.authService.currentUser()) {
-      this.router.navigateByUrl('/');
-    }
-  }
+
   registerForm = new FormGroup(
     {
       userName: new FormControl('', [
@@ -60,7 +56,10 @@ export class Register implements OnInit {
         this.tokenService.setTokent(res.token);
         this.router.navigateByUrl('/');
       },
-      error: (err) => console.log(err),
+      error: (err) => {
+        this.authService.currentUser.set(null);
+        console.log(err)
+      },
     });
   }
 }

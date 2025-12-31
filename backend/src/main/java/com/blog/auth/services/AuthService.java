@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserDTO;
-import com.blog.auth.Exception.AuthException;
 import com.blog.auth.jwt.JwtService;
 import com.blog.auth.repositories.UserRepository;
 import com.blog.user.model.UserEntity;
@@ -51,15 +50,11 @@ public class AuthService {
     }
 
     public UserDTO.UserOutput verify(UserDTO.LoginData user) throws AuthenticationException {
-        if (user.getEmail() == null || user.getPassword() == null) {
-            throw new AuthException("Invalid credentials: email or password is incorrect.");
-        }
 
         Authentication authentication = authManager
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         if (authentication.isAuthenticated()) {
             UserEntity entity = authRepo.findByEmail(user.getEmail());
-            System.out.println("-------------------------------------");
             return UserDTO.UserOutput.builder()
                     .id(entity.getId())
                     .email(entity.getEmail())
