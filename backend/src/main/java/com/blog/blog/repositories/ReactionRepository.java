@@ -1,11 +1,11 @@
-package com.blog.reaction.repositories;
+package com.blog.blog.repositories;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.blog.reaction.models.ReactionEntity;
+import com.blog.blog.models.ReactionEntity;
 
 @Repository
 public interface ReactionRepository extends JpaRepository<ReactionEntity, Long> {

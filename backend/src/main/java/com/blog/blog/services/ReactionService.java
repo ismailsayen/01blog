@@ -1,4 +1,4 @@
-package com.blog.reaction.services;
+package com.blog.blog.services;
 
 import java.util.Optional;
 
@@ -8,10 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.models.BlogEntity;
-import com.blog.blog.services.BlogService;
-import com.blog.reaction.models.ReactionEntity;
-import com.blog.reaction.repositories.ReactionRepository
-;
+import com.blog.blog.models.ReactionEntity;
+import com.blog.blog.repositories.ReactionRepository;
 
 @Transactional
 @Service

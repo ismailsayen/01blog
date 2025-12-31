@@ -1,14 +1,14 @@
-package com.blog.reaction.controllers;
+package com.blog.blog.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.blog.auth.DTO.UserInfo;
-import com.blog.reaction.services.ReactionService;
+import com.blog.blog.services.ReactionService;
 
 @RestController
 @RequestMapping("/reaction")

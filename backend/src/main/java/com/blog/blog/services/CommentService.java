@@ -1,4 +1,4 @@
-package com.blog.comment.services;
+package com.blog.blog.services;
 
 import java.util.NoSuchElementException;
 
@@ -7,12 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
+import com.blog.blog.DTO.CommentDTO;
 import com.blog.blog.models.BlogEntity;
+import com.blog.blog.models.CommentEntity;
 import com.blog.blog.models.Exception.ForbiddenAction;
-import com.blog.blog.services.BlogService;
-import com.blog.comment.DTO.CommentDTO;
-import com.blog.comment.models.CommentEntity;
-import com.blog.comment.repositories.CommentRepo;
+import com.blog.blog.repositories.CommentRepo;
 import com.blog.report.models.ReportTargetType;
 import com.blog.report.repositories.ReportRepository;
 

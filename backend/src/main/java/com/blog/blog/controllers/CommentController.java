@@ -1,4 +1,4 @@
-package com.blog.comment.controllers;
+package com.blog.blog.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.auth.DTO.UserInfo;
+import com.blog.blog.DTO.CommentDTO;
 import com.blog.blog.models.Exception.ForbiddenAction;
-import com.blog.comment.DTO.CommentDTO;
-import com.blog.comment.services.CommentService;
+import com.blog.blog.services.CommentService;
 
 import jakarta.validation.Valid;
 

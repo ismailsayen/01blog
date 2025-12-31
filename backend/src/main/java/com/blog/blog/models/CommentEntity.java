@@ -1,11 +1,10 @@
-package com.blog.comment.models;
+package com.blog.blog.models;
 
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.blog.blog.models.BlogEntity;
 import com.blog.user.model.UserEntity;
 import com.blog.utils.DateNowFormatted;
 
