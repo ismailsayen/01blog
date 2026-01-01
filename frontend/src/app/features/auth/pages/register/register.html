@@ -2,6 +2,9 @@
 
   <input type="text" formControlName="userName" placeholder="User Name">
   @if (userName?.invalid && (userName?.dirty || userName?.touched)) {
+  @if (userName?.hasError("backend")) {
+  <div style="color:red">{{userName?.errors?.['backend'] }}</div>
+  }
   @if (userName?.hasError("required")) {
   <div style="color:red">User name is required.</div>
   }
@@ -13,22 +16,31 @@
   }
   }
   <br>
+  
   <input type="email" formControlName="email" placeholder="Email">
   @if (email?.invalid && (email?.dirty || email?.touched)) {
-  @if (email?.hasError("required")) {
-  <div style="color:red">Email is required.</div>
-  }
-  @if (email?.hasError("email")) {
-  <div style="color:red">Email format is invalid.</div>
-  }
+    @if (email?.hasError("backend")) {
+      <div style="color:red">{{email?.errors?.['backend'] }}</div>
+    }
+    @if (email?.hasError("required")) {
+      <div style="color:red">Email is required.</div>
+    }
+  
+    @if (email?.hasError("email")) {
+      <div style="color:red">Email format is invalid.</div>
+    }
   }
   <br>
-
   <input type="password" formControlName="password" placeholder="Password">
-  =={{registerForm.controls.password.errors | json}}==
-
-  <div [ngClass]="password?.hasError('lengthError') || password?.hasError('required')  ?'text-red':'text-green'">password must be between 8 and 16 charachter.</div>
-  <div>password contains one char special, one upperCase, one lowercase and number</div>
-
+  <br>
+  <br>
+  @if(password?.dirty || password?.touched){
+  <div [ngClass]="(password?.hasError('lengthError') || password?.hasError('required'))?'text-red':'text-green'">
+    Password must be between 8 and 16 characters.</div>
+  <div [ngClass]="(password?.hasError('pattern'))?'text-red':'text-green'">
+    Password must contain one special character, one uppercase letter, one lowercase letter, and one number.</div>
+  }
+  <br>
+  <br>
   <button type="submit">Register</button>
 </form>

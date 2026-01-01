@@ -1,25 +1,29 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../interfaces/userDTO';
+import { User } from '../../shared/interfaces/userDTO';
+import { API_URL } from '../../shared/api-url';
+import { catchError, map, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  API_URL = import.meta.env.NG_APP_BACKENDURL;
+
   http = inject(HttpClient);
 
   currentUser = signal<User | undefined | null>(undefined);
 
-  registerReq(data: any) {
-    return this.http.post<User>(this.API_URL + '/auth/register', data);
-  }
-
-  loginReq(data: any) {
-    return this.http.post<User>(this.API_URL + '/auth/login', data);
-  }
-
   isLogged() {
-    return this.http.post<User>(this.API_URL + '/auth/isLogged', null);
+
+    return this.http.post<User>(API_URL + '/auth/isLogged', null).pipe(
+      tap(user => {
+        this.currentUser.set(user)
+      }),
+      catchError((err) => {
+        this.currentUser.set(null)
+        return of(null)
+      })
+    )
   }
 }
+

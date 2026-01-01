@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -29,12 +28,13 @@ public class UserDTO {
     @Setter
     @AllArgsConstructor
     public static class RegisterInput {
-        @NotNull
+        @NotBlank(message = "Username must be more than 3 and less than 20 characters, and must respect the format: Ismai1 | Ismail Sayen0")
         @Pattern(regexp = "^(?:[A-Za-z0-9]{3,15}|(?=.{1,20}$)[A-Za-z0-9]+ [A-Za-z0-9]+)$", message = "Username must be more than 3 and less than 20 characters, and must respect the format: Ismai1 | Ismail Sayen0")
         private String userName;
+        @NotBlank(message = "Email cannot be empty or null, and you must respect the format: example@example.com")
         @Email(message = "Email cannot be empty or null, and you must respect the format: example@example.com")
         private String email;
-        @NotBlank
+        @NotBlank(message = "Password should be between 8 and 16 characters")
         @Size(min = 8, max = 16, message = "Password should be between 8 and 16 characters")
         private String password;
     }

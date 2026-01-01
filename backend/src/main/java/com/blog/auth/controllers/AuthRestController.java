@@ -26,6 +26,7 @@ public class AuthRestController {
 
     @PostMapping("/login")
     public UserDTO.UserOutput login(@RequestBody UserDTO.LoginData entity) throws AuthenticationException {
+        
         return authService.verify(entity);
     }
 

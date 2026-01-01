@@ -4,23 +4,17 @@ import { guestGuard } from './core/guard/auth/guest-guard';
 
 export const routes: Routes = [
   {
-    path: 'register',
-    loadComponent: () => import('./features/auth/pages/register/register').then((m) => m.Register),
-    title: 'register',
-    canActivate:[guestGuard]
-  },
-  {
-    path: 'login',
-    loadComponent: () => import('./features/auth/pages/login/login').then((m) => m.Login),
-    title: 'login',
-    canActivate:[guestGuard]
-
+    path: 'auth',
+    loadComponent: () =>
+      import('./features/auth/auth').then((m) => m.Auth),
+    loadChildren: () => import('./features/auth/auth.routes').then(m => m.routes),
+    canActivate: [guestGuard]
   },
   {
     path: '',
     loadComponent: () =>
       import('./features/home/pages/home-component/home-component').then((m) => m.HomeComponent),
-    canActivate:[authGuard],
     title: 'home',
+    canActivate: [authGuard],
   },
 ];

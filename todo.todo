@@ -5,5 +5,11 @@
 - JPA Entity Lifecycle
 - Hibernate Persistence Context
 -----------------------------------------frontend---------------------------------------------------
--learn more about form validation 
--ngModal
+theorique:
+- how angular works
+- diff between signals and zoneJS
+- DI in angular
+- ngModal
+- learn about about http request in angular
+task: 
+- app initializar foir check authorization 

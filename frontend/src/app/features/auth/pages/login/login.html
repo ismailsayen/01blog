@@ -8,7 +8,8 @@
     <div style="color:red">Email format is invalid.</div>
     }
   }
-
+<br>
+<br>
   <input type="password" formControlName="password" id="pass">
   @if (password?.invalid && (password?.dirty || password?.touched)) {
         @if (password?.hasError("required")) {
@@ -21,6 +22,8 @@
         <div style="color:red">User name must be at most 20 characters.</div>
         }
     }
+    <br>
+    <br>
   <button type="submit">login</button>
   <div [class]=""></div>
 </form>

@@ -16,6 +16,6 @@ export class HomeComponent {
   onclick() {
     this.tokenService.clearToken();
     this.authService.currentUser.set(null)
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/auth/login');
   }
 }

@@ -4,6 +4,7 @@ import { email } from '@angular/forms/signals';
 import { AuthService } from '../../../../core/services/auth/auth.service';
 import { TokenService } from '../../../../core/services/token/token.service';
 import { Router } from '@angular/router';
+import { Auth } from '../service/auth';
 
 @Component({
   selector: 'app-login',
@@ -11,11 +12,11 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
-export class Login  {
+export class Login {
   authService = inject(AuthService);
   tokenService = inject(TokenService);
   router = inject(Router);
-
+  auth = inject(Auth)
 
   loginForm = new FormGroup(
     {
@@ -41,7 +42,7 @@ export class Login  {
       return;
     }
     const body = this.loginForm.getRawValue();
-    this.authService.loginReq(body).subscribe({
+    this.auth.loginReq(body).subscribe({
       next: (res) => {
         this.authService.currentUser.set(res);
         this.tokenService.setTokent(res.token);
