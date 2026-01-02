@@ -1,6 +1,6 @@
-@use "../../../../../styles/variables" as vars;
+@use '../../../../../styles/variables' as vars;
 
-.text-green{
+.text-green {
   color: vars.$my-green;
 }
 .hover-link {
@@ -12,7 +12,15 @@
   }
 }
 
-input:focus{
+input:focus {
   box-shadow: none;
   border: 1px solid vars.$my-green;
+}
+.pass {
+  cursor: pointer;
+  right: 10px;
+  z-index: 1;
+  &:hover {
+    color: vars.$my-green;
+  }
 }

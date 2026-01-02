@@ -74,9 +74,15 @@
 
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3 position-relative">
       <label for="password" class="form-label">Password:</label>
-      <input type="password" id="password" class="form-control" formControlName="password" placeholder="Password">
+      <div class="d-flex align-items-center">
+        <input [type]="auth.showPassword()?'text':'password'" id="password" class="form-control"
+          formControlName="password" placeholder="Password">
+        <i class="position-absolute pass" [ngClass]="auth.showPassword() ? 'bi-eye-fill' : 'bi-eye-slash-fill'"
+          role="button" (click)="auth.show()">
+        </i>
+      </div>
 
       @if(password?.dirty || password?.touched){
       <div [ngClass]="(password?.hasError('lengthError') || password?.hasError('required'))?'text-danger':'text-green'">

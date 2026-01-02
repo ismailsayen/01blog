@@ -23,7 +23,7 @@
     <div class=" mb-3 position-relative">
       <label for="pass" class="form-label">Password:</label>
       <div class="d-flex align-items-center">
-        <input [type]="auth.showPassword()?'text':'password'" formControlName="password" id="pass" class="form-control">
+        <input   formControlName="password" id="pass" class="form-control">
         <i class="position-absolute pass" [ngClass]="auth.showPassword() ? 'bi-eye-fill' : 'bi-eye-slash-fill'"
           role="button" (click)="auth.show()">
         </i>
