@@ -1,5 +1,5 @@
 import { AuthService } from './../../../../core/services/auth/auth.service';
-import { Component, inject, } from '@angular/core';
+import { Component, inject, signal, } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TokenService } from '../../../../core/services/token/token.service';
 import { Router } from '@angular/router';
@@ -18,6 +18,7 @@ export class Register {
   tokenService = inject(TokenService);
   auth = inject(Auth)
   router = inject(Router);
+  backendError = signal<string | null>(null)
 
   registerForm = new FormGroup(
     {
@@ -60,6 +61,7 @@ export class Register {
 
   onSubmit() {
     if (this.registerForm.invalid) {
+      this.backendError.set(null)
       return;
     }
     const body = this.registerForm.getRawValue();
@@ -70,7 +72,16 @@ export class Register {
         this.router.navigateByUrl('/');
       },
       error: (err) => {
+        if (err.status === 409 && err.error) {
+          console.log(err);
+          this.backendError.set(err.error)
+          console.log(this.backendError());
+          
+          return
+        }
         if (err.status === 400 && err.error) {
+          console.log("b");
+
           Object.keys(err.error).forEach((field: any) => {
             const control = this.registerForm.get(field)
             if (control) {

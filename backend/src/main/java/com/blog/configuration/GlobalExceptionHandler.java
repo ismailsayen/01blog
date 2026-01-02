@@ -84,11 +84,10 @@ public class GlobalExceptionHandler {
             if ("23505".equals(cve.getSQLState())) {
                 return ResponseEntity
                         .status(HttpStatus.CONFLICT)
-                        .body("Email | Username already exists.");
+                        .body("Email or Username already exists.");
             }
 
         }
-
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Database error.");

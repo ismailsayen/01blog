@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { email } from '@angular/forms/signals';
 import { AuthService } from '../../../../core/services/auth/auth.service';
@@ -17,7 +17,7 @@ export class Login {
   tokenService = inject(TokenService);
   router = inject(Router);
   auth = inject(Auth)
-
+  backendError = signal<string | null>(null)
   loginForm = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -39,6 +39,7 @@ export class Login {
   }
   onSubmit() {
     if (this.loginForm.invalid) {
+      this.backendError.set(null);
       return;
     }
     const body = this.loginForm.getRawValue();
@@ -50,6 +51,9 @@ export class Login {
       },
       error: (err) => {
         this.authService.currentUser.set(null);
+        if (err.status === 400 && err.error) {
+          this.backendError.set(err.error["detail"]);
+        }
       },
     });
   }

@@ -16,19 +16,22 @@
   }
   }
   <br>
-  
+
   <input type="email" formControlName="email" placeholder="Email">
   @if (email?.invalid && (email?.dirty || email?.touched)) {
-    @if (email?.hasError("backend")) {
-      <div style="color:red">{{email?.errors?.['backend'] }}</div>
-    }
-    @if (email?.hasError("required")) {
-      <div style="color:red">Email is required.</div>
-    }
-  
-    @if (email?.hasError("email")) {
-      <div style="color:red">Email format is invalid.</div>
-    }
+  @if (email?.hasError("backend")) {
+  <div style="color:red">{{email?.errors?.['backend'] }}</div>
+  }
+  @if (email?.hasError("required")) {
+  <div style="color:red">Email is required.</div>
+  }
+
+  @if (email?.hasError("email")) {
+  <div style="color:red">Email format is invalid.</div>
+  }
+  }
+  @if(backendError()){
+  <div style="color:red">{{backendError()}}</div>
   }
   <br>
   <input type="password" formControlName="password" placeholder="Password">
