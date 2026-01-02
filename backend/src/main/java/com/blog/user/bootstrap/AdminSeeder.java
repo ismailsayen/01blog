@@ -33,6 +33,7 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
                 .email("ismailSayen02@gmail.com")
                 .password(encoder.encode("1234"))
                 .role("ROLE_ADMIN")
+                .job("------")
                 .build();
         authRepo.save(adminCreate);
     }

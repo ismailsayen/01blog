@@ -1,5 +1,15 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "styles/variables";
+
+$theme-colors:map-merge($theme-colors, $custom-colors );
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+

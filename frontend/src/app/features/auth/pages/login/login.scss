@@ -1,12 +1,21 @@
+@use "../../../../../styles/variables" as vars;
 .hover-link {
   transition: 0.5s ease-in-out;
-  color: black;
+  color: vars.$my-green;
+  text-decoration: none;
   &:hover {
-    color: lightblue;
+    color: black;
   }
 }
 .pass{
   cursor: pointer;
   right: 10px;
   z-index: 1;
+  &:hover{
+    color: vars.$my-green;
+  }
+}
+input:focus{
+  box-shadow: none;
+  border: 1px solid vars.$my-green;
 }

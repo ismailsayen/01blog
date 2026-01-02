@@ -31,6 +31,7 @@ public class AuthService {
         UserEntity entity = UserEntity.builder()
                 .email(user.getEmail())
                 .password(user.getPassword())
+                .job(user.getJob())
                 .userName(user.getUserName())
                 .role("ROLE_USER")
                 .build();
@@ -41,6 +42,7 @@ public class AuthService {
                 .email(entity.getEmail())
                 .userName(entity.getUserName())
                 .role(entity.getRole())
+                .job(entity.getJob())
                 .createdAt(entity.getCreatedAt())
                 .token(jwt.generateToken(entity.getId()))
                 .build();

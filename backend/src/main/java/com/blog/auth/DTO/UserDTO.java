@@ -34,6 +34,8 @@ public class UserDTO {
         @NotBlank(message = "Email cannot be empty or null, and you must respect the format: example@example.com")
         @Email(message = "Email cannot be empty or null, and you must respect the format: example@example.com")
         private String email;
+        @NotBlank(message = "Job cannot be empty or null")
+        private String job;
         @NotBlank(message = "Password should be between 8 and 16 characters")
         @Size(min = 8, max = 16, message = "Password should be between 8 and 16 characters")
         private String password;
@@ -46,6 +48,7 @@ public class UserDTO {
         private Long id;
         private String userName;
         private String email;
+        private String job; 
         private LocalDateTime createdAt;
         private String role;
         private String token;

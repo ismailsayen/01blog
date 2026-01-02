@@ -33,6 +33,8 @@ public class UserEntity {
 
     @Column(unique = true)
     private String email;
+    
+    private String job;
     private String password;
 
     private Long countfollowers;

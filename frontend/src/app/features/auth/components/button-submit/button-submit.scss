@@ -1,0 +1,10 @@
+@use "../../../../../styles/variables" as vars;
+
+ button{
+    background-color: black;
+    color: white;
+    transition: 0.5s ease-in-out;
+}
+button:hover{
+    background-color: vars.$my-green;
+}

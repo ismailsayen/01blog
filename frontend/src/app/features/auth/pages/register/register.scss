@@ -1,6 +1,18 @@
-.text-red{
-  color: red;
-}
+@use "../../../../../styles/variables" as vars;
+
 .text-green{
-  color: green;
+  color: vars.$my-green;
+}
+.hover-link {
+  transition: 0.5s ease-in-out;
+  color: vars.$my-green;
+  text-decoration: none;
+  &:hover {
+    color: black;
+  }
+}
+
+input:focus{
+  box-shadow: none;
+  border: 1px solid vars.$my-green;
 }

@@ -1,52 +1,98 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  
-  <input type="text" formControlName="userName" placeholder="User Name">
-  @if (userName?.invalid && (userName?.dirty || userName?.touched)) {
-  @if (userName?.hasError("backend")) {
-  <div style="color:red">{{userName?.errors?.['backend'] }}</div>
-  }
-  @if (userName?.hasError("required")) {
-  <div style="color:red">User name is required.</div>
-  }
-  @if (userName?.hasError("minlength")) {
-  <div style="color:red">User name must be at least 4 characters.</div>
-  }
-  @if (userName?.hasError("maxlength")) {
-  <div style="color:red">User name must be at most 20 characters.</div>
-  }
-  }
-  <br>
-
-  <input type="email" formControlName="email" placeholder="Email">
-  @if (email?.invalid && (email?.dirty || email?.touched)) {
-  @if (email?.hasError("backend")) {
-  <div style="color:red">{{email?.errors?.['backend'] }}</div>
-  }
-  @if (email?.hasError("required")) {
-  <div style="color:red">Email is required.</div>
-  }
-
-  @if (email?.hasError("email")) {
-  <div style="color:red">Email format is invalid.</div>
-  }
-  }
-  @if(backendError()){
-  <div style="color:red">{{backendError()}}</div>
-  }
-  <br>
-  <input type="password" formControlName="password" placeholder="Password">
-  <br>
-  <br>
-  @if(password?.dirty || password?.touched){
-  <div [ngClass]="(password?.hasError('lengthError') || password?.hasError('required'))?'text-red':'text-green'">
-    Password must be between 8 and 16 characters.</div>
-  <div [ngClass]="(password?.hasError('pattern')|| password?.hasError('required'))?'text-red':'text-green'">
-    Password must contain one special character, one uppercase letter, one lowercase letter, and one number.</div>
-  }
-  <br>
-  <br>
-  <button type="submit">Register</button>
-  <div>
-    <a routerLink="/auth/login">login</a>
+<div class="w-100 vh-100 g-10 d-flex justify-content-center align-items-center flex-column">
+  <img src="/assets/images/logo.png" class="img-fluid mb-3" width="150px" height="150px" alt="">
+  <div class="d-flex justify-content-center align-items-center flex-column p-3">
+    <h3 class="mb-1">
+      welcome in AuraWeb
+    </h3>
+    <p class="text-muted">create an <strong>account</strong> or log in <a routerLink="/auth/login"
+        class="hover-link link-underline">Login</a> </p>
   </div>
-</form>
+
+
+  <form class="w-75 p-1" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="userName" class="form-label">userName:</label>
+      <input type="text" id="userName" class="form-control" formControlName="userName" placeholder="User Name">
+      @if (userName?.invalid && (userName?.dirty || userName?.touched)) {
+      @if (userName?.hasError("backend")) {
+      <div class="text-danger">{{userName?.errors?.['backend'] }}</div>
+      }
+      @if (userName?.hasError("required")) {
+      <div class="text-danger">User name is required.</div>
+      }
+      @if (userName?.hasError("minlength")) {
+      <div class="text-danger">User name must be at least 4 characters.</div>
+      }
+      @if (userName?.hasError("maxlength")) {
+      <div class="text-danger">User name must be at most 20 characters.</div>
+      }
+      }
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address:</label>
+      <input type="email" id="email" class="form-control" formControlName="email" placeholder="Email">
+      @if (email?.invalid && (email?.dirty || email?.touched)) {
+      @if (email?.hasError("backend")) {
+      <div class="text-danger">{{email?.errors?.['backend'] }}</div>
+      }
+      @if (email?.hasError("required")) {
+      <div class="text-danger">Email is required.</div>
+      }
+
+      @if (email?.hasError("email")) {
+      <div class="text-danger">Email format is invalid.</div>
+      }
+      }
+      @if(backendError()){
+      <div class="text-danger">{{backendError()}}</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="" class="form-label">Job: </label>
+      <select class="form-select" formControlName="job">
+        <option value="------" selected>------</option>
+
+        @for (job of jobs; track $index) {
+        <optgroup [label]="job.option">
+          @for (element of job.elements; track $index) {
+          <option [value]="element">
+            {{ element }}
+          </option>
+          }
+        </optgroup>
+        }
+      </select>
+      @if (job?.invalid && (job?.dirty || job?.touched)) {
+      @if (job?.hasError("backend")) {
+      <div class="text-danger">{{job?.errors?.['backend'] }}</div>
+      }
+      @if (job?.hasError("required")) {
+      <div class="text-danger">job is required.</div>
+      }
+      }
+
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Password:</label>
+      <input type="password" id="password" class="form-control" formControlName="password" placeholder="Password">
+
+      @if(password?.dirty || password?.touched){
+      <div [ngClass]="(password?.hasError('lengthError') || password?.hasError('required'))?'text-danger':'text-green'">
+        <i
+          [ngClass]="(password?.hasError('lengthError')|| password?.hasError('required'))?'bi bi-x-circle-fill text-danger':'bi bi-check-circle-fill text-green'"></i>
+        Password must be between 8 and 16 characters.
+      </div>
+      <div [ngClass]="(password?.hasError('pattern')|| password?.hasError('required'))?'text-danger':'text-green'">
+        <i
+          [ngClass]="(password?.hasError('pattern')|| password?.hasError('required'))?'bi bi-x-circle-fill text-danger':'bi bi-check-circle-fill text-green'"></i>
+        Password must contain one special character, one uppercase letter, one lowercase letter, and one number.
+      </div>
+      }
+    </div>
+    <div class="mb-3">
+      <app-button-submit [value]="'register'" />
+    </div>
+  </form>
+</div>
