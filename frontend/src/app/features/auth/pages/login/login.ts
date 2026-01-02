@@ -1,14 +1,15 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { email } from '@angular/forms/signals';
 import { AuthService } from '../../../../core/services/auth/auth.service';
 import { TokenService } from '../../../../core/services/token/token.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../service/auth';
+import { ButtonSubmit } from '../../components/button-submit/button-submit';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink, ButtonSubmit, NgClass],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })

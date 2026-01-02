@@ -1,0 +1,20 @@
+.side {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url('/assets/images/auth-bg.jpg');
+  background-position: center;
+  background-size: cover;
+  object-fit: contain;
+  border-radius: 15px;
+  display: flex;
+  justify-content: end;
+  align-items: start;
+  padding: 0 10px;
+  color: white;
+  flex-direction: column;
+}
+
+.info {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+}

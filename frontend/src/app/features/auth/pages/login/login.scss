@@ -1,0 +1,12 @@
+.hover-link {
+  transition: 0.5s ease-in-out;
+  color: black;
+  &:hover {
+    color: lightblue;
+  }
+}
+.pass{
+  cursor: pointer;
+  right: 10px;
+  z-index: 1;
+}

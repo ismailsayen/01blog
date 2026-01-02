@@ -1,5 +1,5 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
+  
   <input type="text" formControlName="userName" placeholder="User Name">
   @if (userName?.invalid && (userName?.dirty || userName?.touched)) {
   @if (userName?.hasError("backend")) {
@@ -40,10 +40,13 @@
   @if(password?.dirty || password?.touched){
   <div [ngClass]="(password?.hasError('lengthError') || password?.hasError('required'))?'text-red':'text-green'">
     Password must be between 8 and 16 characters.</div>
-  <div [ngClass]="(password?.hasError('pattern'))?'text-red':'text-green'">
+  <div [ngClass]="(password?.hasError('pattern')|| password?.hasError('required'))?'text-red':'text-green'">
     Password must contain one special character, one uppercase letter, one lowercase letter, and one number.</div>
   }
   <br>
   <br>
   <button type="submit">Register</button>
+  <div>
+    <a routerLink="/auth/login">login</a>
+  </div>
 </form>
