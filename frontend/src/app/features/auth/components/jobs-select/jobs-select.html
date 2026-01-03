@@ -1,0 +1,28 @@
+<div class="mb-3">
+  <label for="job" class="form-label">Job: </label>
+  <select class="form-select" id="job" [formControl]="control()">
+
+
+    @for (job of jobs; track $index) {
+    <optgroup [label]="job.option">
+      @for (element of job.elements; track $index) {
+      <option [value]="element" [selected]="element===''?true:false">
+        {{ element }}
+      </option>
+      }
+    </optgroup>
+    }
+  </select>
+  @if (control().invalid && (control().dirty || control().touched)) {
+  @if (control().hasError("backend")) {
+  <div class="text-danger">{{control().errors?.['backend'] }}</div>
+  }
+  @if (control().hasError("required")) {
+  <div class="text-danger">job is required.</div>
+  }
+  @if (control().hasError("invalidJob")) {
+  <div class="text-danger">Invalid job selected.</div>
+  }
+  }
+
+</div>

@@ -12,10 +12,52 @@
   color: white;
   flex-direction: column;
 }
-
+.side-parent {
+  width: 50%;
+  transition: 0.5s ease-in-out;
+}
+.form {
+  width: 50%;
+  transition: 0.5s ease-in-out;
+}
 .info {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 15px;
   backdrop-filter: blur(8px);
+}
+
+@media screen and (max-width: 850px) {
+  .side-parent {
+    width: 60% !important;
+  }
+  .form {
+    width: 40%;
+  }
+}
+@media screen and (max-width: 700px) {
+  .side-parent {
+    display: none;
+  }
+  .form {
+    width: 100%;
+  }
+  .parent {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      url('/assets/images/auth-bg.jpg') !important;
+    background-position: center;
+    background-size: cover;
+    object-fit: contain;
+    padding: 30px;
+  }
+  .form {
+    background-color: white;
+    border-radius: 20px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+   .parent {
+    padding: 15px;
+  }
 }
 

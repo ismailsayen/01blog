@@ -12,6 +12,8 @@ export const guestGuard: CanActivateFn = (route, state) => {
   if (tokenService.getToken() === '' || !authService.currentUser()) {
     return true;
   }
+  
+  router.navigateByUrl('')
   return false;
 
 };

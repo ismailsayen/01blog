@@ -1,10 +1,10 @@
 <div class="w-100 vh-100 g-10 d-flex justify-content-center align-items-center flex-column">
-  <img src="/assets/images/logo.png" class="img-fluid mb-3" width="150px" height="150px" alt="">
+  <img src="/assets/images/logo.png" class="img-fluid mb-3 logo-auth" width="150px" height="150px" alt="">
   <div class="d-flex justify-content-center align-items-center flex-column p-3">
     <h3 class="mb-1">
       welcome in AuraWeb
     </h3>
-    <p class="text-muted">create an <strong>account</strong> or log in <a routerLink="/auth/login"
+    <p class="text-muted  text-center">create an <strong>account</strong> or log in <a routerLink="/auth/login"
         class="hover-link link-underline">Login</a> </p>
   </div>
 
@@ -48,32 +48,7 @@
       }
     </div>
 
-    <div class="mb-3">
-      <label for="" class="form-label">Job: </label>
-      <select class="form-select" formControlName="job">
-        <option value="------" selected>------</option>
-
-        @for (job of jobs; track $index) {
-        <optgroup [label]="job.option">
-          @for (element of job.elements; track $index) {
-          <option [value]="element">
-            {{ element }}
-          </option>
-          }
-        </optgroup>
-        }
-      </select>
-      @if (job?.invalid && (job?.dirty || job?.touched)) {
-      @if (job?.hasError("backend")) {
-      <div class="text-danger">{{job?.errors?.['backend'] }}</div>
-      }
-      @if (job?.hasError("required")) {
-      <div class="text-danger">job is required.</div>
-      }
-      }
-
-    </div>
-
+    <app-jobs-select [control]="job" />
     <div class="mb-3 position-relative">
       <label for="password" class="form-label">Password:</label>
       <div class="d-flex align-items-center">

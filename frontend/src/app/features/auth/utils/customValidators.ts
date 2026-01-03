@@ -1,0 +1,19 @@
+import { AbstractControl } from "@angular/forms";
+import { webDevJobs } from "../../../core/shared/webDevJobs";
+
+export function lengthValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  if (!control.value) return null;
+  if (control.value.length < 8 || control.value.length > 16) {
+    return { lengthError: true }
+  }
+  return null;
+}
+
+export function ValidJob(control: AbstractControl): { [key: string]: boolean } | null {
+  const exists = webDevJobs.some(job =>
+    job.elements.includes(control.value)
+  );
+
+  return exists ? null : { invalidJob: true };
+}
+

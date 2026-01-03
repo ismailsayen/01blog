@@ -1,5 +1,9 @@
 export const webDevJobs = [
   {
+    option:"Default",
+    elements:["------"]
+  },
+  {
     option: 'Development',
     elements: [
       'Web Developer',

@@ -1,27 +1,30 @@
 import { AuthService } from './../../../../core/services/auth/auth.service';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TokenService } from '../../../../core/services/token/token.service';
 import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { Auth } from '../service/auth';
-import { lengthValidator } from '../../utils/lengthValidator';
+import { lengthValidator, ValidJob } from '../../utils/customValidators';
 import { ButtonSubmit } from '../../components/button-submit/button-submit';
-import { webDevJobs } from '../../../../core/shared/webDevJobs';
+import { JobsSelect } from '../../components/jobs-select/jobs-select';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, NgClass, RouterLink, ButtonSubmit],
+  imports: [ReactiveFormsModule, NgClass, RouterLink, ButtonSubmit,JobsSelect],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
-export class Register {
+export class Register implements OnInit {
   authService = inject(AuthService);
   tokenService = inject(TokenService);
   auth = inject(Auth);
   router = inject(Router);
   backendError = signal<string | null>(null);
-  jobs = webDevJobs;
+
+  ngOnInit(): void {
+    this.auth.showPassword.set(false)
+  }
 
   registerForm = new FormGroup({
     userName: new FormControl('', {
@@ -33,7 +36,7 @@ export class Register {
       updateOn: 'submit',
     }),
     job: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required,ValidJob],
       updateOn: 'submit',
     }),
     password: new FormControl('', [
@@ -55,8 +58,8 @@ export class Register {
     return this.registerForm.get('password');
   }
 
-   get job() {
-    return this.registerForm.get('job');
+  get job() {
+    return this.registerForm.get('job') as FormControl;
   }
 
   onSubmit() {

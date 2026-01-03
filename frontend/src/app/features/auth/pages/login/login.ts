@@ -13,12 +13,17 @@ import { NgClass } from '@angular/common';
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
-export class Login {
+export class Login implements OnInit {
   authService = inject(AuthService);
   tokenService = inject(TokenService);
   router = inject(Router);
   auth = inject(Auth)
   backendError = signal<string | null>(null)
+
+  ngOnInit(): void {
+    this.auth.showPassword.set(false)
+  }
+
   loginForm = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
