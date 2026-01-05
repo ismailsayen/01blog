@@ -1,12 +1,5 @@
 <div class="w-100 vh-100 g-10 d-flex justify-content-center align-items-center flex-column">
-  <img src="/assets/images/logo.png" class="img-fluid mb-3 logo-auth" width="150px" height="150px" alt="">
-  <div class="d-flex justify-content-center align-items-center flex-column p-3">
-    <h3 class="mb-1">
-      welcome in AuraWeb
-    </h3>
-    <p class="text-muted  text-center">create an <strong>account</strong> or log in <a routerLink="/auth/login"
-        class="hover-link link-underline">Login</a> </p>
-  </div>
+  <app-header-form [page]="'register'" />
 
 
   <form class="w-75 p-1" [formGroup]="registerForm" (ngSubmit)="onSubmit()">

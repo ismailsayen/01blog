@@ -3,28 +3,19 @@
 .text-green {
   color: vars.$my-green;
 }
-.hover-link {
-  transition: 0.5s ease-in-out;
-  color: vars.$my-green;
-  text-decoration: none;
-  &:hover {
-    color: black;
-  }
-}
+
 
 input:focus {
   box-shadow: none;
   border: 1px solid vars.$my-green;
 }
+
 .pass {
   cursor: pointer;
   right: 10px;
   z-index: 1;
+
   &:hover {
     color: vars.$my-green;
   }
-}
-.logo-auth {
-  width: 150px;
-  height: 71px;
 }

@@ -1,0 +1,14 @@
+@use '../../../../../styles/variables' as vars;
+.hover-link {
+  transition: 0.5s ease-in-out;
+  color: vars.$my-green;
+  text-decoration: none;
+  &:hover {
+    color: black;
+  }
+}
+.logo-auth {
+  width: 150px;
+  height: 71px;
+}
+

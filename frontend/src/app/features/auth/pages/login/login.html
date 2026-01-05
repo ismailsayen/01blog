@@ -1,12 +1,6 @@
 <div class="form-child g-10 d-flex justify-content-center align-items-center flex-column">
-  <img src="/assets/images/logo.png" class="img-fluid mb-3 logo-auth" alt="">
-  <div class="d-flex justify-content-center align-items-center flex-column p-3">
-    <h3 class="mb-1">
-      welcome back
-    </h3>
-    <p class="text-muted text-center">Log in or <strong>create an account </strong> <a routerLink="/auth/register"
-        class="hover-link link-underline">Register</a> </p>
-  </div>
+  <app-header-form [page]="'login'" />
+
   <form class="w-75 p-1" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <label for="email" class="form-label">Email address:</label>
@@ -23,7 +17,7 @@
     <div class=" mb-3 position-relative">
       <label for="pass" class="form-label">Password:</label>
       <div class="d-flex align-items-center">
-        <input   formControlName="password" id="pass" class="form-control">
+        <input [type]="auth.showPassword()?'text':'password'" formControlName="password" id="pass" class="form-control">
         <i class="position-absolute pass" [ngClass]="auth.showPassword() ? 'bi-eye-fill' : 'bi-eye-slash-fill'"
           role="button" (click)="auth.show()">
         </i>

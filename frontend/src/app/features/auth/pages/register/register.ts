@@ -8,10 +8,11 @@ import { Auth } from '../service/auth';
 import { lengthValidator, ValidJob } from '../../utils/customValidators';
 import { ButtonSubmit } from '../../components/button-submit/button-submit';
 import { JobsSelect } from '../../components/jobs-select/jobs-select';
+import { HeaderForm } from "../../components/header-form/header-form";
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, NgClass, RouterLink, ButtonSubmit,JobsSelect],
+  imports: [ReactiveFormsModule, NgClass, ButtonSubmit, JobsSelect, HeaderForm],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
@@ -21,7 +22,6 @@ export class Register implements OnInit {
   auth = inject(Auth);
   router = inject(Router);
   backendError = signal<string | null>(null);
-
   ngOnInit(): void {
     this.auth.showPassword.set(false)
   }
@@ -36,7 +36,7 @@ export class Register implements OnInit {
       updateOn: 'submit',
     }),
     job: new FormControl('', {
-      validators: [Validators.required,ValidJob],
+      validators: [Validators.required, ValidJob],
       updateOn: 'submit',
     }),
     password: new FormControl('', [

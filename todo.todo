@@ -4,6 +4,7 @@
 - understand EntityManager
 - JPA Entity Lifecycle
 - Hibernate Persistence Context
+- tomcat
 -----------------------------------------frontend---------------------------------------------------
 theorique:
 - how angular works

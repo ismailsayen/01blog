@@ -1,0 +1,21 @@
+<div class="text-center">
+    <img src="/assets/images/logo.png" class="img-fluid mb-2 logo-auth" alt="logo">
+    <div class="d-flex justify-content-center align-items-center flex-column p-3">
+        <h3 class="mb-2">
+            @if (page()==="login") {
+            welcome back
+            }@else {
+            welcome in AuraWeb
+            }
+        </h3>
+        <p class="text-muted text-center">
+            @if (page()==="login") {
+            Log in or <strong>create an account </strong>
+            <a routerLink="/auth/register" class="hover-link link-underline">Register</a>
+            }@else {
+            create an <strong>account</strong> or log in <a routerLink="/auth/login"
+                class="hover-link link-underline">Login</a>
+            }
+        </p>
+    </div>
+</div>

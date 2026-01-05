@@ -1,0 +1,10 @@
+@use '../../../../../styles/variables' as vars;
+
+select:focus {
+    box-shadow: none;
+    border: 1px solid vars.$my-green;
+}
+
+option:hover{
+    background-color: red;
+}

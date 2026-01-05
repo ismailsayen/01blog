@@ -6,10 +6,11 @@ import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../service/auth';
 import { ButtonSubmit } from '../../components/button-submit/button-submit';
 import { NgClass } from '@angular/common';
+import { HeaderForm } from "../../components/header-form/header-form";
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink, ButtonSubmit, NgClass],
+  imports: [ReactiveFormsModule, ButtonSubmit, NgClass, HeaderForm],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
@@ -48,18 +49,23 @@ export class Login implements OnInit {
       this.backendError.set(null);
       return;
     }
+
     const body = this.loginForm.getRawValue();
     this.auth.loginReq(body).subscribe({
       next: (res) => {
         this.authService.currentUser.set(res);
         this.tokenService.setTokent(res.token);
         this.router.navigateByUrl('/');
+        
+
       },
       error: (err) => {
         this.authService.currentUser.set(null);
         if (err.status === 400 && err.error) {
           this.backendError.set(err.error["detail"]);
         }
+        
+
       },
     });
   }

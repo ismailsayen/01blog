@@ -1,1 +1,8 @@
-<button type="submit" class="btn  w-100 fw-medium">{{value()}}</button>
+<button type="submit" class="btn w-100 fw-medium">
+    @if(loader.loading()){
+    <app-loader />
+    }@else{
+    {{value()}}
+    }
+
+</button>
