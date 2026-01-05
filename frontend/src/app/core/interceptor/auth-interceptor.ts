@@ -2,11 +2,14 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { TokenService } from '../services/token/token.service';
 import { MethodPostLoaderService } from '../services/loaders/method-post-loader.service';
-import { finalize } from 'rxjs';
+import { catchError, finalize, throwError } from 'rxjs';
+import { InternalService } from '../services/errors/internal.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = inject(TokenService).getToken();
   const loader = inject(MethodPostLoaderService);
+  const errService = inject(InternalService);
+
   req = req.clone({
     setHeaders: {
       Authorization: token ? `Bearer ${token}` : '',
@@ -17,6 +20,28 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   return next(req).pipe(
+    catchError((err) => {
+      const status = err.status;
+      const detail = err.error?.detail;
+
+      if (status === 403 && detail === 'Your account has been banned.') {
+        errService.showPopUp(
+          'ban',
+          'Banned',
+          'Your account has been banned. Please contact support.'
+        );
+      }
+      else if (status === 500 || status === 0) {
+        errService.showPopUp(
+          'server',
+          'Server Error 500!',
+          'Something went wrong on our server. Please refresh the page and try again.'
+        );
+      }
+
+      return throwError(() => err);
+    }),
+
     finalize(() => {
       if (req.method === 'POST') {
         loader.hide();

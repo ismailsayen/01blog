@@ -13,6 +13,7 @@ import com.blog.auth.DTO.UserDTO;
 import com.blog.auth.jwt.JwtService;
 import com.blog.auth.repositories.UserRepository;
 import com.blog.user.model.UserEntity;
+import com.blog.user.model.exception.BanneException;
 
 @Transactional
 @Service
@@ -34,6 +35,7 @@ public class AuthService {
                 .job(user.getJob())
                 .userName(user.getUserName())
                 .role("ROLE_USER")
+                .banned(false)
                 .build();
         authRepo.save(entity);
 
@@ -43,6 +45,7 @@ public class AuthService {
                 .userName(entity.getUserName())
                 .role(entity.getRole())
                 .job(entity.getJob())
+                .banned(false)
                 .createdAt(entity.getCreatedAt())
                 .token(jwt.generateToken(entity.getId()))
                 .build();
@@ -51,17 +54,21 @@ public class AuthService {
 
     }
 
-    public UserDTO.UserOutput verify(UserDTO.LoginData user) throws AuthenticationException {
+    public UserDTO.UserOutput verify(UserDTO.LoginData user) throws AuthenticationException, BanneException {
 
         Authentication authentication = authManager
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         if (authentication.isAuthenticated()) {
             UserEntity entity = authRepo.findByEmail(user.getEmail());
+            if (entity.getBanned()) {
+                throw new BanneException("Your account has been banned.");
+            }
             return UserDTO.UserOutput.builder()
                     .id(entity.getId())
                     .email(entity.getEmail())
                     .userName(entity.getUserName())
                     .role(entity.getRole())
+                    .banned(entity.getBanned())
                     .createdAt(entity.getCreatedAt())
                     .token(jwt.generateToken(entity.getId()))
                     .build();

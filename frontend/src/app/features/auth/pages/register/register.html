@@ -53,14 +53,14 @@
       </div>
 
       @if(password?.dirty || password?.touched){
-      <div [ngClass]="(password?.hasError('lengthError') || password?.hasError('required'))?'text-danger':'text-green'">
+      <div [ngClass]="(password?.hasError('lengthError') || password?.hasError('required'))?'text-danger':'text-success'">
         <i
-          [ngClass]="(password?.hasError('lengthError')|| password?.hasError('required'))?'bi bi-x-circle-fill text-danger':'bi bi-check-circle-fill text-green'"></i>
+          [ngClass]="(password?.hasError('lengthError')|| password?.hasError('required'))?'bi bi-x-circle-fill text-danger':'bi bi-check-circle-fill text-success'"></i>
         Password must be between 8 and 16 characters.
       </div>
-      <div [ngClass]="(password?.hasError('pattern')|| password?.hasError('required'))?'text-danger':'text-green'">
+      <div [ngClass]="(password?.hasError('pattern')|| password?.hasError('required'))?'text-danger':'text-success'">
         <i
-          [ngClass]="(password?.hasError('pattern')|| password?.hasError('required'))?'bi bi-x-circle-fill text-danger':'bi bi-check-circle-fill text-green'"></i>
+          [ngClass]="(password?.hasError('pattern')|| password?.hasError('required'))?'bi bi-x-circle-fill text-danger':'bi bi-check-circle-fill text-success'"></i>
         Password must contain one special character, one uppercase letter, one lowercase letter, and one number.
       </div>
       }

@@ -1,0 +1,16 @@
+<div class="cont container-fluid min-vh-100 d-flex justify-content-center align-items-center position-absolute  ">
+  <div class="error-card card">
+    <div class="first text-center bg-danger d-flex justify-content-center align-items-center">
+      <i class="icon" [ngClass]="err.type()==='server'?'bi-exclamation-triangle':'bi bi-ban'" ></i>
+    </div>
+    <div class="p-1 text-center">
+      <h2>{{err.title()}}</h2>
+      <p class="text-muted">{{err.text()}}</p>
+      <div class="btn btn-danger border-none" (click)="err.reloadPage()">
+        <i class="bi bi-arrow-clockwise"></i>
+        refresh
+      </div>
+    </div>
+  </div>
+</div>
+

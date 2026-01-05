@@ -48,7 +48,8 @@ public class UserDTO {
         private Long id;
         private String userName;
         private String email;
-        private String job; 
+        private String job;
+        private Boolean banned;
         private LocalDateTime createdAt;
         private String role;
         private String token;

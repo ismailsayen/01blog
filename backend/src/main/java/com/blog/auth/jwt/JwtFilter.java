@@ -14,6 +14,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import com.blog.auth.DTO.UserInfo;
 import com.blog.auth.repositories.UserRepository;
 import com.blog.user.model.UserEntity;
+import com.blog.user.model.exception.BanneException;
 
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -55,6 +56,9 @@ public class JwtFilter extends OncePerRequestFilter {
             UserEntity userEntity = authRepository.findById(Long.valueOf(idUser))
                     .orElseThrow(() -> new JwtException("Invalid credentials: email or password is incorrect."));
             System.out.println("----------------JwtFilter--------------");
+            if (userEntity.getBanned()) {
+                throw new BanneException("Your account has been banned.");
+            }
             UserDetails userDetails = new UserInfo(userEntity);
 
             if (JwtService.validToken(token, userDetails)) {
@@ -65,7 +69,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
             filterChain.doFilter(request, response);
-        } catch (JwtException e) {
+        } catch (JwtException | BanneException e) {
             handlerExceptionResolver.resolveException(request, response, null, e);
         }
     }

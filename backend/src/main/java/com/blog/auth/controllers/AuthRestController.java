@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blog.auth.DTO.UserDTO;
 import com.blog.auth.DTO.UserInfo;
 import com.blog.auth.services.AuthService;
+import com.blog.user.model.exception.BanneException;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +26,9 @@ public class AuthRestController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public UserDTO.UserOutput login(@RequestBody UserDTO.LoginData entity) throws AuthenticationException {
-        
+    public UserDTO.UserOutput login(@RequestBody UserDTO.LoginData entity)
+            throws AuthenticationException, BanneException {
+
         return authService.verify(entity);
     }
 
@@ -44,6 +46,7 @@ public class AuthRestController {
                 .email(auth.getUser().getEmail())
                 .userName(auth.getUser().getUserName())
                 .role(auth.getUser().getRole())
+                .banned(auth.getUser().getBanned())
                 .createdAt(auth.getUser().getCreatedAt())
                 .build();
     }

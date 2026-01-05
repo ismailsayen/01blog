@@ -33,13 +33,14 @@ public class UserEntity {
 
     @Column(unique = true)
     private String email;
-    
+
     private String job;
     private String password;
 
     private Long countfollowers;
     private Long countfollowing;
 
+    private Boolean banned;
     @Column(columnDefinition = "TIMESTAMP")
     private final LocalDateTime createdAt = DateNowFormatted.nowDateTime();
     private String role;

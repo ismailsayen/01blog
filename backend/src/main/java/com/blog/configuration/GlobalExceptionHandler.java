@@ -21,6 +21,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.blog.blog.models.Exception.ForbiddenAction;
+import com.blog.user.model.exception.BanneException;
 
 import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +52,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(pd);
     }
 
-    @ExceptionHandler({ BadRequestException.class,MethodArgumentTypeMismatchException.class, AuthenticationException.class , HttpMessageNotReadableException.class })
+    @ExceptionHandler({ BadRequestException.class, MethodArgumentTypeMismatchException.class,
+            AuthenticationException.class, HttpMessageNotReadableException.class })
     public ResponseEntity<ProblemDetail> catchAuthenticationException(Exception ex) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pd);
@@ -63,7 +65,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(pd);
     }
 
-    @ExceptionHandler({ForbiddenAction.class,AuthorizationDeniedException.class})
+    @ExceptionHandler({ ForbiddenAction.class, AuthorizationDeniedException.class, BanneException.class })
     public ResponseEntity<ProblemDetail> catchForbiddenAction(Exception ex) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(pd);
