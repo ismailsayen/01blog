@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../shared/interfaces/userDTO';
 import { API_URL } from '../../shared/api-url';
-import { catchError, map, of, tap } from 'rxjs';
+import { catchError, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +14,13 @@ export class AuthService {
   currentUser = signal<User | undefined | null>(undefined);
 
   isLogged() {
-
     return this.http.post<User>(API_URL + '/auth/isLogged', null).pipe(
       tap(user => {
         this.currentUser.set(user)
       }),
       catchError((err) => {
+        console.log(err);
+
         this.currentUser.set(null)
         return of(null)
       })

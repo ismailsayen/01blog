@@ -4,13 +4,15 @@
   border: none;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   border-radius: 20px;
-  z-index: 99999;
 }
-.first{
-    border-radius: 20px 20px 0 0;
+
+.first {
+  border-radius: 20px 20px 0 0;
 }
+
 .cont {
   background-color: rgb(0, 0, 0, 0.4);
+  z-index: 99999;
 }
 
 .icon {

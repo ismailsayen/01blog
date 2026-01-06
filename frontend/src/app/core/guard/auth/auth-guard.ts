@@ -1,5 +1,4 @@
 import { TokenService } from '../../services/token/token.service';
-import { User } from '../../shared/interfaces/userDTO';
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
@@ -10,6 +9,9 @@ export const authGuard: CanActivateFn = (route, state) => {
   const tokenService = inject(TokenService);
 
   if (tokenService.getToken() === '' || !authService.currentUser()) {
+    console.log(tokenService.getToken());
+    console.log(authService.currentUser());
+
     router.navigateByUrl('/auth/login')
     return false;
   }

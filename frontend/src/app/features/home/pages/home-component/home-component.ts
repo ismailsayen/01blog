@@ -2,11 +2,10 @@ import { Component, inject } from '@angular/core';
 import { TokenService } from '../../../../core/services/token/token.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth/auth.service';
-import { Errors } from "../../../../core/shared/components/errors/errors";
 
 @Component({
   selector: 'app-home-component',
-  imports: [Errors],
+  imports: [],
   templateUrl: './home-component.html',
   styleUrl: './home-component.scss',
 })

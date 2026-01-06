@@ -4,11 +4,13 @@ import { TokenService } from '../services/token/token.service';
 import { MethodPostLoaderService } from '../services/loaders/method-post-loader.service';
 import { catchError, finalize, throwError } from 'rxjs';
 import { InternalService } from '../services/errors/internal.service';
+import { Router } from '@angular/router';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = inject(TokenService).getToken();
   const loader = inject(MethodPostLoaderService);
   const errService = inject(InternalService);
+  const router = inject(Router);
 
   req = req.clone({
     setHeaders: {
@@ -24,9 +26,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       const status = err.status;
       const detail = err.error?.detail;
 
-      if (status === 403 && detail === 'Your account has been banned.') {
+      if (status === 403 && detail === 'Your account has been banned.' && router.url !== "/auth/login") {
         errService.showPopUp(
-          'ban',
+          'banne',
           'Banned',
           'Your account has been banned. Please contact support.'
         );
