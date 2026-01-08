@@ -6,16 +6,19 @@ import { Login } from './pages/login/login';
 
 export const routes: Routes = [
     {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+    },
+    {
         path: 'register',
         component: Register,
         title: 'register',
-        canActivate: [guestGuard]
     },
     {
         path: 'login',
         component: Login,
         title: 'login',
-        canActivate: [guestGuard]
 
     },
 ]

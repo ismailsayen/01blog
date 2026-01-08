@@ -1,0 +1,17 @@
+@use '../../../../styles/variables' as vars;
+
+button:focus {
+  box-shadow: none;
+  border: 1px solid vars.$my-green;
+}
+
+input:focus {
+  box-shadow: none;
+  border: 1px solid transparent;
+}
+.close{
+  cursor: pointer;
+  &:hover{
+    color: vars.$my-green;
+  }
+}

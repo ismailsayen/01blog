@@ -8,13 +8,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/auth/auth').then((m) => m.Auth),
     loadChildren: () => import('./features/auth/auth.routes').then(m => m.routes),
-    canActivate: [guestGuard]
+    canActivateChild: [guestGuard],
   },
   {
     path: '',
     loadComponent: () =>
-      import('./features/home/pages/home-component/home-component').then((m) => m.HomeComponent),
+      import('./layouts/main-layout/main-layout').then((m) => m.MainLayout),
+    loadChildren:()=>import('./layouts/main-layout/main-layout.routes').then((m)=> m.routes),
     title: 'home',
-    canActivate: [authGuard],
+    canActivateChild: [authGuard],
   },
 ];
