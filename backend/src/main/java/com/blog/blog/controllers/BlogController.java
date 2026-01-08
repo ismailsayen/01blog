@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,8 +41,11 @@ public class BlogController {
     }
 
     @GetMapping
-    public List<BlogDTO.BlogOutput> getAllBlogController() {
-        return blgService.getAllBlogs();
+    public List<BlogDTO.BlogOutput> getAllBlogController(@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size, @AuthenticationPrincipal UserInfo auth) {
+        Sort sort = Sort.by("created_at").descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return blgService.getAllBlogs(pageable,auth.getId());
     }
 
     @GetMapping("/{idBlog}")
@@ -55,6 +62,6 @@ public class BlogController {
     @PatchMapping("/{idBlog}")
     public String UpdateBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth,
             @Valid @RequestBody BlogDTO.BlogInput input) throws ForbiddenAction {
-        return blgService.updateBlog(idBlog, auth,input);
+        return blgService.updateBlog(idBlog, auth, input);
     }
 }

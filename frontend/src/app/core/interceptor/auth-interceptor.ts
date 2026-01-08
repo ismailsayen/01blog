@@ -33,7 +33,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           'Your account has been banned. Please contact support.'
         );
       }
-      else if (status === 500 || status === 0) {
+      else if (status === 500) {
         errService.showPopUp(
           'server',
           'Server Error 500!',

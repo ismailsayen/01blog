@@ -29,14 +29,14 @@ public class BlogDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class BlogOutput {
-        private Long id;
         private Long commentsCount;
-        private String content;
         private LocalDateTime createdAt;
+        private Long id;
         private LocalDateTime lastUpdateAt;
         private Long likeCount;
-        private String title;
         private Long userId;
+        private String content;
+        private String title;
         private String userName;
     }
 }

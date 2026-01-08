@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,8 +48,8 @@ public class BlogService {
                 .build();
     }
 
-    public List<BlogDTO.BlogOutput> getAllBlogs() {
-        return blgRepo.findAllData();
+    public List<BlogDTO.BlogOutput> getAllBlogs(Pageable pageable, long id) {
+        return blgRepo.findAllData(id, pageable);
     }
 
     public BlogDTO.BlogOutput findBlogById(Long idBlog) throws NoSuchElementException {
@@ -68,7 +69,7 @@ public class BlogService {
         }
 
         blgRepo.delete(blog);
-        reportRepo.deleteByTargetIdAndTargetType(blog.getId(),ReportTargetType.BLOG);
+        reportRepo.deleteByTargetIdAndTargetType(blog.getId(), ReportTargetType.BLOG);
         return "the blog is deleted successfuly.";
     }
 

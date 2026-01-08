@@ -48,7 +48,5 @@ public class BlogEntity {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id",nullable=false)
-    private UserEntity userBlog;
-
-   
+    private UserEntity userBlog; 
 }
