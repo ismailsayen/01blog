@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserDTO;
 import com.blog.auth.jwt.JwtService;
-import com.blog.auth.repositories.UserRepository;
 import com.blog.user.model.UserEntity;
 import com.blog.user.model.exception.BanneException;
+import com.blog.user.repositories.UserRepository;
 
 @Transactional
 @Service

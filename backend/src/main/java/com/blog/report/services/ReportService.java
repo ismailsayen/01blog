@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
-import com.blog.auth.repositories.UserRepository;
 import com.blog.blog.models.BlogEntity;
 import com.blog.blog.models.CommentEntity;
 import com.blog.blog.services.BlogService;
@@ -21,6 +20,7 @@ import com.blog.report.models.ReportTargetType;
 import com.blog.report.repositories.ReportRepository;
 import com.blog.user.model.UserEntity
 ;
+import com.blog.user.repositories.UserRepository;
 
 @Transactional
 @Service

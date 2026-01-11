@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EntityScan({ "com.blog.user.model", "com.blog.blog.models", "com.blog.comment.models", "com.blog.reaction.models",
 		"com.blog.report.models", "com.blog.follow.models" })
-@EnableJpaRepositories(basePackages = { "com.blog.auth.repositories", "com.blog.blog.repositories",
+@EnableJpaRepositories(basePackages = { "com.blog.user.repositories", "com.blog.blog.repositories",
 		"com.blog.comment.repositories", "com.blog.reaction.repositories", "com.blog.report.repositories",
 		"com.blog.follow.repositories" })
 @SpringBootApplication(scanBasePackages = {

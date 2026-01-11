@@ -1,18 +1,22 @@
 <button type="button" class="form-control text-start" data-bs-toggle="modal" data-bs-target="#searchModal">
-    Search...
+  Search...
 </button>
 
 <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog ">
-        <div class="modal-content p-2">
-            <div class="d-flex align-items-center justify-content-between border-bottom">
-                <i class="bi bi-search"></i>
-                <input type="text" class="form-control border-0" placeholder="Type here...">
-                <i class="bi bi-x-lg close" role="button" data-bs-dismiss="modal" aria-label="Close"></i>
-            </div>
-            <div class="text-center">
-                <p>no user found.</p>
-            </div>
-        </div>
+  <div class="modal-dialog ">
+    <div class="modal-content p-2">
+      <div class="d-flex align-items-center justify-content-between border-bottom">
+        <i class="bi bi-search"></i>
+        <input type="text" class="form-control border-0" placeholder="Type here..." [formControl]="userInput">
+        <i class="bi bi-x-lg close" role="button" data-bs-dismiss="modal" aria-label="Close"></i>
+      </div>
+      <div class="search-body px-2">
+        <p class="fw-bold">Users</p>
+        <p>no user found.</p>
+      </div>
+      <footer class="border-top d-flex align-items-center justify-content-center p-0 m-0">
+        <p class="fs-5 text-muted p-0 m-0">AuraWeb</p>
+      </footer>
     </div>
+  </div>
 </div>

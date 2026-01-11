@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
-import com.blog.auth.repositories.UserRepository;
 import com.blog.follow.models.FollowEntity;
 import com.blog.follow.repositories.FollowRepository;
 import com.blog.user.model.UserEntity;
+import com.blog.user.repositories.UserRepository;
 
 @Transactional
 @Service

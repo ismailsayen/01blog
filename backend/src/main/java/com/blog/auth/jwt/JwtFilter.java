@@ -12,9 +12,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import com.blog.auth.DTO.UserInfo;
-import com.blog.auth.repositories.UserRepository;
 import com.blog.user.model.UserEntity;
 import com.blog.user.model.exception.BanneException;
+import com.blog.user.repositories.UserRepository;
 
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;

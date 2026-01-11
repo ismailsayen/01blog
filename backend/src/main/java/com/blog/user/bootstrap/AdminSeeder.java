@@ -9,8 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.blog.auth.repositories.UserRepository;
 import com.blog.user.model.UserEntity;
+import com.blog.user.repositories.UserRepository;
 
 @Component
 public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {

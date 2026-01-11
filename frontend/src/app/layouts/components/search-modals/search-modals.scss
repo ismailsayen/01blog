@@ -9,9 +9,16 @@ input:focus {
   box-shadow: none;
   border: 1px solid transparent;
 }
-.close{
+
+.close {
   cursor: pointer;
-  &:hover{
+
+  &:hover {
     color: vars.$my-green;
   }
+}
+
+.search-body {
+  max-width: 500px;
+  overflow-y: auto;
 }
