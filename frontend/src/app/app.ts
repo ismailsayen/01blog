@@ -11,6 +11,5 @@ import { AuthService } from './core/services/auth/auth.service';
   styleUrl: './app.scss',
 })
 export class App {
-  user = inject(AuthService)
   err = inject(InternalService);
 }

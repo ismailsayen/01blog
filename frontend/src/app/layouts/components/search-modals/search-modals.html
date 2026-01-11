@@ -12,7 +12,17 @@
       </div>
       <div class="search-body px-2">
         <p class="fw-bold">Users</p>
-        <p>no user found.</p>
+        @if (loader.loading()) {
+        <p class="text-center">loading...</p>
+        }@else {
+        @if(users()===undefined){
+        <p class="fw-light text-center">type an exist user on input.</p>
+        }@else if (users()===null) {
+        <p class="fw-light text-center">No user Found</p>
+        }@else {
+        <app-user-card [users]="users()" />
+        }
+        }
       </div>
       <footer class="border-top d-flex align-items-center justify-content-center p-0 m-0">
         <p class="fs-5 text-muted p-0 m-0">AuraWeb</p>

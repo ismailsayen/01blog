@@ -17,9 +17,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       Authorization: token ? `Bearer ${token}` : '',
     },
   });
-  if (req.method === 'POST') {
+
+
     loader.show();
-  }
 
   return next(req).pipe(
     catchError((err) => {
@@ -45,9 +45,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     }),
 
     finalize(() => {
-      if (req.method === 'POST') {
+
         loader.hide();
-      }
+
 
     })
   );

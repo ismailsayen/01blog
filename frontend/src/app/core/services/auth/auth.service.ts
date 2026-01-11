@@ -11,7 +11,6 @@ export class AuthService {
 
   http = inject(HttpClient);
   currentUser = signal<User | undefined | null>(undefined);
-  isAuthenticated = computed(() => !!this.currentUser)
 
   isLogged() {
     return this.http.post<User>(API_URL + '/auth/isLogged', null).pipe(
@@ -19,8 +18,6 @@ export class AuthService {
         this.currentUser.set(user)
       }),
       catchError((err) => {
-        console.log(err);
-
         this.currentUser.set(null)
         return of(null)
       })

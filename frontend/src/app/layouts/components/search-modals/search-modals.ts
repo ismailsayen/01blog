@@ -1,28 +1,54 @@
-import { Component, OnInit } from '@angular/core'
-import { FormControl, ReactiveFormsModule, } from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core'
+import { FormControl, ReactiveFormsModule, Validators, } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs'
+import { SearchUsersService } from '../../header/services/search-users.service';
+import { SearchedUsers } from '../../../core/shared/interfaces/SearchedUsers';
+import { MethodPostLoaderService } from '../../../core/services/loaders/method-post-loader.service';
+import { UserCard } from '../../../features/auth/components/user-card/user-card';
 
 @Component({
   selector: 'app-search-modals',
   templateUrl: './search-modals.html',
   styleUrl: './search-modals.scss',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, UserCard],
 })
 export class SearchModals implements OnInit {
-  userInput = new FormControl('')
+  searchService = inject(SearchUsersService)
+  users = signal<SearchedUsers[] | null | undefined>(undefined);
+  loader = inject(MethodPostLoaderService);
+
+  userInput = new FormControl('', [
+    Validators.required,
+    Validators.minLength(3),
+    Validators.maxLength(20)
+  ]
+    ,
+  )
+
   ngOnInit(): void {
     this.userInput.valueChanges.pipe(
       debounceTime(400),
       distinctUntilChanged(),
       switchMap(value => {
         if (!value?.trim()) {
-          return of([]);
+          return of(null);
         }
-        return of();
-        // return this.searchService.search(value);
+        if (this.userInput.invalid) {
+          this.userInput.markAsTouched()
+          return of(this.users());
+        }
+        return this.searchService.search(value);
       })
-    ).subscribe(value => {
-      // console.log('local test:', value?.trim());
+    ).subscribe({
+      next: (res) => {
+        if (res?.length === 0) {
+          console.log(res.length);
+          this.users.set(null)
+          return
+        }
+        this.users.set(res)
+
+      }
     });
   }
 }

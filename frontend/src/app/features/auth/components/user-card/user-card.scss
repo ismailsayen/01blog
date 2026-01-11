@@ -1,0 +1,7 @@
+.user-card{
+  cursor: pointer;
+  transition: .3s ease-in-out;
+  &:hover{
+    background-color: #f5f5f5;
+  }
+}

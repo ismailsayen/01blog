@@ -3,7 +3,6 @@ package com.blog.user.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.blog.user.DTO.UserDTO.SearchedUsers;
@@ -19,7 +18,8 @@ public class UserServices {
         return userRepo.findById(id).get();
     }
 
-    public  List<SearchedUsers> getProfiles(Pageable pageable, String name, Long id) {
-        return userRepo.findByUserName(pageable,name,id);
+    public  List<SearchedUsers> getProfiles(String name, Long id) {
+        System.out.println(name+"==="+id);
+        return userRepo.findByUserName(name,id);
     }
 }

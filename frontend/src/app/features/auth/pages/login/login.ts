@@ -56,8 +56,6 @@ export class Login implements OnInit {
         this.authService.currentUser.set(res);
         this.tokenService.setTokent(res.token);
         this.router.navigateByUrl('/');
-
-
       },
       error: (err) => {
         this.authService.currentUser.set(null);
