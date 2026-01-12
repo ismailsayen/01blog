@@ -10,6 +10,10 @@ export function lengthValidator(control: AbstractControl): { [key: string]: bool
 }
 
 export function ValidJob(control: AbstractControl): { [key: string]: boolean } | null {
+  if (control.value == null) {
+    return null
+  }
+
   const exists = webDevJobs.some(job =>
     job.elements.includes(control.value)
   );

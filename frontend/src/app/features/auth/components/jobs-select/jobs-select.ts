@@ -9,7 +9,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './jobs-select.scss',
 })
 export class JobsSelect {
+  
   jobs = webDevJobs;
-  // @Input({ required: true }) control!: FormControl;
   control = input.required<FormControl>();
+  label=input('Job')
 }

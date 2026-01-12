@@ -1,3 +1,6 @@
+@use '../../../styles/variables' as vars;
+
+
 .logo-auth {
   width: 100px;
   height: auto;
@@ -5,11 +8,23 @@
 
 ul {
   list-style: none;
+
   li .bi {
     font-size: 20px;
     cursor: pointer;
+    transition: 0.4s ease-in-out;
+
+    &:hover {
+      color: vars.$my-green;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
   }
 }
-.profile-details{
+
+.profile-details {
   cursor: pointer;
 }

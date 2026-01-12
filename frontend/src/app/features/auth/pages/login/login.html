@@ -3,7 +3,7 @@
 
   <form class="w-75 p-1" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
-      <label for="email" class="form-label">Email address:</label>
+      <label for="email" class="form-label fw-bold">Email address:</label>
       <input type="email" class="form-control" formControlName="email" id="email">
       @if (email?.invalid && (email?.dirty || email?.touched)) {
       @if (email?.hasError("required")) {
@@ -15,7 +15,7 @@
       }
     </div>
     <div class=" mb-3 position-relative">
-      <label for="pass" class="form-label">Password:</label>
+      <label for="pass" class="form-label fw-bold">Password:</label>
       <div class="d-flex align-items-center">
         <input [type]="auth.showPassword()?'text':'password'" formControlName="password" id="pass" class="form-control">
         <i class="position-absolute pass" [ngClass]="auth.showPassword() ? 'bi-eye-fill' : 'bi-eye-slash-fill'"

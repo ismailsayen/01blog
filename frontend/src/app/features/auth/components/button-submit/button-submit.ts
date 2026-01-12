@@ -11,5 +11,4 @@ import { Loader } from "../../../../core/shared/components/loader/loader";
 export class ButtonSubmit {
   value = input('login')
   loader = inject(MethodPostLoaderService);
-
 }

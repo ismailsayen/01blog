@@ -36,6 +36,8 @@ public class BlogEntity {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+    private String categorie;
+
     private Long likeCount;
     private Long commentsCount;
 
@@ -47,6 +49,6 @@ public class BlogEntity {
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id",nullable=false)
-    private UserEntity userBlog; 
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity userBlog;
 }

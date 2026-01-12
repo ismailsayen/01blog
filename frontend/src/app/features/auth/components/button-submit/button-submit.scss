@@ -1,13 +1,8 @@
 @use "../../../../../styles/variables" as vars;
 
 button {
-    // border: none;
     color: white;
     transition: 0.2s ease-in-out;
     position: relative;
     height: 45px;
 }
-
-// button:hover {
-//     background-color: vars.$my-green;
-// }

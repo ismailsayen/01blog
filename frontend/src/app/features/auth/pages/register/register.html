@@ -4,7 +4,7 @@
 
   <form class="w-75 p-1" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
-      <label for="userName" class="form-label">userName:</label>
+      <label for="userName" class="form-label fw-bold">userName:</label>
       <input type="text" id="userName" class="form-control" formControlName="userName" placeholder="User Name">
       @if (userName?.invalid && (userName?.dirty || userName?.touched)) {
       @if (userName?.hasError("backend")) {
@@ -22,7 +22,7 @@
       }
     </div>
     <div class="mb-3">
-      <label for="email" class="form-label">Email address:</label>
+      <label for="email" class="form-label fw-bold">Email address:</label>
       <input type="email" id="email" class="form-control" formControlName="email" placeholder="Email">
       @if (email?.invalid && (email?.dirty || email?.touched)) {
       @if (email?.hasError("backend")) {
@@ -42,8 +42,9 @@
     </div>
 
     <app-jobs-select [control]="job" />
+    
     <div class="mb-3 position-relative">
-      <label for="password" class="form-label">Password:</label>
+      <label for="password" class="form-label fw-bold">Password:</label>
       <div class="d-flex align-items-center">
         <input [type]="auth.showPassword()?'text':'password'" id="password" class="form-control"
           formControlName="password" placeholder="Password">

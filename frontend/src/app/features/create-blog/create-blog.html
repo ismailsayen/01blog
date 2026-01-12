@@ -1,0 +1,44 @@
+<form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+  <div class="row mb-2">
+    <label for="title" class="form-label p-0 fw-bold">Title:</label>
+    <input type="text" id="title" formControlName="title" class="form-control input" placeholder="Title">
+  </div>
+  @if (title?.invalid && (title?.dirty || title?.touched)) {
+  @if (title?.hasError("backend")) {
+  <div class="text-danger">{{title?.errors?.['backend'] }}</div>
+  }
+  @if (title?.hasError("required")) {
+  <div class="text-danger">tilte is required.</div>
+  }
+  @if (title?.hasError("minlength") || title?.hasError("maxlength")) {
+  <div class="text-danger">title must be between 10 and 50 characters.</div>
+  }
+  }
+
+  <div class="row align-items-end p-0">
+    <div class="col-6 p-0">
+      <app-jobs-select [control]="categorie" [label]="'Categorie'" />
+    </div>
+    <div class="col-6 mb-3">
+      <label for="form-label"></label>
+      <app-button-submit [value]="'Share'" />
+    </div>
+  </div>
+
+
+  <div class="row">
+    @if (content?.invalid && (content?.dirty || content?.touched)) {
+    @if (content?.hasError("backend")) {
+    <div class="text-danger">{{content?.errors?.['backend'] }}</div>
+    }
+    @if (content?.hasError("required")) {
+    <div class="text-danger">content is required.</div>
+    }
+    @if (content?.hasError("minlength") || content?.hasError("maxlength")) {
+    <div class="text-danger">content must be between 100 and 10000 characters.</div>
+    }
+    }
+    <textarea class="form-control text-area" formControlName="title" formControlName="content" id="content"
+      placeholder="Share your ideas…"></textarea>
+  </div>
+</form>

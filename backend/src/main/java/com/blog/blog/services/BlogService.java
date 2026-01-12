@@ -32,6 +32,7 @@ public class BlogService {
         BlogEntity blgEnt = BlogEntity.builder()
                 .title(input.getTitle())
                 .content(input.getContent())
+                .categorie(input.getCategorie())
                 .userBlog(auth.getUser())
                 .build();
         blgRepo.save(blgEnt);
@@ -40,6 +41,7 @@ public class BlogService {
                 .id(blgEnt.getId())
                 .title(blgEnt.getTitle())
                 .commentsCount(0L)
+                .categorie(blgEnt.getCategorie())
                 .likeCount(0L)
                 .createdAt(blgEnt.getCreatedAt())
                 .content(blgEnt.getContent())

@@ -28,8 +28,6 @@ public class UserController {
 
     @GetMapping("/search")
     public List<SearchedUsers> getProfiles(@RequestParam String name, @AuthenticationPrincipal UserInfo auth) {
-        System.out.println(
-                "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
         return userServices.getProfiles(name, auth.getId());
     }
 

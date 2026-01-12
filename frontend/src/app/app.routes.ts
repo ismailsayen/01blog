@@ -13,8 +13,8 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./layouts/main-layout/main-layout').then((m) => m.MainLayout),
-    loadChildren:()=>import('./layouts/main-layout/main-layout.routes').then((m)=> m.routes),
+      import('./layouts/main-layout').then((m) => m.MainLayout),
+    loadChildren: () => import('./layouts/main-layout.routes').then((m) => m.routes),
     title: 'home',
     canActivateChild: [authGuard],
   },

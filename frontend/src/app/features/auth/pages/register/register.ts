@@ -36,7 +36,7 @@ export class Register implements OnInit {
       updateOn: 'submit',
     }),
     job: new FormControl('', {
-      validators: [Validators.required, ValidJob],
+      validators: [ ValidJob],
       updateOn: 'submit',
     }),
     password: new FormControl('', [
