@@ -38,7 +38,21 @@
     <div class="text-danger">content must be between 100 and 10000 characters.</div>
     }
     }
-    <textarea class="form-control text-area" formControlName="title" formControlName="content" id="content"
-      placeholder="Share your ideas…"></textarea>
+
+    <div class="position-relative">
+      <div class="position-absolute details bg-primary">
+        <div>
+          <label for="media"></label>
+          <input type="file" id="media" accept="image/*,video/*" (change)="onUploadMedia($event)">
+        </div>
+      </div>
+      <textarea class="form-control text-area p-3" formControlName="title" formControlName="content" id="content"
+        placeholder="Share your ideas…">
+      </textarea>
+    </div>
   </div>
 </form>
+
+<markdown [data]="data()">
+
+</markdown>
