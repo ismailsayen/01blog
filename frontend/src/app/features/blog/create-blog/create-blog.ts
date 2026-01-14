@@ -1,16 +1,16 @@
 import { Component, inject, signal } from '@angular/core';
-import { JobsSelect } from '../auth/components/jobs-select/jobs-select';
+import { JobsSelect } from '../../auth/components/jobs-select/jobs-select';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ButtonSubmit } from '../auth/components/button-submit/button-submit';
-import { BlogService } from './services/blog.service';
+import { ButtonSubmit } from '../../auth/components/button-submit/button-submit';
+import { BlogService } from '../services/blog.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged, single } from 'rxjs';
-import { BlogResult } from './components/blog-result/blog-result';
+import { BlogResult } from '../blog-result/blog-result';
 import { NgClass } from '@angular/common';
-import { ValidJob } from '../../utils/customValidators';
-import { ValidMedia, VerifySize } from '../../utils/ValidationMedia';
-import { itCategories } from '../../core/shared/webDevJobs';
-import { MediaService } from '../../core/services/media/media.service';
+import { ValidJob } from '../../../utils/customValidators';
+import { ValidMedia, VerifySize } from '../../../utils/ValidationMedia';
+import { itCategories } from '../../../core/shared/webDevJobs';
+import { MediaService } from '../../../core/services/media/media.service';
 
 @Component({
   selector: 'app-create-blog',

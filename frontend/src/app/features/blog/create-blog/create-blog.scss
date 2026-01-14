@@ -1,4 +1,4 @@
-@use '../../../styles/variables' as vars;
+@use '../../../../styles/variables' as vars;
 
 
 .input {
@@ -11,7 +11,7 @@
 
 .input:focus {
     box-shadow: none;
-    height: 100px;
+    height: 100px;   
 }
 
 .text-area {

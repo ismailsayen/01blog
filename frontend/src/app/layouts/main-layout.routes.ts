@@ -9,7 +9,7 @@ export const routes: Routes = [
   },
   {
     path: 'create-blog',
-    loadComponent: () => import('../features/create-blog/create-blog').then(m => m.CreateBlog),
+    loadComponent: () => import('../features/blog/create-blog/create-blog').then(m => m.CreateBlog),
     title: "create-blog"
   }
 ]
