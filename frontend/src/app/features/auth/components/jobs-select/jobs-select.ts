@@ -9,8 +9,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './jobs-select.scss',
 })
 export class JobsSelect {
-  
-  jobs = webDevJobs;
+  jobs = input(webDevJobs);
+  label = input('Job');
   control = input.required<FormControl>();
-  label=input('Job')
 }

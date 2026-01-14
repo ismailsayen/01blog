@@ -1,7 +1,7 @@
 <div class="mb-3">
   <label for="job" class="form-label fw-bold">{{label()}} : </label>
   <select class="form-select" id="job" [formControl]="control()" value="'------'">
-    @for (job of jobs; track $index) {
+    @for (job of jobs(); track $index) {
     <optgroup [label]="job.option">
       @for (element of job.elements; track $index) {
       <option [value]="element">
@@ -17,11 +17,10 @@
   <div class="text-danger">{{control().errors?.['backend'] }}</div>
   }
   @if (control().hasError("required")) {
-  <div class="text-danger">job is required.</div>
+  <div class="text-danger">{{label()}} is required.</div>
   }
   @if (control().hasError("invalidJob")) {
-  <div class="text-danger">Invalid job selected.</div>
+  <div class="text-danger">Invalid {{label()}} selected.</div>
   }
   }
-
 </div>

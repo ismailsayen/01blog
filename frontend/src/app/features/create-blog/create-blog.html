@@ -17,7 +17,7 @@
 
   <div class="row align-items-end p-0">
     <div class="col-6 p-0">
-      <app-jobs-select [control]="categorie" [label]="'Categorie'" />
+      <app-jobs-select [control]="categorie" [label]="'Categorie'" [jobs]="categories" />
     </div>
     <div class="col-6 mb-3">
       <label for="form-label"></label>
@@ -38,8 +38,16 @@
     <div class="text-danger">content must be between 100 and 10000 characters.</div>
     }
 
-    @if (content?.hasError("invalidMedia")) {
-    <div class="text-danger">media allowed: jpg, jpeg, webp, mp4, webm</div>
+    @if (content?.hasError('invalidMedia')) {
+    <div class="text-danger">
+      Allowed media formats: JPG, JPEG, WEBP, MP4, WEBM.
+    </div>
+    }
+
+    @if (content?.hasError('maxMedia')) {
+    <div class="text-danger">
+      Only 5 media files are allowed.
+    </div>
     }
 
     }
@@ -55,7 +63,7 @@
         </div>
       </div>
       <textarea class="form-control text-area p-3" formControlName="title" formControlName="content" id="content"
-        placeholder="Share your ideas…">
+        placeholder="Share your ideas…" minlength="100" maxlength="10000">
       </textarea>
     </div>
   </div>
