@@ -37,13 +37,21 @@
     @if (content?.hasError("minlength") || content?.hasError("maxlength")) {
     <div class="text-danger">content must be between 100 and 10000 characters.</div>
     }
+
+    @if (content?.hasError("invalidMedia")) {
+    <div class="text-danger">media allowed: jpg, jpeg, webp, mp4, webm</div>
+    }
+
     }
 
     <div class="position-relative">
-      <div class="position-absolute details bg-primary">
+      <div class="position-absolute d-flex gap-2 details p-2 ">
         <div>
-          <label for="media"></label>
-          <input type="file" id="media" accept="image/*,video/*" (change)="onUploadMedia($event)">
+          <label for="media"><i class="bi bi-file-earmark-image"></i></label>
+          <input type="file" id="media" class="d-none" accept="image/*,video/*" (change)="onUploadMedia($event)">
+        </div>
+        <div>
+          <i [ngClass]="!showResult()?'bi bi-eye':'bi bi-eye-slash'" role="button" (click)="changeVisibility()"></i>
         </div>
       </div>
       <textarea class="form-control text-area p-3" formControlName="title" formControlName="content" id="content"
@@ -53,6 +61,6 @@
   </div>
 </form>
 
-<markdown [data]="data()">
-
-</markdown>
+@if(showResult()){
+<app-blog-result [data]="data()" />
+}

@@ -21,6 +21,7 @@
     resize: initial;
     min-height: 600px;
     font-size: 1.5em;
+
     &:focus {
         box-shadow: none;
         border: 1px solid vars.$my-green;
@@ -33,6 +34,21 @@
     font-size: 1em;
 }
 
-.details{
-    right: 10px;
+.details {
+    right: 17px;
+    top: 5px;
+    background-color: rgb(144, 208, 62, 0.5);
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+
+    .bi {
+        font-size: 20px;
+        cursor: pointer;
+        transition: .2s ease-in-out;
+
+        &:hover {
+            color: vars.$my-green;
+        }
+    }
+
 }

@@ -5,10 +5,10 @@ import { TokenService } from '../../../../core/services/token/token.service';
 import { Router, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { Auth } from '../service/auth';
-import { lengthValidator, ValidJob } from '../../utils/customValidators';
 import { ButtonSubmit } from '../../components/button-submit/button-submit';
 import { JobsSelect } from '../../components/jobs-select/jobs-select';
 import { HeaderForm } from "../../components/header-form/header-form";
+import { lengthValidator, ValidJob } from '../../../../utils/customValidators';
 
 @Component({
   selector: 'app-register',

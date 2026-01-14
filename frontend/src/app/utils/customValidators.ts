@@ -1,5 +1,5 @@
 import { AbstractControl } from "@angular/forms";
-import { webDevJobs } from "../../../core/shared/webDevJobs";
+import { webDevJobs } from "../core/shared/webDevJobs";
 
 export function lengthValidator(control: AbstractControl): { [key: string]: boolean } | null {
   if (!control.value) return null;
