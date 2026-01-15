@@ -27,7 +27,7 @@ export class SearchModals implements OnInit {
 
   ngOnInit(): void {
     this.userInput.valueChanges.pipe(
-      debounceTime(400),
+      debounceTime(600),
       distinctUntilChanged(),
       switchMap(value => {
         if (!value?.trim()) {

@@ -4,13 +4,14 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonSubmit } from '../../auth/components/button-submit/button-submit';
 import { BlogService } from '../services/blog.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged, single } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, from, interval, map, mergeMap, of, single, switchMap, tap, toArray } from 'rxjs';
 import { BlogResult } from '../blog-result/blog-result';
 import { NgClass } from '@angular/common';
 import { ValidJob } from '../../../utils/customValidators';
 import { ValidMedia, VerifySize } from '../../../utils/ValidationMedia';
 import { itCategories } from '../../../core/shared/webDevJobs';
 import { MediaService } from '../../../core/services/media/media.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-blog',
@@ -22,6 +23,7 @@ export class CreateBlog {
   blogService = inject(BlogService);
   showResult = signal(false);
   mediaService = inject(MediaService);
+  router = inject(Router)
   categories = itCategories;
 
   createForm = new FormGroup({
@@ -68,7 +70,9 @@ export class CreateBlog {
 
   onUploadMedia(event: Event) {
     const inputElement = event.target as HTMLInputElement;
-    if (!inputElement.files || inputElement.files.length === 0) return;
+    if (!inputElement.files || inputElement.files.length === 0) {
+      return
+    };
 
     const file = inputElement.files[0];
     if (!ValidMedia(file.type)) {
@@ -86,16 +90,19 @@ export class CreateBlog {
       });
       return;
     }
+
     this.mediaService.checkTextContainMedia(this.content?.value);
+
     const file_url = this.mediaService.serveMediaLocaly(file);
 
-    if(!file_url){
+    if (!file_url) {
       this.createForm.controls.content.markAllAsTouched();
       this.createForm.controls.content.setErrors({
         maxMedia: true,
       });
       return
     }
+    inputElement.value = ""
     this.content?.setValue(this.content?.value + `\n\n![media](${file_url})\n`);
   }
 
@@ -104,20 +111,47 @@ export class CreateBlog {
       this.createForm.markAllAsTouched();
       return;
     }
-    console.log(this.createForm.value);
 
-    const body = this.createForm.getRawValue();
+    this.mediaService.checkTextContainMedia(this.content?.value)
 
-    this.blogService.create(body).subscribe({
+    from(this.mediaService.mediaItems).pipe(
+      mergeMap(
+        (item, i) => {
+          let form = new FormData()
+          form.append("file", item.file)
+          form.append("oldUrl", item.previewUrl)
+
+          return this.mediaService.saveMedia(form).pipe(
+            catchError(err => {
+              throw of({ err: true, i, error: err });
+            })
+          )
+        }, 3),
+      toArray(),
+      tap(results => {
+        let value = this.content?.value ?? '';
+
+        results.forEach(res => {
+          value = value.replaceAll(res.OldUrl, res.newURL);
+        });
+
+        this.content?.setValue(value);
+      }),
+      switchMap(() => {
+        const body = this.createForm.getRawValue();
+        return this.blogService.create(body);
+      })
+    ).subscribe({
       next: (res) => {
         console.log(res);
+        this.router.navigateByUrl('/')
       },
       error: (err) => {
+
         if (err.status === 400 && err.error) {
           Object.keys(err.error).forEach((field: any) => {
             const control = this.createForm.get(field);
             if (control) {
-              console.log(err);
               control.setErrors({ backend: err.error[field] });
             }
           });

@@ -1,13 +1,18 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MediaItem } from '../../shared/interfaces/MediaItem';
+import { HttpClient } from '@angular/common/http';
+import { API_URL } from '../../shared/api-url';
+import { ResponseMedia } from '../../shared/interfaces/BlogInterface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MediaService {
   mediaItems: MediaItem[] = [];
+  http = inject(HttpClient)
 
   checkTextContainMedia(text: string | null | undefined) {
+
     this.mediaItems = this.mediaItems.filter((item) => {
       const exists = text?.includes(item.previewUrl);
       if (!exists) {
@@ -16,17 +21,39 @@ export class MediaService {
       return exists;
     });
   }
-  serveMediaLocaly(file: File) {
+
+  serveMediaLocaly(file: File): string | null {
     if (this.mediaItems.length > 4) {
       return null;
     }
+
+    const existingItem = this.mediaItems.find(
+      item =>
+        item.file.name === file.name &&
+        item.file.size === file.size &&
+        item.file.lastModified === file.lastModified
+    );
+
+    if (existingItem) {
+      return existingItem.previewUrl;
+    }
+
     const item: MediaItem = {
-      id: crypto.randomUUID(),
       file,
       previewUrl: URL.createObjectURL(file),
     };
-    this.mediaItems.push(item);
 
-    return item.previewUrl  ;
+    this.mediaItems.push(item);
+    return item.previewUrl;
+  }
+
+  saveMedia(form: FormData) {
+    return this.http.post<ResponseMedia>(API_URL + "/uploadMedia", form)
+  }
+
+  replceLocalURlToCloudinaryUrl(text: string | null, data: ResponseMedia) {
+
+    let newText = text?.replaceAll(data.OldUrl, data.newURL)
+    return newText;
   }
 }

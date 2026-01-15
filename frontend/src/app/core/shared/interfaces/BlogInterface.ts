@@ -10,3 +10,10 @@ export interface BlogInterface {
   title: number;
   userName: number;
 }
+
+
+export interface ResponseMedia {
+  previewUrl(previewUrl: any, newURL: string): string | null;
+  OldUrl: string;
+  newURL: string;
+}

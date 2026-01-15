@@ -18,13 +18,13 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
     UserRepository authRepo;
 
     @Autowired
-    private BCryptPasswordEncoder encoder;
+    BCryptPasswordEncoder encoder;
 
     @Transactional
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         Optional<Long> adminID = authRepo.findByRole("ROLE_ADMIN");
-        if(adminID.isPresent()){
+        if (adminID.isPresent()) {
             System.out.println("ADMIN");
             return;
         }
