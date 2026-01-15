@@ -12,7 +12,7 @@
       </div>
       <div class="search-body px-2">
         <p class="fw-bold">Users</p>
-        @if (loader.loading()) {
+        @if (loader()) {
         <p class="text-center">loading...</p>
         }@else {
         @if(users()===undefined){

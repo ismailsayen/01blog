@@ -31,7 +31,7 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
         UserEntity adminCreate = UserEntity.builder()
                 .userName("ismailSAYEN 02")
                 .email("ismailSayen02@gmail.com")
-                .password(encoder.encode("1234"))
+                .password(encoder.encode("1234567890"))
                 .role("ROLE_ADMIN")
                 .banned(false)
                 .job("------")

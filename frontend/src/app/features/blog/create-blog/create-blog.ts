@@ -4,7 +4,20 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonSubmit } from '../../auth/components/button-submit/button-submit';
 import { BlogService } from '../services/blog.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { catchError, debounceTime, distinctUntilChanged, from, interval, map, mergeMap, of, single, switchMap, tap, toArray } from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  from,
+  interval,
+  map,
+  mergeMap,
+  of,
+  single,
+  switchMap,
+  tap,
+  toArray,
+} from 'rxjs';
 import { BlogResult } from '../blog-result/blog-result';
 import { NgClass } from '@angular/common';
 import { ValidJob } from '../../../utils/customValidators';
@@ -12,6 +25,7 @@ import { ValidMedia, VerifySize } from '../../../utils/ValidationMedia';
 import { itCategories } from '../../../core/shared/webDevJobs';
 import { MediaService } from '../../../core/services/media/media.service';
 import { Router } from '@angular/router';
+import { SnackbarService } from '../../../core/shared/components/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-create-blog',
@@ -23,8 +37,9 @@ export class CreateBlog {
   blogService = inject(BlogService);
   showResult = signal(false);
   mediaService = inject(MediaService);
-  router = inject(Router)
+  router = inject(Router);
   categories = itCategories;
+  snackbarService = inject(SnackbarService);
 
   createForm = new FormGroup({
     categorie: new FormControl('', {
@@ -71,8 +86,8 @@ export class CreateBlog {
   onUploadMedia(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     if (!inputElement.files || inputElement.files.length === 0) {
-      return
-    };
+      return;
+    }
 
     const file = inputElement.files[0];
     if (!ValidMedia(file.type)) {
@@ -100,9 +115,9 @@ export class CreateBlog {
       this.createForm.controls.content.setErrors({
         maxMedia: true,
       });
-      return
+      return;
     }
-    inputElement.value = ""
+    inputElement.value = '';
     this.content?.setValue(this.content?.value + `\n\n![media](${file_url})\n`);
   }
 
@@ -112,51 +127,53 @@ export class CreateBlog {
       return;
     }
 
-    this.mediaService.checkTextContainMedia(this.content?.value)
-
-    from(this.mediaService.mediaItems).pipe(
-      mergeMap(
-        (item, i) => {
-          let form = new FormData()
-          form.append("file", item.file)
-          form.append("oldUrl", item.previewUrl)
+    this.mediaService.checkTextContainMedia(this.content?.value);
+    this.snackbarService.info('Your blog is being saved...');
+    from(this.mediaService.mediaItems)
+      .pipe(
+        mergeMap((item, i) => {
+          let form = new FormData();
+          form.append('file', item.file);
+          form.append('oldUrl', item.previewUrl);
 
           return this.mediaService.saveMedia(form).pipe(
-            catchError(err => {
+            catchError((err) => {
               throw of({ err: true, i, error: err });
             })
-          )
+          );
         }, 3),
-      toArray(),
-      tap(results => {
-        let value = this.content?.value ?? '';
+        toArray(),
+        tap((results) => {
+          let value = this.content?.value ?? '';
 
-        results.forEach(res => {
-          value = value.replaceAll(res.OldUrl, res.newURL);
-        });
-
-        this.content?.setValue(value);
-      }),
-      switchMap(() => {
-        const body = this.createForm.getRawValue();
-        return this.blogService.create(body);
-      })
-    ).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.router.navigateByUrl('/')
-      },
-      error: (err) => {
-
-        if (err.status === 400 && err.error) {
-          Object.keys(err.error).forEach((field: any) => {
-            const control = this.createForm.get(field);
-            if (control) {
-              control.setErrors({ backend: err.error[field] });
-            }
+          results.forEach((res) => {
+            value = value.replaceAll(res.OldUrl, res.newURL);
           });
-        }
-      },
-    });
+
+          this.content?.setValue(value);
+        }),
+        switchMap(() => {
+          const body = this.createForm.getRawValue();
+          return this.blogService.create(body);
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigateByUrl('/');
+          this.snackbarService.success('Your blog was created successfully.');
+        },
+        error: (err) => {
+          if (err.status === 400 && err.error) {
+            Object.keys(err.error).forEach((field: any) => {
+              const control = this.createForm.get(field);
+              if (control) {
+                control.setErrors({ backend: err.error[field] });
+              }
+            });
+          }
+          this.snackbarService.error('Failed to create your blog.');
+        },
+      });
   }
 }

@@ -15,7 +15,7 @@ import { UserCard } from '../../../features/auth/components/user-card/user-card'
 export class SearchModals implements OnInit {
   searchService = inject(SearchUsersService)
   users = signal<SearchedUsers[] | null | undefined>(undefined);
-  loader = inject(MethodPostLoaderService);
+  loader = signal(false)
 
   userInput = new FormControl('', [
     Validators.required,
@@ -37,16 +37,18 @@ export class SearchModals implements OnInit {
           this.userInput.markAsTouched()
           return of(this.users());
         }
+        this.loader.set(true)
         return this.searchService.search(value);
       })
     ).subscribe({
       next: (res) => {
         if (res?.length === 0) {
-          console.log(res.length);
+          this.loader.set(false)
           this.users.set(null)
           return
         }
         this.users.set(res)
+        this.loader.set(false)
 
       }
     });

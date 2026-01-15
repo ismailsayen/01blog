@@ -2,11 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { InternalService } from './core/services/errors/internal.service';
 import { Errors } from "./core/shared/components/errors/errors";
-import { AuthService } from './core/services/auth/auth.service';
+import { Snackbar } from './core/shared/components/snackbar/snackbar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Errors],
+  imports: [RouterOutlet, Errors,Snackbar],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

@@ -17,23 +17,26 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       Authorization: token ? `Bearer ${token}` : '',
     },
   });
-
-
+  if (req.method.toUpperCase() == 'POST') {
     loader.show();
+  }
 
   return next(req).pipe(
     catchError((err) => {
       const status = err.status;
       const detail = err.error?.detail;
 
-      if (status === 403 && detail === 'Your account has been banned.' && router.url !== "/auth/login") {
+      if (
+        status === 403 &&
+        detail === 'Your account has been banned.' &&
+        router.url !== '/auth/login'
+      ) {
         errService.showPopUp(
           'banne',
           'Banned',
           'Your account has been banned. Please contact support.'
         );
-      }
-      else if (status === 500) {
+      } else if (status === 500) {
         errService.showPopUp(
           'server',
           'Server Error 500!',
@@ -45,10 +48,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     }),
 
     finalize(() => {
-
+      if (req.method.toUpperCase() == 'POST') {
         loader.hide();
-
-
+      }
     })
   );
 };

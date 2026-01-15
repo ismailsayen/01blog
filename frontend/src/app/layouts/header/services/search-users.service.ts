@@ -11,6 +11,8 @@ export class SearchUsersService {
   http = inject(HttpClient);
 
   search(value: string) {
+    console.log(value);
+    
     return this.http.get<SearchedUsers[]>(API_URL + `/user/search?name=${value}`)
   }
 
