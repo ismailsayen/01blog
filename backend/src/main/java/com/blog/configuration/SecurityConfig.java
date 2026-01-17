@@ -30,8 +30,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
                 .cors((cors) -> cors.configurationSource(apiConfigurationSource()))
-                .authorizeHttpRequests(req -> req.requestMatchers("/auth/*").permitAll()
-                        .anyRequest().authenticated())
+                .authorizeHttpRequests(
+                        req -> req.requestMatchers("/auth/*", "/uploadMedia").permitAll()
+                                .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(JwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

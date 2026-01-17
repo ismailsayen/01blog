@@ -1,14 +1,14 @@
 <header class="border-bottom">
     <div class="container py-2" bis_skin_checked="1">
         <div class="d-flex flex-wrap align-items-center justify-content-between" bis_skin_checked="1">
-
-            <img ngSrc="/assets/images/logo.png" width="278" height="133" class="logo-auth" alt="logo" priority>
+            <a routerLink="/">
+                <img src="/assets/images/logo.png" width="278" height="133" class="logo-auth" alt="logo">
+            </a>
             <div class="w-25">
                 <app-search-modals />
             </div>
-
             <ul class="d-flex align-items-center p-0 m-0 gap-3">
-                <li><a routerLink="/create-blog" >
+                <li><a routerLink="/create-blog">
                         <i class="bi bi-plus-square"></i>
                     </a>
                 </li>
@@ -17,11 +17,11 @@
                     <div class="dropdown text-end" bis_skin_checked="1">
                         <a class="d-block link-dark text-decoration-none dropdown-toggle profile-details"
                             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="mdo" width="35" height="35"
-                                class="rounded-circle">
+                            <img [src]="authService.currentUser()?.avatar || '/assets/images/default-user.jpg'"
+                                alt="mdo" width="35" height="35" class="rounded-circle" />
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a  routerLink="/create-blog" class="dropdown-item">New project...</a></li>
+                            <li><a routerLink="/create-blog" class="dropdown-item">New project...</a></li>
                             <li><a class="dropdown-item">Settings</a></li>
                             <li><a class="dropdown-item">Profile</a></li>
                             <li>

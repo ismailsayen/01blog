@@ -39,7 +39,8 @@ public class UserEntity {
 
     private Long countfollowers;
     private Long countfollowing;
-
+    @Column(nullable = true)
+    private String avatar;
     private Boolean banned;
     @Column(columnDefinition = "TIMESTAMP")
     private final LocalDateTime createdAt = DateNowFormatted.nowDateTime();

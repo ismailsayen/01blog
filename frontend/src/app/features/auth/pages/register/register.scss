@@ -16,3 +16,29 @@ input:focus {
     color: vars.$my-green;
   }
 }
+
+.upload-icon {
+  padding: 20px;
+  border: 1px dashed;
+  border-radius: 10px;
+  font-size: 60px;
+  cursor: pointer;
+  transition: .4s ease-in-out;
+
+  &:hover {
+    color: vars.$my-green ;
+  }
+}
+
+.media-prev {
+  width: fit-content;
+}
+
+.delete-icon {
+  color: red;
+  font-size: 20px;
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  cursor: pointer;
+}

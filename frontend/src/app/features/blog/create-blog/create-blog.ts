@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { JobsSelect } from '../../auth/components/jobs-select/jobs-select';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonSubmit } from '../../auth/components/button-submit/button-submit';
@@ -16,12 +16,13 @@ import {
   single,
   switchMap,
   tap,
+  throwError,
   toArray,
 } from 'rxjs';
 import { BlogResult } from '../blog-result/blog-result';
 import { NgClass } from '@angular/common';
 import { ValidJob } from '../../../utils/customValidators';
-import { ValidMedia, VerifySize } from '../../../utils/ValidationMedia';
+import { ValidImage, ValidVideo, VerifySize } from '../../../utils/ValidationMedia';
 import { itCategories } from '../../../core/shared/webDevJobs';
 import { MediaService } from '../../../core/services/media/media.service';
 import { Router } from '@angular/router';
@@ -33,7 +34,7 @@ import { SnackbarService } from '../../../core/shared/components/snackbar/snackb
   templateUrl: './create-blog.html',
   styleUrl: './create-blog.scss',
 })
-export class CreateBlog {
+export class CreateBlog implements OnDestroy {
   blogService = inject(BlogService);
   showResult = signal(false);
   mediaService = inject(MediaService);
@@ -55,6 +56,9 @@ export class CreateBlog {
     }),
     media: new FormControl(null),
   });
+  ngOnDestroy(): void {
+    this.mediaService.removeFiles()
+  }
 
   changeVisibility() {
     this.showResult.set(!this.showResult());
@@ -90,7 +94,7 @@ export class CreateBlog {
     }
 
     const file = inputElement.files[0];
-    if (!ValidMedia(file.type)) {
+    if ((!ValidImage(file.type) && file.type.startsWith("image/")) || (!ValidVideo(file.type) && file.type.startsWith("video/"))) {
       this.createForm.controls.content.markAllAsTouched();
       this.createForm.controls.content.setErrors({
         invalidMedia: true,
@@ -117,8 +121,9 @@ export class CreateBlog {
       });
       return;
     }
+    const fileToMarkdow = file.type.startsWith("video/") ? this.mediaService.generateVideoHtml(file_url) : `\n![media](${file_url})`
+    this.content?.setValue(this.content?.value + fileToMarkdow);
     inputElement.value = '';
-    this.content?.setValue(this.content?.value + `\n\n![media](${file_url})\n`);
   }
 
   onSubmit() {
@@ -138,7 +143,7 @@ export class CreateBlog {
 
           return this.mediaService.saveMedia(form).pipe(
             catchError((err) => {
-              throw of({ err: true, i, error: err });
+              return throwError(() => err)
             })
           );
         }, 3),
@@ -159,7 +164,6 @@ export class CreateBlog {
       )
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.router.navigateByUrl('/');
           this.snackbarService.success('Your blog was created successfully.');
         },

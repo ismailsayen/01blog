@@ -47,6 +47,7 @@ public class AuthRestController {
                 .userName(auth.getUser().getUserName())
                 .role(auth.getUser().getRole())
                 .banned(auth.getUser().getBanned())
+                .avatar(auth.getUser().getAvatar())
                 .createdAt(auth.getUser().getCreatedAt())
                 .build();
     }

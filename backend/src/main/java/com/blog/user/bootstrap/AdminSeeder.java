@@ -34,6 +34,7 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
                 .password(encoder.encode("1234567890"))
                 .role("ROLE_ADMIN")
                 .banned(false)
+                .avatar(null)
                 .job("------")
                 .build();
         authRepo.save(adminCreate);

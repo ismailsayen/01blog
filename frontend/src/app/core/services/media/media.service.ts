@@ -35,7 +35,7 @@ export class MediaService {
     );
 
     if (existingItem) {
-      return existingItem.previewUrl;
+      return existingItem.previewUrl
     }
 
     const item: MediaItem = {
@@ -44,6 +44,8 @@ export class MediaService {
     };
 
     this.mediaItems.push(item);
+
+
     return item.previewUrl;
   }
 
@@ -51,9 +53,19 @@ export class MediaService {
     return this.http.post<ResponseMedia>(API_URL + "/uploadMedia", form)
   }
 
-  replceLocalURlToCloudinaryUrl(text: string | null, data: ResponseMedia) {
+  removeFiles() {
+    this.mediaItems = this.mediaItems.filter((item) => {
+      URL.revokeObjectURL(item.previewUrl);
 
-    let newText = text?.replaceAll(data.OldUrl, data.newURL)
-    return newText;
+    });
+  }
+
+  generateVideoHtml(url: string) {
+    return `\n
+<video width="320" height="240" controls>
+  <source src="${url}" >
+  Your browser does not support the video tag.
+</video>
+      `
   }
 }

@@ -18,8 +18,7 @@ public class UserServices {
         return userRepo.findById(id).get();
     }
 
-    public  List<SearchedUsers> getProfiles(String name, Long id) {
-        System.out.println(name+"==="+id);
-        return userRepo.findByUserName(name,id);
+    public List<SearchedUsers> getProfiles(String name, Long id) {
+        return userRepo.findByUserName(name, id);
     }
 }

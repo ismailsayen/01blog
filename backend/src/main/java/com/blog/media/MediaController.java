@@ -19,7 +19,7 @@ public class MediaController {
     @PostMapping("/uploadMedia")
     public ResponseEntity<MediaResponse> UploadMedia(@RequestParam("file") MultipartFile file,
             @RequestParam("oldUrl") String oldUrl) throws IOException {
-        System.out.println(file.getName() + " ------> " + oldUrl);
+        System.out.println(oldUrl);
         return mediaService.saveMedia(file, oldUrl);
     }
 

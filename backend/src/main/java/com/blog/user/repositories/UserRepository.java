@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query("SELECT u.id FROM UserEntity u WHERE u.role = :role")
     Optional<Long> findByRole(@Param("role") String role);
 
-    @Query(value = "SELECT u.id, u.user_name, u.job FROM users u WHERE u.user_name ILIKE '%' || :name || '%' AND u.id<>:id", nativeQuery = true)
+    @Query(value = "SELECT u.id, u.user_name, u.job, u.avatar FROM users u WHERE u.user_name ILIKE '%' || :name || '%' AND u.id<>:id", nativeQuery = true)
     List<SearchedUsers> findByUserName(@Param("name") String name, @Param("id") Long id);
 
 }

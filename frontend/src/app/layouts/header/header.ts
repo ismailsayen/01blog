@@ -7,7 +7,7 @@ import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [NgOptimizedImage,SearchModals,RouterLink],
+  imports: [SearchModals,RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })

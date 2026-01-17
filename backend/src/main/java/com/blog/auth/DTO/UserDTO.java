@@ -39,6 +39,7 @@ public class UserDTO {
         @NotBlank(message = "Password should be between 8 and 16 characters")
         @Size(min = 8, max = 16, message = "Password should be between 8 and 16 characters")
         private String password;
+        private String avatar;
     }
 
     @Data
@@ -47,6 +48,7 @@ public class UserDTO {
     public static class UserOutput {
         private Long id;
         private String userName;
+        private String avatar;
         private String email;
         private String job;
         private Boolean banned;

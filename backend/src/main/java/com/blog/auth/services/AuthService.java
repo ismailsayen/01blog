@@ -36,6 +36,7 @@ public class AuthService {
                 .userName(user.getUserName())
                 .role("ROLE_USER")
                 .banned(false)
+                .avatar(user.getAvatar())
                 .build();
         authRepo.save(entity);
 
@@ -47,6 +48,7 @@ public class AuthService {
                 .job(entity.getJob())
                 .banned(false)
                 .createdAt(entity.getCreatedAt())
+                .avatar(entity.getAvatar())
                 .token(jwt.generateToken(entity.getId()))
                 .build();
 
@@ -69,6 +71,7 @@ public class AuthService {
                     .userName(entity.getUserName())
                     .role(entity.getRole())
                     .banned(entity.getBanned())
+                    .avatar(entity.getAvatar())
                     .createdAt(entity.getCreatedAt())
                     .token(jwt.generateToken(entity.getId()))
                     .build();

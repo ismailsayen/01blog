@@ -1,14 +1,18 @@
-import { AuthService } from './../../../../core/services/auth/auth.service';
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TokenService } from '../../../../core/services/token/token.service';
-import { Router, RouterLink } from '@angular/router';
-import { NgClass } from '@angular/common';
-import { Auth } from '../service/auth';
-import { ButtonSubmit } from '../../components/button-submit/button-submit';
-import { JobsSelect } from '../../components/jobs-select/jobs-select';
-import { HeaderForm } from "../../components/header-form/header-form";
-import { lengthValidator, ValidJob } from '../../../../utils/customValidators';
+import { AuthService } from './../../../../core/services/auth/auth.service'
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core'
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { TokenService } from '../../../../core/services/token/token.service'
+import { Router, RouterLink } from '@angular/router'
+import { NgClass } from '@angular/common'
+import { Auth } from '../service/auth'
+import { ButtonSubmit } from '../../components/button-submit/button-submit'
+import { JobsSelect } from '../../components/jobs-select/jobs-select'
+import { HeaderForm } from "../../components/header-form/header-form"
+import { lengthValidator, ValidJob } from '../../../../utils/customValidators'
+import { SnackbarService } from '../../../../core/shared/components/snackbar/snackbar.service'
+import { ValidImage, VerifySize } from '../../../../utils/ValidationMedia'
+import { MediaService } from '../../../../core/services/media/media.service'
+import { catchError, defaultIfEmpty, from, mergeMap, of, switchMap, tap, throwError } from 'rxjs'
 
 @Component({
   selector: 'app-register',
@@ -16,14 +20,21 @@ import { lengthValidator, ValidJob } from '../../../../utils/customValidators';
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
-export class Register implements OnInit {
-  authService = inject(AuthService);
-  tokenService = inject(TokenService);
-  auth = inject(Auth);
-  router = inject(Router);
-  backendError = signal<string | null>(null);
+export class Register implements OnInit, OnDestroy {
+  authService = inject(AuthService)
+  tokenService = inject(TokenService)
+  auth = inject(Auth)
+  router = inject(Router)
+  backendError = signal<string | null>(null)
+  snackbarService = inject(SnackbarService)
+  previewUrl = signal<{ previewUrl: string, file: File } | null>(null)
+  mediaService = inject(MediaService)
   ngOnInit(): void {
     this.auth.showPassword.set(false)
+  }
+  ngOnDestroy(): void {
+    this.mediaService.removeFiles()
+    this.previewUrl.set(null)
   }
 
   registerForm = new FormGroup({
@@ -36,7 +47,7 @@ export class Register implements OnInit {
       updateOn: 'submit',
     }),
     job: new FormControl('', {
-      validators: [ ValidJob],
+      validators: [ValidJob],
       updateOn: 'submit',
     }),
     password: new FormControl('', [
@@ -44,50 +55,115 @@ export class Register implements OnInit {
       Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@-_;:.?()<>!$]).+$/),
       lengthValidator,
     ]),
-  });
+    avatar: new FormControl(null)
+  })
 
   get userName() {
-    return this.registerForm.get('userName');
+    return this.registerForm.get('userName')
   }
 
   get email() {
-    return this.registerForm.get('email');
+    return this.registerForm.get('email')
   }
 
   get password() {
-    return this.registerForm.get('password');
+    return this.registerForm.get('password')
   }
 
   get job() {
-    return this.registerForm.get('job') as FormControl;
+    return this.registerForm.get('job') as FormControl
   }
 
-  onSubmit() {
-    if (this.registerForm.invalid) {
-      this.backendError.set(null);
-      return;
+  get avatar() {
+    return this.registerForm.get('avatar') as FormControl
+  }
+
+  removePerview() {
+    URL.revokeObjectURL(this.previewUrl()?.previewUrl ?? "")
+    this.previewUrl.set(null)
+    this.mediaService.removeFiles()
+
+  }
+
+
+  onUploadMedia(event: Event) {
+    const inputElement = event.target as HTMLInputElement
+    if (!inputElement.files || inputElement.files.length === 0) {
+      return
     }
-    const body = this.registerForm.getRawValue();
-    this.auth.registerReq(body).subscribe({
+    const file = inputElement.files[0]
+    if (!ValidImage(file.type)) {
+      this.registerForm.controls.avatar.markAllAsTouched()
+      this.registerForm.controls.avatar.setErrors({
+        invalidMedia: true,
+      })
+      return
+    }
+
+    if (!VerifySize(file.type, file.size)) {
+
+      this.registerForm.controls.avatar.markAllAsTouched()
+      this.registerForm.controls.avatar.setErrors({
+        invalidMedia: true,
+      })
+      return
+    }
+    this.previewUrl.set({ previewUrl: URL.createObjectURL(file), file })
+    this.mediaService.serveMediaLocaly(file)
+    inputElement.value = ""
+  }
+
+
+  onSubmit() {
+
+    if (this.registerForm.invalid) {
+      this.backendError.set(null)
+      return
+    }
+    console.log(this.mediaService.mediaItems);
+
+    from(this.mediaService.mediaItems).pipe(
+      mergeMap((item) => {
+        let form = new FormData();
+        form.append('file', item.file);
+        form.append('oldUrl', item.previewUrl);
+
+        return this.mediaService.saveMedia(form).pipe(
+          catchError((err) => {
+            return throwError(() => err)
+          })
+        );
+      }, 1),
+      tap((result) => {
+        this.avatar?.setValue(result.newURL)
+      }),
+      defaultIfEmpty(null),
+      switchMap(() => {
+        const body = this.registerForm.getRawValue()
+        return this.auth.registerReq(body)
+      })
+    ).subscribe({
       next: (res) => {
-        this.authService.currentUser.set(res);
-        this.tokenService.setTokent(res.token);
-        this.router.navigateByUrl('/');
+
+        this.authService.currentUser.set(res)
+        this.tokenService.setTokent(res.token)
+        this.router.navigateByUrl('/')
+        this.snackbarService.success("Your account is being created.")
       },
       error: (err) => {
         if (err.status === 409 && err.error) {
-          this.backendError.set(err.error);
-          return;
+          this.backendError.set(err.error)
+          return
         }
         if (err.status === 400 && err.error) {
           Object.keys(err.error).forEach((field: any) => {
-            const control = this.registerForm.get(field);
+            const control = this.registerForm.get(field)
             if (control) {
-              control.setErrors({ backend: err.error[field] });
+              control.setErrors({ backend: err.error[field] })
             }
-          });
+          })
         }
       },
-    });
+    })
   }
 }

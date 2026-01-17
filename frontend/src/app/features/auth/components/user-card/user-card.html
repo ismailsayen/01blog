@@ -1,6 +1,6 @@
 @for (user of users(); track user.id) {
 <div class="rounded p-1 border-bottom mb-2 d-flex gap-2 align-items-center user-card">
-  <img src="https://github.com/mdo.png" alt="avatar" class="rounded-circle" width="40" height="40">
+  <img [src]="user.avatar || '/assets/images/default-user.jpg'"alt="avatar" class="rounded-circle" width="40" height="40">
   <div class="d-flex  justify-content-center flex-column gap-1">
     <p class="m-0">{{user.userName}}</p>
     <p class="text-muted m-0 " style="font-size: 14px;">{{user.job}}</p>

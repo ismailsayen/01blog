@@ -5,6 +5,7 @@
 - JPA Entity Lifecycle
 - Hibernate Persistence Context
 - tomcat
+- handle error of upload media on backend
 -----------------------------------------frontend---------------------------------------------------
 theorique:
 - how angular works
@@ -14,4 +15,6 @@ theorique:
 - data binding
 task: 
 - css for activate link
-- convert the content to markdown 
+- style the content to markdown 
+- add snackbar for logout
+- handle message error of media
