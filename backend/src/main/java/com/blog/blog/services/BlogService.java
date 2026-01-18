@@ -31,6 +31,8 @@ public class BlogService {
     public BlogDTO.BlogOutput addPostService(BlogDTO.BlogInput input, UserInfo auth) {
         BlogEntity blgEnt = BlogEntity.builder()
                 .title(input.getTitle())
+                .commentsCount(0L)
+                .likeCount(0L)
                 .content(input.getContent())
                 .categorie(input.getCategorie())
                 .userBlog(auth.getUser())
@@ -47,6 +49,8 @@ public class BlogService {
                 .content(blgEnt.getContent())
                 .userId(auth.getId())
                 .userName(auth.getUsername())
+                .job(auth.getUser().getJob())
+                .avatar(auth.getUser().getAvatar())
                 .build();
     }
 

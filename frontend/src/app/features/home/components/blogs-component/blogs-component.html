@@ -1,1 +1,17 @@
-    <h1>hello</h1>    
+<div class="blg-container w-100 bg-info" (scroll)="onScroll($event)">
+    @if(!loader() && blogService.blogs().length){
+    @for (blog of blogService.blogs(); track blog.id) {
+        <app-blog-card [blog]="blog" />
+    }
+    }
+    @if(!loader() && !blogService.blogs().length) {
+    <h4>Empty</h4>
+    }
+
+
+    @if(loader()){
+    <div class="w-100 text-center">
+        <p>loading</p>
+    </div>
+    }
+</div>

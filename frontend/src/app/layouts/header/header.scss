@@ -1,6 +1,13 @@
 @use '../../../styles/variables' as vars;
 
 
+header{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+}
+
 .logo-auth {
   width: 100px;
   height: auto;
@@ -28,3 +35,5 @@ ul {
 .profile-details {
   cursor: pointer;
 }
+
+

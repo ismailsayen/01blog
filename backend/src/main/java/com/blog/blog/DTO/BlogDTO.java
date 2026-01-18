@@ -38,9 +38,12 @@ public class BlogDTO {
         private LocalDateTime lastUpdateAt;
         private Long likeCount;
         private Long userId;
-        private String content;
         private String categorie;
+        private String content;
         private String title;
         private String userName;
+        private String job;
+        private String avatar;
+
     }
 }

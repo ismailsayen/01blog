@@ -5,12 +5,14 @@ export interface BlogInterface {
   lastUpdateAt: Date | null;
   likeCount: number;
   userId: number;
-  content: number;
-  categorie: number;
-  title: number;
-  userName: number;
+  content: string;
+  categorie: string;
+  title: string;
+  userName: string;
+  job: string;
+  avatar: string | null;
+  image: string | null;
 }
-
 
 export interface ResponseMedia {
   previewUrl(previewUrl: any, newURL: string): string | null;
