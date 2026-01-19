@@ -14,7 +14,7 @@ import com.blog.blog.models.BlogEntity;
 
 @Repository
 public interface BlogRepository extends JpaRepository<BlogEntity, Long> {
-    @Query(value = "SELECT b.*, u.user_name, u.job, u.avatar FROM blogs b INNER JOIN users u ON b.user_id=u.id WHERE b.user_id IN (SELECT following_id FROM follows WHERE following_id=u.id AND follower_id =:id)", nativeQuery = true)
+    @Query(value = "SELECT b.*, u.user_name, u.job, u.avatar, EXISTS(SELECT 1 FROM reactions r WHERE r.user_id=:id AND b.id=r.blog_id) as liked FROM blogs b INNER JOIN users u ON b.user_id=u.id WHERE b.user_id IN (SELECT following_id FROM follows WHERE  follower_id =:id)", nativeQuery = true)
     List<BlogDTO.BlogOutput> findAllData(@Param("id") Long id, Pageable pageable);
 
     @Query(value = "SELECT b.*, u.user_name FROM blogs b INNER JOIN users u ON b.user_id=u.id WHERE b.id=:id", nativeQuery = true)

@@ -1,29 +1,35 @@
-.react{
-    position: relative;
-    background-color: #F5F5F5;
-    padding: 4px 8px;
-    border-radius: 20px;
+@use '../../../../../styles/_variables.scss' as vars;
+.react {
+  position: relative;
+  background-color: #f5f5f5;
+  padding: 4px 8px;
+  border-radius: 20px;
+  .bi:hover {
+    color: vars.$my-green;
+  }
 }
-
+.liked {
+  color: vars.$my-green;
+}
 .loader {
-  border: 2px solid rgba(0, 0, 0, .1);
+  border: 2px solid vars.$my-green;
   border-left-color: transparent;
   border-radius: 50%;
 }
 
 .loader {
-  border: 2px solid rgba(0, 0, 0, .1);
+  border: 2px solid vars.$my-green;
   border-left-color: transparent;
   width: 10px;
   height: 10px;
 }
 
 .loader {
-  border: 2px solid rgba(0, 0, 0, .1);
+  border: 2px solid vars.$my-green;
   border-left-color: transparent;
   width: 20px;
   height: 20px;
-  animation: spin89345 .5s linear infinite;
+  animation: spin89345 0.5s linear infinite;
 }
 
 @keyframes spin89345 {

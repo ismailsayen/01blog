@@ -4,7 +4,12 @@
             @if(loader()){
             <div class="loader"></div>
             }@else {
+            @if(liked()){
+            <i class="bi bi-hand-thumbs-up-fill liked" role="button" (click)="onClik()"></i>
+            }@else {
+
             <i class="bi bi-hand-thumbs-up" role="button" (click)="onClik()"></i>
+            }
             {{likeCount()}}
             }
         </div>

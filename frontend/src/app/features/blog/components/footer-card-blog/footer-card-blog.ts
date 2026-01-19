@@ -1,7 +1,6 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
 
-
 @Component({
   selector: 'app-footer-card-blog',
   imports: [],
@@ -14,8 +13,11 @@ export class FooterCardBlog {
   likeCount = input.required<number>();
   commentsCount = input.required<number>();
   createdAt = input.required<Date>();
+  liked = input.required<boolean>();
+
   blogService = inject(BlogService);
   loader = signal(false);
+  
   onClik() {
     this.loader.set(true);
     this.blogService.ReactToBlog(this.id()).subscribe({
@@ -24,7 +26,7 @@ export class FooterCardBlog {
         this.blogService.blogs.update((blogs) =>
           blogs.map((blog) =>
             blog.id === this.id()
-              ? { ...blog, likeCount: Math.max(0, blog.commentsCount + n) }
+              ? { ...blog, likeCount: Math.max(0, blog.commentsCount + n), liked: res.status }
               : blog
           )
         );

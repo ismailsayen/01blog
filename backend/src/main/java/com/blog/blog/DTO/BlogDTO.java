@@ -44,7 +44,7 @@ public class BlogDTO {
         private String userName;
         private String job;
         private String avatar;
-
+        private Boolean liked;
     }
 
     @Data
