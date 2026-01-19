@@ -44,7 +44,7 @@ export class CreateBlog implements OnDestroy {
       updateOn: 'submit',
     }),
     title: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(10), Validators.maxLength(50)],
+      validators: [Validators.required, Validators.minLength(10), Validators.maxLength(100)],
       updateOn: 'submit',
     }),
     content: new FormControl('', {

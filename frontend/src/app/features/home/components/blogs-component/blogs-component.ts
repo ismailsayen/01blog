@@ -24,7 +24,6 @@ export class BlogsComponent implements OnInit {
     this.loader.set(true);
     this.blogService.getBlogsHome(this.page, this.size).subscribe({
       next: (res) => {
-        console.log(res);
         
         this.blogService.blogs.set(res);
       },

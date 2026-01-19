@@ -12,10 +12,16 @@ export interface BlogInterface {
   job: string;
   avatar: string | null;
   image: string | null;
+  liked: boolean;
 }
 
 export interface ResponseMedia {
   previewUrl(previewUrl: any, newURL: string): string | null;
   OldUrl: string;
   newURL: string;
+}
+
+export interface ReactionResponse {
+  blogId: number;
+  status: boolean;
 }

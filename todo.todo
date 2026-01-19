@@ -6,6 +6,7 @@
 - Hibernate Persistence Context
 - tomcat
 - handle error of upload media on backend
+- handle order of blogs if some blogs are updtaed
 -----------------------------------------frontend---------------------------------------------------
 theorique:
 - how angular works

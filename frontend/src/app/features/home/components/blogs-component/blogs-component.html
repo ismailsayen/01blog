@@ -1,7 +1,8 @@
-<div class="blg-container w-100 bg-info" (scroll)="onScroll($event)">
+<div class="blg-container w-100" (scroll)="onScroll($event)">
     @if(!loader() && blogService.blogs().length){
     @for (blog of blogService.blogs(); track blog.id) {
         <app-blog-card [blog]="blog" />
+        <hr>
     }
     }
     @if(!loader() && !blogService.blogs().length) {

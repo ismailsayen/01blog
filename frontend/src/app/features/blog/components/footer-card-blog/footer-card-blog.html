@@ -1,1 +1,24 @@
-<p>footer-card-blog works!</p>
+<div class="w-100 d-flex align-items-center justify-content-between mt-2">
+    <div class="d-flex align-items-center justify-content-between gap-3">
+        <div class="react">
+            @if(loader()){
+            <div class="loader"></div>
+            }@else {
+            <i class="bi bi-hand-thumbs-up" role="button" (click)="onClik()"></i>
+            {{likeCount()}}
+            }
+        </div>
+        <div class="react">
+            <i class="bi bi-chat"></i>
+            {{commentsCount()}}
+        </div>
+    </div>
+
+    <p class="text-muted p-0 m-0">
+        @if(lastUpdateAt()){
+        last update: {{lastUpdateAt()}}
+        }@else {
+        {{createdAt()}}
+        }
+    </p>
+</div>

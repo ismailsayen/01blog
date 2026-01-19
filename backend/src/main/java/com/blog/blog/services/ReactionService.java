@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
+import com.blog.blog.DTO.BlogDTO;
 import com.blog.blog.models.BlogEntity;
 import com.blog.blog.models.ReactionEntity;
 import com.blog.blog.repositories.ReactionRepository;
@@ -19,7 +20,7 @@ public class ReactionService {
     @Autowired
     BlogService blgService;
 
-    public String addOrDeleteReaction(Long blogId, UserInfo auth) {
+    public BlogDTO.ReactionResponse addOrDeleteReaction(Long blogId, UserInfo auth) {
         BlogEntity blog = blgService.getBlogById(blogId);
         Optional<ReactionEntity> reaction = rctRepo.findByBlogReacted_IdAndUserReacted_Id(blogId, auth.getId());
         if (!reaction.isPresent()) {
@@ -29,11 +30,15 @@ public class ReactionService {
                     .build();
             rctRepo.save(newReaction);
             blog.setLikeCount(blog.getLikeCount() == null ? 1 : blog.getLikeCount() + 1);
-            return "You liked";
+            return BlogDTO.ReactionResponse.builder().blogId(blogId)
+                    .status(true)
+                    .build();
         }
         rctRepo.delete(reaction.get());
         blog.setLikeCount(blog.getLikeCount() == null ? 0 : blog.getLikeCount() - 1 < 0 ? 0 : blog.getLikeCount() - 1);
-        return "You disliked";
+        return BlogDTO.ReactionResponse.builder()
+                .blogId(blogId)
+                .status(false)
+                .build();
     }
-
 }

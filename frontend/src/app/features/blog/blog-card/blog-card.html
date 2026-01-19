@@ -1,4 +1,8 @@
-<div class="w-100">
+<div class="w-100 mb-1">
     <app-header-card-blog [categorie]="blog().categorie" [userName]="blog().userName" [avatar]="blog().avatar"
         [job]="blog().job" />
+
+    <app-body-card-blog [title]="blog().title" [content]="blog().content" [image]="blog().image" />
+    <app-footer-card-blog [id]="blog().id" [createdAt]="blog().createdAt" [lastUpdateAt]="blog().lastUpdateAt"
+        [likeCount]="blog().likeCount" [commentsCount]="blog().commentsCount" />
 </div>

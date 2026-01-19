@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.auth.DTO.UserInfo;
+import com.blog.blog.DTO.BlogDTO;
 import com.blog.blog.services.ReactionService;
 
 @RestController
@@ -18,7 +19,7 @@ public class ReactionController {
     ReactionService rctService;
 
     @PostMapping("/{blogId}")
-    public String addOrDeleteReaction(@PathVariable Long blogId,@AuthenticationPrincipal UserInfo auth) {
+    public BlogDTO.ReactionResponse addOrDeleteReaction(@PathVariable Long blogId,@AuthenticationPrincipal UserInfo auth) {
         return rctService.addOrDeleteReaction(blogId,auth);
     }
     

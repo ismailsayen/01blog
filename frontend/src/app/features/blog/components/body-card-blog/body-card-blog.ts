@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-body-card-blog',
@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './body-card-blog.scss',
 })
 export class BodyCardBlog {
-
+  image = input<string | null>('');
+  title = input.required<string>();
+  content = input.required<string>();
 }

@@ -17,7 +17,7 @@ public class BlogDTO {
     @AllArgsConstructor
     public static class BlogInput {
         @NotNull(message = "The title must not be null or empty.")
-        @Size(min = 10, max = 50, message = "The title must be between 10 and 50 characters.")
+        @Size(min = 10, max = 100, message = "The title must be between 10 and 100 characters.")
         private String title;
         @NotNull(message = "The content must not be null or empty.")
         @Size(min = 100, max = 10000, message = "The content must be between 100 and 10000 characters.")
@@ -45,5 +45,14 @@ public class BlogDTO {
         private String job;
         private String avatar;
 
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ReactionResponse {
+        private Long blogId;
+        private Boolean status;
     }
 }
