@@ -20,9 +20,12 @@
                 <circle cx="12" cy="19" r="1"></circle>
             </svg>
 
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
+            <ul class="dropdown-menu ">
+                <li><a class="dropdown-item d-flex align-items-center gap-1" href="#"><i class="bi bi-eye"></i>
+                        <span>view</span></a></li>
+                <li class="dropdown-item d-flex align-items-center gap-1" (click)="reportService.show(id(),'blog')" >
+                    <i class="bi bi-flag"></i> <span>report</span>
+                </li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
         </div>

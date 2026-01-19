@@ -5,4 +5,7 @@
     <div class="users-home col-3 bg-danger">
         <app-suggested-users />
     </div>
+    @if(reportService.showReport()){
+    <app-report-modal />
+    }
 </div>

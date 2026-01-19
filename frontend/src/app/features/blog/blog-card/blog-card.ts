@@ -12,4 +12,5 @@ import { FooterCardBlog } from "../components/footer-card-blog/footer-card-blog"
 })
 export class BlogCard {
   blog = input.required<BlogInterface>();
+
 }

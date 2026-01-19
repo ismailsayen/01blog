@@ -4,6 +4,7 @@ import { BlogService } from '../../../blog/services/blog.service';
 import { BlogInterface } from '../../../../core/shared/interfaces/BlogInterface';
 import { BlogCard } from '../../../blog/blog-card/blog-card';
 import { SnackbarService } from '../../../../core/shared/components/snackbar/snackbar.service';
+import { ReportService } from '../../../../core/services/reports/report.service';
 
 @Component({
   selector: 'app-blogs-component',
@@ -12,19 +13,16 @@ import { SnackbarService } from '../../../../core/shared/components/snackbar/sna
   styleUrl: './blogs-component.scss',
 })
 export class BlogsComponent implements OnInit {
- 
   blogService = inject(BlogService);
   loader = signal(false);
-  
   snackbarService = inject(SnackbarService);
-
+  reportService = inject(ReportService  );
   page = 0;
   size = 10;
   ngOnInit(): void {
     this.loader.set(true);
     this.blogService.getBlogsHome(this.page, this.size).subscribe({
       next: (res) => {
-        
         this.blogService.blogs.set(res);
       },
       error: () => {
@@ -36,9 +34,9 @@ export class BlogsComponent implements OnInit {
     });
   }
 
-  @HostListener('window:scrollend', ['$event'])
+  // @HostListener('window:scrollend', ['$event'])
   onScroll(event: Event) {
-    console.log(window.innerWidth);
-    console.log('=>', window.scrollY);
+    // console.log(window.innerWidth);
+    // console.log('=>', window.scrollY);
   }
 }

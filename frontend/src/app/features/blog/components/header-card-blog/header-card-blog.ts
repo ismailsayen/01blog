@@ -1,4 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { ReportModal } from "../report-modal/report-modal";
+import { ReportService } from '../../../../core/services/reports/report.service';
 
 @Component({
   selector: 'app-header-card-blog',
@@ -7,8 +9,12 @@ import { Component, input } from '@angular/core';
   styleUrl: './header-card-blog.scss',
 })
 export class HeaderCardBlog {
+  id = input.required<number>();
   avatar = input<string|null>();
   userName = input.required<string>();
   job = input.required<string>();
   categorie = input.required<string>();
+    reportService = inject(ReportService);
+
+  
 }
