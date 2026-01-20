@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.report.DTO.ReportDTO;
+import com.blog.report.DTO.ReportDTO.ReportReponse;
 import com.blog.report.models.ReportTargetType;
 import com.blog.report.services.ReportService;
 
@@ -32,11 +33,10 @@ public class ReportController {
     ReportService reportService;
 
     @PostMapping
-    public String addReport(@AuthenticationPrincipal UserInfo auth, @Valid @RequestBody ReportDTO.CreateReport data) {
+    public ReportReponse addReport(@AuthenticationPrincipal UserInfo auth, @Valid @RequestBody ReportDTO.CreateReport data) {
 
         return switch (getReportTargetType(data.getTargetType())) {
             case BLOG -> reportService.addBlogReport(auth, data);
-            case COMMENT -> reportService.addCommentReport(auth, data);
             default -> reportService.addProfileReport(auth, data);
         };
     }

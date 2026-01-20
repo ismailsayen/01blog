@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,8 +20,16 @@ public class ReportDTO {
         @NotNull
         private Long targetId;
         @NotBlank
-        @Pattern(regexp = "BLOG|COMMENT|PROFILE", message = "targetType must be BLOG, COMMENT or PROFILE")
+        @Pattern(regexp = "BLOG|COMMENT", message = "targetType must be BLOG or PROFILE")
         private String targetType;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @Builder
+    public static class ReportReponse {
+        private String Message;
+
     }
 
     @Data
@@ -34,10 +43,9 @@ public class ReportDTO {
         private String targetType;
         private Long reportedBy;
         private String userName;
-        private String commentContent;
     }
 
-     @Data
+    @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class AllReports {

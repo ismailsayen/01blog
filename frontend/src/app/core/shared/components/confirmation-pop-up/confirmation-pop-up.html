@@ -1,0 +1,18 @@
+<div class="cont p-3 rounded border">
+  <div class="text-center">
+    <i class="bi bi-exclamation-circle-fill text-danger"></i>
+    <h4>Are you sure?</h4>
+  </div>
+  <p>You want to repot this <span class="fw-bold">{{type()}}</span> of <span class="fw-bold">{{userName()}}</span></p>
+  <div class="footer justify-content-end gap-2 d-flex ">
+    <button class="btn border" (click)="reportService.hideConfirm()">Back</button>
+    <button class="btn bg-danger text-white" (click)="submit()" [disabled]="reportService.loader()" >
+      @if(reportService.loader()){
+        <div class="loader"></div>
+      }@else {
+        I'm sure
+      }
+
+    </button>
+  </div>
+</div>

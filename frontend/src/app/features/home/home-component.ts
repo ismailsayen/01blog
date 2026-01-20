@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { BlogsComponent } from './components/blogs-component/blogs-component';
 import { SuggestedUsers } from './components/suggested-users/suggested-users';
 import { ReportService } from '../../core/services/reports/report.service';
-import { ReportModal } from "../blog/components/report-modal/report-modal";
+import { ReportModal } from '../../core/shared/components/report-modal/report-modal';
 
 @Component({
   selector: 'app-home-component',

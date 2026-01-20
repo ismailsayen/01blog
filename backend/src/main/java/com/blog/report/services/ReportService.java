@@ -10,16 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.models.BlogEntity;
-import com.blog.blog.models.CommentEntity;
 import com.blog.blog.services.BlogService;
-import com.blog.blog.services.CommentService;
 import com.blog.report.DTO.ReportDTO;
 import com.blog.report.DTO.ReportDTO.AllReports;
+import com.blog.report.DTO.ReportDTO.ReportReponse;
 import com.blog.report.models.ReportEntity;
 import com.blog.report.models.ReportTargetType;
 import com.blog.report.repositories.ReportRepository;
-import com.blog.user.model.UserEntity
-;
+import com.blog.user.model.UserEntity;
 import com.blog.user.repositories.UserRepository;
 
 @Transactional
@@ -29,12 +27,11 @@ public class ReportService {
     ReportRepository reportRepo;
     @Autowired
     BlogService blgService;
-    @Autowired
-    CommentService cmntService;
+
     @Autowired
     UserRepository userRepo;
 
-    public String addBlogReport(UserInfo auth, ReportDTO.CreateReport data) {
+    public ReportReponse addBlogReport(UserInfo auth, ReportDTO.CreateReport data) {
         BlogEntity blog = blgService.getBlogById(data.getTargetId());
         ReportEntity report = ReportEntity.builder()
                 .reason(data.getReason())
@@ -43,22 +40,10 @@ public class ReportService {
                 .userReported(auth.getUser())
                 .build();
         reportRepo.save(report);
-        return "blog reported successfully";
+        return ReportReponse.builder().Message("blog reported successfully").build();
     }
 
-    public String addCommentReport(UserInfo auth, ReportDTO.CreateReport data) {
-        CommentEntity cmntEntity = cmntService.getComment(data.getTargetId());
-        ReportEntity report = ReportEntity.builder()
-                .reason(data.getReason())
-                .targetId(cmntEntity.getId())
-                .targetType(ReportTargetType.COMMENT)
-                .userReported(auth.getUser())
-                .build();
-        reportRepo.save(report);
-        return "Comment reported successfully";
-    }
-
-    public String addProfileReport(UserInfo auth, ReportDTO.CreateReport data) {
+    public ReportReponse addProfileReport(UserInfo auth, ReportDTO.CreateReport data) {
         UserEntity userEntity = userRepo.findById(data.getTargetId())
                 .orElseThrow(() -> new NoSuchElementException("No Profile found."));
         ReportEntity report = ReportEntity.builder()
@@ -68,7 +53,7 @@ public class ReportService {
                 .userReported(auth.getUser())
                 .build();
         reportRepo.save(report);
-        return "Profile reported successfully";
+        return ReportReponse.builder().Message("Profile reported successfully").build();
     }
 
     public List<ReportDTO.AllReports> getNewReports(Pageable pageable) {
@@ -94,6 +79,6 @@ public class ReportService {
     }
 
     public List<AllReports> getReportByType(Pageable pageable, ReportTargetType reportTargetType) {
-        return reportRepo.findByTargetType(reportTargetType.toString(),pageable);
+        return reportRepo.findByTargetType(reportTargetType.toString(), pageable);
     }
 }

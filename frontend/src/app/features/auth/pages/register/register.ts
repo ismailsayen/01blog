@@ -144,7 +144,6 @@ export class Register implements OnInit, OnDestroy {
       })
     ).subscribe({
       next: (res) => {
-
         this.authService.currentUser.set(res)
         this.tokenService.setTokent(res.token)
         this.router.navigateByUrl('/')

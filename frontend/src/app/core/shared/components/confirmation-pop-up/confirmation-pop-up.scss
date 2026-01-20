@@ -1,0 +1,45 @@
+.cont {
+  position: fixed;
+  z-index: 2001;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.bi {
+  font-size: 30px;
+}
+
+
+.loader {
+  border: 2px solid white;
+  border-left-color: transparent;
+  border-radius: 50%;
+}
+
+.loader {
+  border: 2px solid white;
+  border-left-color: transparent;
+  width: 10px;
+  height: 10px;
+}
+
+.loader {
+  border: 2px solid white;
+  border-left-color: transparent;
+  width: 20px;
+  height: 20px;
+  animation: spin89345 0.5s linear infinite;
+}
+
+@keyframes spin89345 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

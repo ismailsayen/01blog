@@ -1,5 +1,4 @@
 import { Component, inject, input } from '@angular/core';
-import { ReportModal } from "../report-modal/report-modal";
 import { ReportService } from '../../../../core/services/reports/report.service';
 
 @Component({
@@ -16,5 +15,5 @@ export class HeaderCardBlog {
   categorie = input.required<string>();
     reportService = inject(ReportService);
 
-  
+
 }

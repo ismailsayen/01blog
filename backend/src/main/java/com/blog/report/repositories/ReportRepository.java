@@ -20,7 +20,7 @@ public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
     @Query(value = "SELECT DISTINCT p.*, u.user_name FROM reports p INNER JOIN users u ON p.user_id=u.id", nativeQuery = true)
     public Page<AllReports> getNewRports(Pageable pageable);
 
-    @Query(value = "SELECT p.*, u.user_name, c.content  FROM reports p INNER JOIN users u ON p.user_id=u.id  LEFT JOIN comments c ON p.target_type = 'COMMENT' AND p.target_id = c.id where p.id=:id AND p.target_type=:target_type", nativeQuery = true)
+    @Query(value = "SELECT p.*, u.user_name  FROM reports p INNER JOIN users u ON p.user_id=u.id  where p.id=:id AND p.target_type=:target_type", nativeQuery = true)
     public Optional<ReportDTO.Report> findByIdAndTargetType(@Param("id") Long id,
             @Param("target_type") String target_type);
 

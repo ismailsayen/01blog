@@ -17,17 +17,19 @@ export class FooterCardBlog {
 
   blogService = inject(BlogService);
   loader = signal(false);
-  
+
   onClik() {
     this.loader.set(true);
     this.blogService.ReactToBlog(this.id()).subscribe({
       next: (res) => {
         const n = res.status ? 1 : -1;
+
         this.blogService.blogs.update((blogs) =>
           blogs.map((blog) =>
             blog.id === this.id()
-              ? { ...blog, likeCount: Math.max(0, blog.commentsCount + n), liked: res.status }
+              ? { ...blog, likeCount: Math.max(0, blog.likeCount + n), liked: res.status }
               : blog
+
           )
         );
         this.loader.set(false);
