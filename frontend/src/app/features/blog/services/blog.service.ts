@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { API_URL } from '../../../core/shared/api-url';
 import { BlogInterface, ReactionResponse } from '../../../core/shared/interfaces/BlogInterface';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,16 +10,17 @@ import { map } from 'rxjs';
 export class BlogService {
   http = inject(HttpClient);
   blogs = signal<BlogInterface[]>([]);
+
   create(data: any) {
     return this.http.post<BlogInterface>(API_URL + '/blog', data);
   }
   getBlogsHome(page: number, size: number) {
     return this.http.get<BlogInterface[]>(API_URL + `/blog?page=${page}&size=${size}`).pipe(
       map((ele) => {
-        
+
         const pattern: RegExp = /!\[[^\]]*]\((https?:\/\/[^)]+)\)/;
         ele.forEach((blog) => {
-          
+
           const match = pattern.exec(blog.content);
           if (match) {
             blog.content = blog.content.replace(match[0], '[IMAGE]');
@@ -29,6 +30,10 @@ export class BlogService {
           blog.content = blog.content.substring(0, 500);
         });
         return ele;
+      }),
+      tap((res)=>{
+        this.blogs.set([...this.blogs(),...res])
+
       })
     );
   }

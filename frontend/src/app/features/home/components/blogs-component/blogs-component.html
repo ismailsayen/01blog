@@ -1,18 +1,20 @@
-<div class="blg-container w-100" (scroll)="onScroll($event)">
-    @if(!loader() && blogService.blogs().length){
-    @for (blog of blogService.blogs(); track blog.id) {
-        <app-blog-card [blog]="blog" />
-        <hr>
-    }
-    }
-    @if(!loader() && !blogService.blogs().length) {
-    <h4>Empty</h4>
-    }
+<div class="blg-container w-100">
+  @if(!loader() && blogService.blogs().length){
+  @for (blog of blogService.blogs(); track $index) {
+  <app-blog-card [blog]="blog" />
+  <hr>
+  }
+  }
+  <div #ob [hidden]="loader() || !blogService.blogs().length"></div>
+
+  @if(!loader() && !blogService.blogs().length) {
+  <h4>Empty</h4>
+  }
 
 
-    @if(loader()){
-    <div class="w-100 text-center">
-        <p>loading...</p>
-    </div>
-    }
+  @if(loader()){
+  <div class="w-100 text-center">
+    <p>loading...</p>
+  </div>
+  }
 </div>
