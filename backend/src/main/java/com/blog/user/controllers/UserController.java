@@ -31,4 +31,9 @@ public class UserController {
         return userServices.getProfiles(name, auth.getId());
     }
 
+     @GetMapping("/suggested")
+    public List<SearchedUsers> getSuggestedProfiles(@AuthenticationPrincipal UserInfo auth) {
+        return userServices.getSuggestedProfiles(auth.getId());
+    }
+
 }

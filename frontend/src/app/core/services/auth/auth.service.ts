@@ -12,12 +12,14 @@ export class AuthService {
   http = inject(HttpClient);
   currentUser = signal<User | undefined | null>(undefined);
 
+  
+
   isLogged() {
     return this.http.post<User>(API_URL + '/auth/isLogged', null).pipe(
       tap(user => {
         this.currentUser.set(user)
       }),
-      catchError((err) => {
+      catchError(() => {
         this.currentUser.set(null)
         return of(null)
       })

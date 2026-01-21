@@ -1,15 +1,18 @@
-.main-body{
-    div{
-        text-align: justify;
-        width: 70%;
-        overflow-wrap: break-word;
-    }
-    .img{
-        width: 25%;
-        height: 115px;
-        border-radius: 10px;
-        object-fit: contain;
-        float: right;
-        shape-margin: 1rem;
-    }
+.main-body {
+  div {
+    text-align: justify;
+    width: 70%;
+    overflow-wrap: break-word;
+  }
+
+  .img {
+    height: 115px;
+    width: 25%;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: center;
+    float: right;
+    shape-margin: 1rem;
+  }
+
 }

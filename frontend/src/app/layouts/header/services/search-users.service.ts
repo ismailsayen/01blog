@@ -12,8 +12,12 @@ export class SearchUsersService {
 
   search(value: string) {
     console.log(value);
-    
+
     return this.http.get<SearchedUsers[]>(API_URL + `/user/search?name=${value}`)
+  }
+
+  getSuggestedUser() {
+    return this.http.get<SearchedUsers[]>(API_URL + `/user/suggested`)
   }
 
 }

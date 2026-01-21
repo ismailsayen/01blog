@@ -21,4 +21,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT u.id, u.user_name, u.job, u.avatar FROM users u WHERE u.user_name ILIKE '%' || :name || '%' AND u.id<>:id", nativeQuery = true)
     List<SearchedUsers> findByUserName(@Param("name") String name, @Param("id") Long id);
 
+    @Query(value = "SELECT u.id, u.user_name, u.job, u.avatar FROM users u WHERE u.id<>:id ORDER BY created_at DESC LIMIT 10", nativeQuery = true)
+    List<SearchedUsers> findSuggestedProfiles(@Param("id") Long id);
+
 }

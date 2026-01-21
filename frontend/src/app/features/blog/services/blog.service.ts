@@ -18,15 +18,22 @@ export class BlogService {
 
     return this.http.get<BlogInterface[]>(API_URL + `/blog?page=${page}&size=${size}`).pipe(
       map((ele) => {
-        const pattern: RegExp = /!\[[^\]]*]\((https?:\/\/[^)]+)\)/mg;
-        ele.forEach((blog) => {
-          blog.content = blog.content.substring(0, 500);
-          const matches = [...blog.content.matchAll(pattern)];
+        const imagePattern: RegExp = /!\[[^\]]*]\((https?:\/\/[^)]+)\)/mg;
+        const videoPattern:RegExp=/<video\b[^>]*>[\s\S]*?<\/video>/gi
 
-          matches.forEach((match, i) => {
+        ele.forEach((blog) => {
+          const Imagematches = [...blog.content.matchAll(imagePattern)];
+          blog.image = Imagematches.length > 1 ? Imagematches[0][1] : null;
+          const VideoMatches = [...blog.content.matchAll(videoPattern)];
+
+          Imagematches.forEach((match) => {
             blog.content = blog.content.replaceAll(match[0], '[IMAGE]');
-            blog.image = match[1];
           })
+
+          VideoMatches.forEach((match) => {
+            blog.content = blog.content.replaceAll(match[0], '[VIDEO]');
+          })
+          blog.content = blog.content.substring(0, 500);
         });
         return ele;
       }),

@@ -21,4 +21,9 @@ public class UserServices {
     public List<SearchedUsers> getProfiles(String name, Long id) {
         return userRepo.findByUserName(name, id);
     }
+
+    public List<SearchedUsers> getSuggestedProfiles(Long id) {
+        
+    return userRepo.findSuggestedProfiles(id);
+    }
 }

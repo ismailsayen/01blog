@@ -1,11 +1,11 @@
 <div class="row  justify-content-between pt-5 ">
-    <div class="col-9 ">
-        <app-blogs-component />
-    </div>
-    <div class="users-home col-3 bg-danger">
-        <app-suggested-users />
-    </div>
-    @if(reportService.showReport()){
-    <app-report-modal />
-    }
+  <div class="col-8">
+    <app-blogs-component />
+  </div>
+  <div class="users-home col-3">
+    <app-suggested-users />
+  </div>
+  @if(reportService.showReport()){
+  <app-report-modal />
+  }
 </div>
