@@ -1,9 +1,8 @@
 <div class="blg-container w-100">
-  @if(!loader() && blogService.blogs().length){
+
   @for (blog of blogService.blogs(); track $index) {
   <app-blog-card [blog]="blog" />
-  <hr>
-  }
+  <hr> 
   }
   <div #ob [hidden]="loader() || !blogService.blogs().length"></div>
 
@@ -13,8 +12,6 @@
 
 
   @if(loader()){
-  <div class="w-100 text-center">
-    <p>loading...</p>
-  </div>
+  <p class="w-100 text-center">loading...</p>
   }
 </div>

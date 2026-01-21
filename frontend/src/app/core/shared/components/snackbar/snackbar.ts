@@ -16,8 +16,6 @@ export class Snackbar {
       const value = this.state();
       if (value) {
         setTimeout(() => {
-          console.log(1);
-
           this.snackbarService.clear();
         }, value.duration);
       }

@@ -41,12 +41,9 @@ public class BlogController {
     }
 
     @GetMapping
-    public List<BlogDTO.BlogOutput> getAllBlogController(@RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size, @AuthenticationPrincipal UserInfo auth) {
-        Sort sort = Sort.by(
-                Sort.Order.desc("last_update_at").nullsLast(),
-                Sort.Order.desc("created_at"));
-
+    public List<BlogDTO.BlogOutput> getAllBlogController(@RequestParam int page,
+            @RequestParam int size, @AuthenticationPrincipal UserInfo auth) {
+        Sort sort = Sort.by(Sort.Order.desc("created_at"));
         Pageable pageable = PageRequest.of(page, size, sort);
         return blgService.getAllBlogs(pageable, auth.getId());
     }

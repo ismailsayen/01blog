@@ -6,7 +6,7 @@ import { ElementRef, inject, Injectable } from '@angular/core';
 export class ObserverService {
   observer: IntersectionObserver | undefined
 
-  createAndObserve(element: ElementRef) {
+  createAndObserve(element: ElementRef, callBack: () => void) {
     this.observer?.disconnect();
     const options = {
       root: null,
@@ -15,9 +15,8 @@ export class ObserverService {
     this.observer = new IntersectionObserver((entries) => {
       const entry = entries[0];
 
-      if (entry.isIntersecting ){
-
-        console.log(entry);
+      if (entry.isIntersecting) {
+        callBack()
       }
 
 

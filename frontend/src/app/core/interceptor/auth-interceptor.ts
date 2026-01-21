@@ -7,14 +7,14 @@ import { InternalService } from '../services/errors/internal.service';
 import { Router } from '@angular/router';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = inject(TokenService).getToken();
+  const token = inject(TokenService);
   const loader = inject(MethodPostLoaderService);
   const errService = inject(InternalService);
   const router = inject(Router);
 
   req = req.clone({
     setHeaders: {
-      Authorization: token ? `Bearer ${token}` : '',
+      Authorization: token.getToken() ? `Bearer ${token.getToken()}` : '',
     },
   });
   if (req.method.toUpperCase() == 'POST') {
@@ -42,6 +42,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           'Server Error 500!',
           'Something went wrong on our server. Please refresh the page and try again.'
         );
+      } else if (status === 401) {
+        token.clearToken()
+        router.navigateByUrl('/auth/login')
       }
 
       return throwError(() => err);

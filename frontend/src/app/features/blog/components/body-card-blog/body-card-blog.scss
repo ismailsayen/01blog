@@ -1,10 +1,15 @@
 .main-body{
-    p{
+    div{
         text-align: justify;
+        width: 70%;
+        overflow-wrap: break-word;
     }
-    img{
-        width: 30%;
+    .img{
+        width: 25%;
         height: 115px;
         border-radius: 10px;
+        object-fit: contain;
+        float: right;
+        shape-margin: 1rem;
     }
 }

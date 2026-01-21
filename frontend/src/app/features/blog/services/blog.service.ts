@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { API_URL } from '../../../core/shared/api-url';
 import { BlogInterface, ReactionResponse } from '../../../core/shared/interfaces/BlogInterface';
-import { map, tap } from 'rxjs';
+import { delay, map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,29 +15,27 @@ export class BlogService {
     return this.http.post<BlogInterface>(API_URL + '/blog', data);
   }
   getBlogsHome(page: number, size: number) {
+
     return this.http.get<BlogInterface[]>(API_URL + `/blog?page=${page}&size=${size}`).pipe(
       map((ele) => {
-
-        const pattern: RegExp = /!\[[^\]]*]\((https?:\/\/[^)]+)\)/;
+        const pattern: RegExp = /!\[[^\]]*]\((https?:\/\/[^)]+)\)/mg;
         ele.forEach((blog) => {
-
-          const match = pattern.exec(blog.content);
-          if (match) {
-            blog.content = blog.content.replace(match[0], '[IMAGE]');
-
-            blog.image = match[1];
-          }
           blog.content = blog.content.substring(0, 500);
+          const matches = [...blog.content.matchAll(pattern)];
+
+          matches.forEach((match, i) => {
+            blog.content = blog.content.replaceAll(match[0], '[IMAGE]');
+            blog.image = match[1];
+          })
         });
         return ele;
       }),
-      tap((res)=>{
-        this.blogs.set([...this.blogs(),...res])
-
+      tap((res) => {
+        this.blogs.set([...this.blogs(), ...res])
       })
     );
   }
   ReactToBlog(blogId: number) {
-    return this.http.post<ReactionResponse>(API_URL + `/reaction/${blogId}`,null);
+    return this.http.post<ReactionResponse>(API_URL + `/reaction/${blogId}`, null);
   }
 }
