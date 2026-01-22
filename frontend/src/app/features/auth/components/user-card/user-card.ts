@@ -1,5 +1,7 @@
-import { Component, input } from '@angular/core';
+import { Component, EventEmitter, inject, input, Output } from '@angular/core';
 import { SearchedUsers } from '../../../../core/shared/interfaces/SearchedUsers';
+import { AuthService } from '../../../../core/services/auth/auth.service';
+import { SearchUsersService } from '../../../../layouts/header/services/search-users.service';
 
 @Component({
   selector: 'app-user-card',
@@ -9,4 +11,10 @@ import { SearchedUsers } from '../../../../core/shared/interfaces/SearchedUsers'
 })
 export class UserCard {
   users = input<SearchedUsers[] | null | undefined>();
+  req = inject(SearchUsersService)
+  @Output() confirm = new EventEmitter<number>()
+
+  onClick(id: number) {
+    this.confirm.emit(id)
+  }
 }

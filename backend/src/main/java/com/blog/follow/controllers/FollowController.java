@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.auth.DTO.UserInfo;
+import com.blog.follow.DTO.FollowResponse;
 import com.blog.follow.services.FollowService;
 
 @RestController
@@ -18,7 +19,7 @@ public class FollowController {
     FollowService followService;
 
     @PostMapping("/{followingId}")
-    public String postMethodName(@PathVariable Long followingId, @AuthenticationPrincipal UserInfo auth)
+    public FollowResponse postMethodName(@PathVariable Long followingId, @AuthenticationPrincipal UserInfo auth)
             throws BadRequestException {
         return followService.addOrDeleteFollow(followingId, auth);
     }

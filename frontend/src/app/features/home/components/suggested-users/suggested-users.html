@@ -1,7 +1,7 @@
-<div class="w-100">
+<div class="cont w-100 rounded p-2">
     <h4>Suggested users:</h4>
-    <div class="n">
-        <app-user-card [users]="users()"/>
-    </div>
+ 
+        <app-user-card [users]="users()" (confirm)="sendFollowReq($event)" />
+
 </div>
 

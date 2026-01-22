@@ -3,8 +3,8 @@ import { FormControl, ReactiveFormsModule, Validators, } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs'
 import { SearchUsersService } from '../../header/services/search-users.service';
 import { SearchedUsers } from '../../../core/shared/interfaces/SearchedUsers';
-import { MethodPostLoaderService } from '../../../core/services/loaders/method-post-loader.service';
 import { UserCard } from '../../../features/auth/components/user-card/user-card';
+import { SnackbarService } from '../../../core/shared/components/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-search-modals',
@@ -16,6 +16,8 @@ export class SearchModals implements OnInit {
   searchService = inject(SearchUsersService)
   users = signal<SearchedUsers[] | null | undefined>(undefined);
   loader = signal(false)
+  snackBar = inject(SnackbarService)
+
 
   userInput = new FormControl('', [
     Validators.required,
@@ -52,5 +54,24 @@ export class SearchModals implements OnInit {
 
       }
     });
+  }
+
+  sendFollowReq(id: number) {
+    this.searchService.sendRequestFollow(id).subscribe({
+      next: (res => {        
+        this.users.update(users =>
+          users?.map(user =>
+            user.id === res.userId ? { ...user, followed: res.status } : user
+          )
+        )
+        this.snackBar.success(res.action)
+      }
+      ),
+      error: (err => {
+        console.log(err);
+
+      })
+    })
+  
   }
 }

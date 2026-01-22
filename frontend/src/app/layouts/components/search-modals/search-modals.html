@@ -21,7 +21,7 @@
         }@else if (users()===null) {
         <p class="fw-light text-center">No user Found</p>
         }@else {
-        <app-user-card [users]="users()" />
+        <app-user-card [users]="users()" (confirm)="sendFollowReq($event)" />
         }
         }
       </div>

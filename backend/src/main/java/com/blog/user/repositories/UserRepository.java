@@ -18,10 +18,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query("SELECT u.id FROM UserEntity u WHERE u.role = :role")
     Optional<Long> findByRole(@Param("role") String role);
 
-    @Query(value = "SELECT u.id, u.user_name, u.job, u.avatar FROM users u WHERE u.user_name ILIKE '%' || :name || '%' AND u.id<>:id", nativeQuery = true)
+    @Query(value = "SELECT u.id, u.user_name, u.job, u.avatar, EXISTS(SELECT 1 FROM follows f WHERE f.follower_id=:id AND f.following_id=u.id) as followed FROM users u WHERE u.user_name ILIKE '%' || :name || '%' AND u.id<>:id", nativeQuery = true)
     List<SearchedUsers> findByUserName(@Param("name") String name, @Param("id") Long id);
 
-    @Query(value = "SELECT u.id, u.user_name, u.job, u.avatar FROM users u WHERE u.id<>:id ORDER BY created_at DESC LIMIT 10", nativeQuery = true)
+    @Query(value = "SELECT u.id, u.user_name, u.job, u.avatar, (false) as followed FROM users u WHERE u.id<>:id AND NOT EXISTS (SELECT f.follower_id FROM follows f WHERE f.follower_id=:id AND f.following_id=u.id )  ORDER BY created_at DESC LIMIT 5", nativeQuery = true)
     List<SearchedUsers> findSuggestedProfiles(@Param("id") Long id);
 
 }

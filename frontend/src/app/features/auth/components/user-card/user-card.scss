@@ -1,7 +1,52 @@
-.user-card{
+@use '../../../../../styles/variables' as vars;
+.user-card {
   cursor: pointer;
-  transition: .3s ease-in-out;
-  &:hover{
+  transition: 0.3s ease-in-out;
+  &:hover {
     background-color: #f5f5f5;
+  }
+}
+
+button {
+  margin-left: auto;
+  background-color: vars.$my_green;
+  cursor: pointer;
+  border: none;
+  &:hover{
+  background-color: vars.$my_green;
+  }
+}
+.ico {
+  color: white;
+}
+
+.loader {
+  border: 2px solid white;
+  border-left-color: transparent;
+  border-radius: 50%;
+}
+
+.loader {
+  border: 2px solid white;
+  border-left-color: transparent;
+  width: 10px;
+  height: 10px;
+}
+
+.loader {
+  border: 2px solid white;
+  border-left-color: transparent;
+  width: 20px;
+  height: 20px;
+  animation: spin89345 0.5s linear infinite;
+}
+
+@keyframes spin89345 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }

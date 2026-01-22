@@ -8,3 +8,10 @@ export interface User {
   role: string;
   token: string;
 }
+
+
+export interface followResponse {
+  userId: number;
+  status: boolean;
+  action: string;
+}

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
+import com.blog.follow.DTO.FollowResponse;
 import com.blog.follow.models.FollowEntity;
 import com.blog.follow.repositories.FollowRepository;
 import com.blog.user.model.UserEntity;
@@ -22,7 +23,7 @@ public class FollowService {
     @Autowired
     FollowRepository followRepo;
 
-    public String addOrDeleteFollow(Long followingId, UserInfo auth) throws BadRequestException {
+    public FollowResponse addOrDeleteFollow(Long followingId, UserInfo auth) throws BadRequestException {
         if (auth.getId().equals(followingId)) {
             throw new BadRequestException("You cannot follow yourself");
         }
@@ -38,7 +39,7 @@ public class FollowService {
             followRepo.delete(relation.get());
             follower.setCountfollowing(dec(follower.getCountfollowing()));
             following.setCountfollowers(dec(following.getCountfollowers()));
-            return "You Unfollowed " + following.getUserName();
+            return new FollowResponse(followingId,false, "You Unfollowed " + following.getUserName());
         }
 
         followRepo.save(FollowEntity.builder()
@@ -48,7 +49,7 @@ public class FollowService {
 
         follower.setCountfollowing(inc(follower.getCountfollowing()));
         following.setCountfollowers(inc(following.getCountfollowers()));
-        return "You followed " + following.getUserName();
+        return new FollowResponse(followingId,true , "You followed " + following.getUserName());
     }
 
     private long inc(Long v) {
