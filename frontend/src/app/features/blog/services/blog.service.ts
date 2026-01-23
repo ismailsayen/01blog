@@ -9,7 +9,7 @@ import { catchError, delay, map, of, tap } from 'rxjs';
 })
 export class BlogService {
   http = inject(HttpClient);
-  blogs = signal<BlogInterface[]>([]);
+  blogs = signal<BlogInterface[] >([]);
 
   create(data: any) {
     return this.http.post<BlogInterface>(API_URL + '/blog', data);
@@ -26,7 +26,42 @@ export class BlogService {
           const VideoMatches = [...blog.content.matchAll(videoPattern)];
 
           blog.image = Imagematches.length > 1 ? Imagematches[0][1] : null;
-          
+
+          Imagematches.forEach((match) => {
+            blog.content = blog.content.replaceAll(match[0], '[IMAGE]');
+          })
+
+          VideoMatches.forEach((match) => {
+            blog.content = blog.content.replaceAll(match[0], '[VIDEO]');
+          })
+
+          blog.content = blog.content.substring(0, 500);
+        });
+        return ele;
+      }),
+      tap((res) => {
+        this.blogs.set([...this.blogs(), ...res])
+      }),
+      catchError((err) => {
+        console.log(err);
+        return of(err)
+      })
+    );
+  }
+
+  getProfileBlogs(profileId: number | null | undefined) {
+
+    return this.http.get<BlogInterface[]>(API_URL + `/blog/user/${profileId}`).pipe(
+      map((ele) => {
+        const imagePattern: RegExp = /!\[[^\]]*]\((https?:\/\/[^)]+)\)/mg;
+        const videoPattern: RegExp = /<video\b[^>]*>[\s\S]*?<\/video>/gm
+
+        ele.forEach((blog) => {
+          const Imagematches = [...blog.content.matchAll(imagePattern)];
+          const VideoMatches = [...blog.content.matchAll(videoPattern)];
+
+          blog.image = Imagematches.length > 1 ? Imagematches[0][1] : null;
+
           Imagematches.forEach((match) => {
             blog.content = blog.content.replaceAll(match[0], '[IMAGE]');
           })

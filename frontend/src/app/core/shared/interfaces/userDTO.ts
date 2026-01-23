@@ -15,3 +15,15 @@ export interface followResponse {
   status: boolean;
   action: string;
 }
+
+export interface ProfileData {
+  id: number;
+  userName: string;
+  job: string;
+  avatar: string;
+  createdAt: Date;
+  followers: number;
+  following: number;
+  followed: boolean;
+  MyAccount: boolean;
+}

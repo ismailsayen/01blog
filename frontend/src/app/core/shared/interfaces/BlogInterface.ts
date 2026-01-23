@@ -13,7 +13,10 @@ export interface BlogInterface {
   avatar: string | null;
   image: string | null;
   liked: boolean;
+  myBlog: boolean;
 }
+
+
 
 export interface ResponseMedia {
   previewUrl(previewUrl: any, newURL: string): string | null;

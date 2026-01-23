@@ -40,6 +40,12 @@ public class BlogController {
         return blgService.addPostService(input, auth);
     }
 
+    @GetMapping("/user/{idUser}")
+    public List<BlogDTO.BlogOutput> getMethodName(@PathVariable Long idUser,@AuthenticationPrincipal UserInfo auth) {
+        return blgService.getUserBlogs(idUser, auth.getId());
+    }
+    
+
     @GetMapping
     public List<BlogDTO.BlogOutput> getAllBlogController(@RequestParam int page,
             @RequestParam int size, @AuthenticationPrincipal UserInfo auth) {

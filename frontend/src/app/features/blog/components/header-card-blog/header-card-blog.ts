@@ -16,6 +16,6 @@ export class HeaderCardBlog {
   userId = input.required<number>();
   categorie = input.required<string>();
   reportService = inject(ReportService);
-
+  myBlog = input.required<boolean>();
 
 }

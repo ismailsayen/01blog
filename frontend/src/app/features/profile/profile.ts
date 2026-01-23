@@ -4,10 +4,11 @@ import { ProfileHeader } from "./components/profile-header/profile-header";
 import { ReportService } from '../../core/services/reports/report.service';
 import { ReportModal } from "../../core/shared/components/report-modal/report-modal";
 import { ProfileService } from './profile.service';
+import { ProfileBlogs } from "./components/profile-blogs/profile-blogs";
 
 @Component({
   selector: 'app-profile',
-  imports: [ProfileHeader, ReportModal],
+  imports: [ProfileHeader, ReportModal, ProfileBlogs],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })

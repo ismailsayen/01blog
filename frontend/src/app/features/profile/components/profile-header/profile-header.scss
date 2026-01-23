@@ -1,3 +1,5 @@
+@use '../../../../../styles/variables' as vars;
+
 .profile{
   background-color: #F3F4F6;
   // height: 150px;
@@ -11,4 +13,7 @@
     position: relative;
     top: 20px;
   }
+}
+.folow-btn{
+  background-color: vars.$my_green;
 }

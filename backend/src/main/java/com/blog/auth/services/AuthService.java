@@ -35,6 +35,8 @@ public class AuthService {
                 .job(user.getJob())
                 .userName(user.getUserName())
                 .role("ROLE_USER")
+                .countfollowers(0L)
+                .countfollowing(0L)
                 .banned(false)
                 .avatar(user.getAvatar())
                 .build();

@@ -1,5 +1,8 @@
 package com.blog.user.DTO;
 
+
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +26,7 @@ public class UserDTO {
         private String userName;
         private String job;
         private String avatar;
+        private LocalDateTime createdAt;
         private Long followers;
         private Long following;
         private Boolean followed;

@@ -101,4 +101,10 @@ public class BlogService {
                 .orElseThrow(() -> new NoSuchElementException("Blog not found."));
     }
 
+    public  List<BlogDTO.BlogOutput> getUserBlogs(Long idUser, Long id) {
+        
+        List<BlogDTO.BlogOutput> blogs=blgRepo.findBlogsById(idUser,id);
+        return blogs;
+    }
+
 }

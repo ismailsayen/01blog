@@ -45,7 +45,10 @@ public class BlogDTO {
         private String job;
         private String avatar;
         private Boolean liked;
+        private Boolean myBlog;
     }
+
+
 
     @Data
     @Builder
