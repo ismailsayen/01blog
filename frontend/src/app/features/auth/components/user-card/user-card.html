@@ -12,7 +12,7 @@
   </div>
   <button class="btn" (click)="onClick(user.id)">
 
-    @if(req.loader()){
+    @if(req.loaderById()?.isLoad && req.loaderById()?.id===user.id ){
     <div class="loader"></div>
     }@else if(user.followed){
     <i class="bi bi-person-fill-dash ico"></i>

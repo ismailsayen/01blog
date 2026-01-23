@@ -1,6 +1,5 @@
 import { Component, EventEmitter, inject, input, Output } from '@angular/core';
 import { SearchedUsers } from '../../../../core/shared/interfaces/SearchedUsers';
-import { AuthService } from '../../../../core/services/auth/auth.service';
 import { SearchUsersService } from '../../../../layouts/header/services/search-users.service';
 
 @Component({
