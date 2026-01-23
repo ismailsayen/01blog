@@ -4,3 +4,11 @@
     border-radius: 20px;
     font-size: 14px;
 }
+.link{
+  text-decoration: none;
+  color: black;
+  transition: .2s ease-in-out;
+  &:hover{
+    color: gray;
+  }
+}

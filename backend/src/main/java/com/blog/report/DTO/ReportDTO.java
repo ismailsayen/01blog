@@ -20,7 +20,7 @@ public class ReportDTO {
         @NotNull
         private Long targetId;
         @NotBlank
-        @Pattern(regexp = "BLOG|COMMENT", message = "targetType must be BLOG or PROFILE")
+        @Pattern(regexp = "BLOG|PROFILE", message = "targetType must be BLOG or PROFILE")
         private String targetType;
     }
 

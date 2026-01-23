@@ -1,0 +1,11 @@
+<div class="container-md ">
+  @if (!check || profileService.errorPage()) {
+  <p>error</p>
+  }@else {
+  <app-profile-header [profileId]="check" />
+  @if(reportService.showReport()){
+  <app-report-modal />
+  }
+  }
+
+</div>

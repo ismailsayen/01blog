@@ -1,10 +1,11 @@
 import { Component, EventEmitter, inject, input, Output } from '@angular/core';
 import { SearchedUsers } from '../../../../core/shared/interfaces/SearchedUsers';
 import { SearchUsersService } from '../../../../layouts/header/services/search-users.service';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-user-card',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './user-card.html',
   styleUrl: './user-card.scss',
 })

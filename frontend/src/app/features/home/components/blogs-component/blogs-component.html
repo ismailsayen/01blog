@@ -7,7 +7,11 @@
   <div #ob [hidden]="loader() || !blogService.blogs().length"></div>
 
   @if(!loader() && !blogService.blogs().length) {
-  <h4>Empty</h4>
+  <div class="w-100 p-2 rounded empty"> 
+    <img src="/assets/images/paper.png" alt="no data" class="mb-2">
+    <p class="fw-bold">We couldn’t find any blogs for you. Follow other users to get inspired</p>
+  </div>
+    
   }
 
 

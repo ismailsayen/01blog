@@ -17,6 +17,8 @@ export class ReportService {
   userName = signal<string>("")
   http = inject(HttpClient)
   show(id: number, type: string, userName: string) {
+    console.log("ss");
+
     this.id.set(id)
     this.type.set(type)
     this.userName.set(userName)
@@ -39,6 +41,8 @@ export class ReportService {
       targetId: this.id(),
       targetType: this.type().toUpperCase()
     }
+    console.log(body);
+
     this.loader.set(true)
     return this.http.post<ReportMessage>(API_URL + "/report", body)
   }

@@ -1,5 +1,5 @@
 export function ValidImage(type: string) {
-  const IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp' , 'image/gif'];
+  const IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp' , 'image/gif','image/avif'];
   return IMAGE_TYPES.includes(type) ;
 }
 

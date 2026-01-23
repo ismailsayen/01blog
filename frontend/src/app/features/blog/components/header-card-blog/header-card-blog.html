@@ -1,34 +1,34 @@
 <div class="w-100 mb-1 d-flex  justify-content-between align-items-center">
-    <div class="d-flex align-items-center gap-1">
-        <img [src]="avatar() || '/assets/images/default-user.jpg'" width="40" height="40" class="rounded-circle">
-        <div>
-            <p class="p-0 m-0">{{userName()}}</p>
-            <span class="p-0 m-0 text-muted">{{job()}}</span>
-        </div>
+  <div class="d-flex align-items-center gap-1">
+    <img [src]="avatar() || '/assets/images/default-user.jpg'" width="40" height="40" class="rounded-circle">
+    <div>
+      <a routerLink="profile/{{userId()}}" class="p-0 m-0 d-block link">{{userName()}}</a>
+      <span class="p-0 m-0 text-muted">{{job()}}</span>
     </div>
+  </div>
 
-    <div class="d-flex align-items-center gap-1">
-        <div class="cat">
-            {{categorie()}}
-        </div>
-        <div class="dropdown d-inline align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <circle cx="12" cy="12" r="1"></circle>
-                <circle cx="12" cy="5" r="1"></circle>
-                <circle cx="12" cy="19" r="1"></circle>
-            </svg>
-
-            <ul class="dropdown-menu ">
-                <li><a class="dropdown-item d-flex align-items-center gap-1" href="#"><i class="bi bi-eye"></i>
-                        <span>view</span></a></li>
-                <li class="dropdown-item d-flex align-items-center gap-1" (click)="reportService.show(id(),'blog',userName())" >
-                    <i class="bi bi-flag"></i> <span>report</span>
-                </li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-        </div>
+  <div class="d-flex align-items-center gap-1">
+    <div class="cat">
+      {{categorie()}}
     </div>
+    <div class="dropdown d-inline align-items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="dropdown-toggle"
+        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <circle cx="12" cy="12" r="1"></circle>
+        <circle cx="12" cy="5" r="1"></circle>
+        <circle cx="12" cy="19" r="1"></circle>
+      </svg>
+
+      <ul class="dropdown-menu ">
+        <li><a class="dropdown-item d-flex align-items-center gap-1" href="#"><i class="bi bi-eye"></i>
+            <span>view</span></a></li>
+        <li class="dropdown-item d-flex align-items-center gap-1" (click)="reportService.show(id(),'blog',userName())">
+          <i class="bi bi-flag"></i> <span>report</span>
+        </li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      </ul>
+    </div>
+  </div>
 
 </div>

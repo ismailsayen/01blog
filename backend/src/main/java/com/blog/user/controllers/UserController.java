@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.auth.DTO.UserInfo;
+import com.blog.user.DTO.UserDTO;
 import com.blog.user.DTO.UserDTO.SearchedUsers;
-import com.blog.user.model.UserEntity;
 import com.blog.user.services.UserServices;
 
 @RestController
@@ -22,8 +22,8 @@ public class UserController {
     UserServices userServices;
 
     @GetMapping("/{id}")
-    public UserEntity getMethodName(@PathVariable Long id) {
-        return userServices.getProfile(id);
+    public UserDTO.ProfileOutput getProfile(@PathVariable Long id, @AuthenticationPrincipal UserInfo auth) {
+        return userServices.getProfile(id,auth.getId());
     }
 
     @GetMapping("/search")
