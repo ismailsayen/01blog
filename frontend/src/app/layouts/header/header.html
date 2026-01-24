@@ -21,13 +21,12 @@
                                 alt="mdo" width="35" height="35" class="rounded-circle" />
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a routerLink="/create-blog" class="dropdown-item">New project...</a></li>
-                            <li><a class="dropdown-item">Settings</a></li>
-                            <li><a class="dropdown-item">Profile</a></li>
+                            <li><a routerLink="/create-blog" class="dropdown-item">Create blog</a></li>
+                            <li><a routerLink="/profile/{{authService.currentUser()?.id}}" class="dropdown-item">Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" role="button" (click)="onclick()">Sign out</a></li>
+                            <li><a class="dropdown-item text-danger" role="button" (click)="onclick()">Sign out</a></li>
                         </ul>
                     </div>
                 </li>

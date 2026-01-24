@@ -62,13 +62,14 @@
           <i [ngClass]="!showResult()?'bi bi-eye':'bi bi-eye-slash'" role="button" (click)="changeVisibility()"></i>
         </div>
       </div>
-      <textarea class="form-control text-area p-3" formControlName="title" formControlName="content" id="content"
-        placeholder="Share your ideas…" minlength="100" maxlength="10000">
-      </textarea>
+      <div class="d-flex">
+        <textarea class="form-control text-area p-3" formControlName="title" formControlName="content" id="content"
+          placeholder="Share your ideas…" minlength="100" maxlength="10000">
+        </textarea>
+        @if(showResult()){
+        <app-blog-result [data]="data()" />
+        }
+      </div>
     </div>
   </div>
 </form>
-
-@if(showResult()){
-<app-blog-result [data]="data()" />
-}

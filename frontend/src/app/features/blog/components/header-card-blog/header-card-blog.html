@@ -21,9 +21,9 @@
       </svg>
 
       <ul class="dropdown-menu ">
-        <li><a class="dropdown-item d-flex align-items-center gap-1" href="#"><i class="bi bi-eye"></i>
+        <li><a routerLink="/blog/{{id()}}" class="dropdown-item d-flex align-items-center gap-1" href="#"><i class="bi bi-eye"></i>
             <span>view</span></a></li>
-        <li class="dropdown-item d-flex align-items-center gap-1"
+        <li class="dropdown-item d-flex align-items-center gap-1 " style="cursor: pointer;"
           (click)="reportService.show(id(),'blog',userName(),'report')">
           <i class="bi bi-flag"></i> <span>report</span>
         </li>

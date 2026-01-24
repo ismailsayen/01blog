@@ -19,6 +19,11 @@ export const routes: Routes = [
     title: 'Profile'
   },
   {
+    path: 'blog/:id',
+    loadComponent: () => import('../features/blog/blog-page/blog-page').then(m => m.BlogPage),
+    title: 'Profile'
+  },
+  {
     path: "**",
     redirectTo: ""
   }
