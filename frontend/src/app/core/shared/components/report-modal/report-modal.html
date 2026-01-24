@@ -62,5 +62,5 @@
   </div>
 </div>
 @if(reportService.showConfirmation()){
-<app-confirmation-pop-up [userName]="reportService.userName()" [type]="reportService.type()" (confirm)="SaveReport()" />
+<app-confirmation-pop-up (confirm)="SaveReport()" />
 }

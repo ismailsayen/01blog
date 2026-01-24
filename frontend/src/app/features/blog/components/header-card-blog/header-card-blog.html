@@ -23,14 +23,17 @@
       <ul class="dropdown-menu ">
         <li><a class="dropdown-item d-flex align-items-center gap-1" href="#"><i class="bi bi-eye"></i>
             <span>view</span></a></li>
-        <li class="dropdown-item d-flex align-items-center gap-1" (click)="reportService.show(id(),'blog',userName())">
+        <li class="dropdown-item d-flex align-items-center gap-1"
+          (click)="reportService.show(id(),'blog',userName(),'report')">
           <i class="bi bi-flag"></i> <span>report</span>
         </li>
         @if(myBlog()){
-          <li class="dropdown-item d-flex align-items-center gap-1 text-danger"><i class="bi bi-trash3-fill "></i> Delete
-          </li>
-          <li class="dropdown-item d-flex align-items-center gap-1 text-warning"><i class="bi bi-pencil-square"></i> Edit
-          </li>
+        <li class="dropdown-item d-flex align-items-center gap-1 text-danger"
+          (click)="reportService.showConfirmAction(id(),'blog',userName(),'delete')"><i class="bi bi-trash3-fill "></i>
+          Delete
+        </li>
+        <li class="dropdown-item d-flex align-items-center gap-1 text-warning"><i class="bi bi-pencil-square"></i> Edit
+        </li>
         }
 
       </ul>

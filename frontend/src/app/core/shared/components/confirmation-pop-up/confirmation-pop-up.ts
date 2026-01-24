@@ -9,8 +9,7 @@ import { ReportService } from '../../../services/reports/report.service';
 })
 export class ConfirmationPopUp {
   reportService = inject(ReportService);
-  userName = input.required<string>()
-  type = input.required<string>()
+  
     @Output() confirm = new EventEmitter<void>()
   submit() {
     this.confirm.emit()

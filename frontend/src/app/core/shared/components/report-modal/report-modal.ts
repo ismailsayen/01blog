@@ -34,7 +34,7 @@ export class ReportModal {
         this.reportService.hideConfirm()
         this.snackbarService.success(res.Message)
       },
-      error: (err) => {
+      error: () => {
 
         this.snackbarService.error("Faild to report please try again")
       },

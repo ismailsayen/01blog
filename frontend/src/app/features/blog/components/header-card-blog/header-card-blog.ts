@@ -9,13 +9,14 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header-card-blog.scss',
 })
 export class HeaderCardBlog {
+  reportService = inject(ReportService);
+  
   id = input.required<number>();
   avatar = input<string | null>();
   userName = input.required<string>();
   job = input.required<string>();
   userId = input.required<number>();
   categorie = input.required<string>();
-  reportService = inject(ReportService);
   myBlog = input.required<boolean>();
 
 }

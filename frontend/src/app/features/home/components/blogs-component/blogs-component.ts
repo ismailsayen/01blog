@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, inject, OnInit, signal, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, HostListener, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core'
 import { BlogService } from '../../../blog/services/blog.service'
 import { BlogCard } from '../../../blog/blog-card/blog-card'
 import { SnackbarService } from '../../../../core/shared/components/snackbar/snackbar.service'
@@ -11,7 +11,7 @@ import { ObserverService } from '../../../../core/services/observer/observer.ser
   templateUrl: './blogs-component.html',
   styleUrl: './blogs-component.scss',
 })
-export class BlogsComponent implements AfterViewInit, OnInit {
+export class BlogsComponent implements AfterViewInit, OnInit, OnDestroy {
   blogService = inject(BlogService)
   loader = signal(false)
   allDataGeted = signal(false)
@@ -24,7 +24,10 @@ export class BlogsComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     this.observer.createAndObserve(this.ob, this.fetchPosts.bind(this))
+  }
 
+  ngOnDestroy(): void {
+    this.blogService.blogs.set([])
   }
 
   ngOnInit(): void {
@@ -33,6 +36,7 @@ export class BlogsComponent implements AfterViewInit, OnInit {
 
 
   fetchPosts() {
+
     if (this.loader() || this.allDataGeted()) {
       return
     }
@@ -42,7 +46,7 @@ export class BlogsComponent implements AfterViewInit, OnInit {
         if (res.length === 0) {
           this.allDataGeted.set(true)
         }
-
+        this.blogService.blogs.set([...this.blogService.blogs(), ...res])
         this.from.set(this.from() + 1)
 
       },

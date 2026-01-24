@@ -1,6 +1,9 @@
 <div class="profile rounded mb-4">
   <img [src]="profileData()?.avatar || '/assets/images/default-user.jpg'" alt="" class="">
 </div>
+@if(loaderDataProfile()){
+<p class="fw-bold text-center">wait...</p>
+}@else{
 <div class="text-center">
   <h1 class="m-0">{{profileData()?.userName}}</h1>
   <p class="fw-bolder m-1">{{profileData()?.job}}</p>
@@ -17,15 +20,18 @@
     @if(profileData()?.MyAccount){
 
     }@else {
-    <button class="btn folow-btn">
-      @if(profileData()?.followed){
+    <button class="btn btn-info text-white fw-bold" (click)="sendFollowReq(profileData()?.id ?? 0)">
+      @if(loaderFollow()){
+      <div class="loader"></div>
+      }
+      @else if(profileData()?.followed){
       unfollow
       }@else {
       follow
       }
     </button>
     <button class="btn btn-danger"
-      (click)="reportService.show(profileData()?.id??0 ,'PROFILE',profileData()?.userName ?? '')">
+      (click)="reportService.show(profileData()?.id??0 ,'PROFILE',profileData()?.userName ?? '','report')">
       report
     </button>
     }
@@ -35,3 +41,4 @@
     <span class="fw-bolder">Joined On {{profileData()?.createdAt}}</span>
   </div>
 </div>
+}

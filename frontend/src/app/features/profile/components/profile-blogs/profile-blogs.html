@@ -1,4 +1,15 @@
 @for (blog of blogService.blogs(); track $index) {
-  <app-blog-card [blog]="blog" />
-  <hr> 
-  }
+<app-blog-card [blog]="blog" />
+<hr>
+}
+
+@if(!loader() && !blogService.blogs().length) {
+<div class="w-100 p-2 rounded empty">
+  <img src="/assets/images/paper.png" alt="no data" class="mb-2">
+  <p class="fw-bold">We couldn’t find any blogs.</p>
+</div>
+}
+
+@if(loader()){
+<p class="w-100 text-center">loading...</p>
+}

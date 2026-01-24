@@ -5,6 +5,7 @@ import { ProfileData } from '../../../../core/shared/interfaces/userDTO';
 import { Router } from '@angular/router';
 import { Snackbar } from '../../../../core/shared/components/snackbar/snackbar';
 import { SnackbarService } from '../../../../core/shared/components/snackbar/snackbar.service';
+import { SearchUsersService } from '../../../../layouts/header/services/search-users.service';
 
 @Component({
   selector: 'app-profile-header',
@@ -16,22 +17,58 @@ export class ProfileHeader implements OnInit {
   profileId = input<number | null>()
   reportService = inject(ReportService)
   profileService = inject(ProfileService)
-  router = inject(Router)
-  snackBar=inject(SnackbarService)
+  searchUsersService = inject(SearchUsersService)
   profileData = signal<ProfileData | null>(null)
+  router = inject(Router)
+  snackBar = inject(SnackbarService)
+  loaderFollow = signal<boolean>(false)
+  loaderDataProfile = signal<boolean>(false)
+
   ngOnInit(): void {
+    this.loaderDataProfile.set(true)
+
     this.profileService.fetchProfile(this.profileId()).subscribe({
-      next:(res=>{
+      next: (res => {
         this.profileData.set(res)
-        
+
       }),
-      error:(err=>{
-        if(err.status===404){
+      error: (err => {
+        if (err.status === 404) {
           this.profileService.errorPage.set(true)
           return
         }
-          this.snackBar.error("Failed to get user")
+        this.snackBar.error("Failed to get user")
         this.router.navigateByUrl('/')
+      }),
+      complete: (() => {
+        this.loaderDataProfile.set(false)
+      })
+    })
+  }
+  sendFollowReq(id: number) {
+    this.loaderFollow.set(true)
+    this.searchUsersService.sendRequestFollow(id).subscribe({
+      next: ((res) => {
+        this.profileData.update((profile) => {
+          if (!profile) {
+            return profile
+          }
+          const n = res.status ? 1 : -1;
+          return {
+            ...profile,
+            followers: Math.max(0, profile.followers + n),
+            followed: res.status
+          };
+        })
+
+      }),
+
+      error: (() => {
+        this.snackBar.error("failed to send follow Request")
+
+      }),
+      complete: (() => {
+        this.loaderFollow.set(false)
       })
     })
   }

@@ -3,10 +3,12 @@
   <p>error</p>
   }@else {
   <app-profile-header [profileId]="check" />
-  <app-profile-blogs [profileId]="check"/>
+  <app-profile-blogs [profileId]="check" />
   @if(reportService.showReport()){
   <app-report-modal />
   }
   }
-
+  @if(reportService.showConfirmation()){
+  <app-confirmation-pop-up (confirm)="DelteBlog()" />
+  }
 </div>
