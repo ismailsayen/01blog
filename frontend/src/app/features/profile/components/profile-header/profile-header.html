@@ -1,6 +1,8 @@
 <div class="profile rounded mb-4">
+
   <img [src]="profileData()?.avatar || '/assets/images/default-user.jpg'" alt="" class="">
 </div>
+
 @if(loaderDataProfile()){
 <p class="fw-bold text-center">wait...</p>
 }@else{

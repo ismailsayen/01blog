@@ -7,8 +7,8 @@
   @if(reportService.showReport()){
   <app-report-modal />
   }
-  }
-  @if(reportService.showConfirmation()){
+  @if(reportService.ConfirmAction()){
   <app-confirmation-pop-up (confirm)="DelteBlog()" />
+  }
   }
 </div>

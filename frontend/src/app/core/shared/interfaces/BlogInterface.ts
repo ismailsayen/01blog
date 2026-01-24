@@ -28,3 +28,11 @@ export interface ReactionResponse {
   blogId: number;
   status: boolean;
 }
+
+export interface ReportMessage {
+  Message: string
+}
+export interface DeletionResponse {
+  blogId: number;
+  action: string
+}

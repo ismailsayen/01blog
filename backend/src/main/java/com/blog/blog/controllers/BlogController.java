@@ -60,8 +60,7 @@ public class BlogController {
     }
 
     @DeleteMapping("/{idBlog}")
-    @ResponseStatus(HttpStatus.OK)
-    public String DeleteBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth) throws ForbiddenAction {
+    public BlogDTO.DeletionResponse DeleteBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth) throws ForbiddenAction {
         return blgService.DeleteBlog(idBlog, auth);
     }
 

@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http'
 import { inject, Injectable, signal } from '@angular/core'
 import { API_URL } from '../../shared/api-url'
+import { DeletionResponse, ReportMessage } from '../../shared/interfaces/BlogInterface'
+import { finalize } from 'rxjs'
 
-interface ReportMessage {
-  Message: string
-}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,6 +12,8 @@ export class ReportService {
   showReport = signal<boolean>(false)
   http = inject(HttpClient)
   showConfirmation = signal<boolean>(false)
+  ConfirmAction = signal<boolean>(false)
+
   loader = signal<boolean>(false)
   id = signal<number>(0)
   type = signal<string>("")
@@ -33,14 +35,18 @@ export class ReportService {
 
   hideConfirm() {
     this.showConfirmation.set(false)
+    this.ConfirmAction.set(false)
+
   }
 
   showConfirmAction(id: number, type: string, userName: string, action: string) {
+
     this.id.set(id)
     this.type.set(type)
     this.userName.set(userName)
     this.action.set(action)
-    this.showConfirmation.set(true)
+    this.ConfirmAction.set(true)
+
   }
 
   hide() {
@@ -56,5 +62,14 @@ export class ReportService {
     this.loader.set(true)
     return this.http.post<ReportMessage>(API_URL + "/report", body)
   }
-  // deleteB  
+  deleteBlog() {
+    this.loader.set(true)
+    return this.http.delete<DeletionResponse>(API_URL + `/blog/${this.id()}`).pipe(
+      finalize(() => {
+        this.loader.set(false)
+        this.ConfirmAction.set(false)
+      })
+    )
+
+  }
 }

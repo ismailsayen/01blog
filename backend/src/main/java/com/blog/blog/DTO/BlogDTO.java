@@ -48,8 +48,6 @@ public class BlogDTO {
         private Boolean myBlog;
     }
 
-
-
     @Data
     @Builder
     @NoArgsConstructor
@@ -57,5 +55,14 @@ public class BlogDTO {
     public static class ReactionResponse {
         private Long blogId;
         private Boolean status;
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DeletionResponse {
+        private Long blogId;
+        private String action;
     }
 }

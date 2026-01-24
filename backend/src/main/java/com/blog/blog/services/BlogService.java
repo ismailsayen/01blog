@@ -67,7 +67,7 @@ public class BlogService {
         return blgRepo.findBlogById(idBlog).get();
     }
 
-    public String DeleteBlog(Long idBlog, UserInfo auth) throws ForbiddenAction {
+    public BlogDTO.DeletionResponse DeleteBlog(Long idBlog, UserInfo auth) throws ForbiddenAction {
 
         BlogEntity blog = getBlogById(idBlog);
         if (!blog.getUserBlog().getId().equals(auth.getId()) && !isAdmin(auth.getAuthorities())) {
@@ -76,7 +76,8 @@ public class BlogService {
 
         blgRepo.delete(blog);
         reportRepo.deleteByTargetIdAndTargetType(blog.getId(), ReportTargetType.BLOG);
-        return "the blog is deleted successfuly.";
+        return BlogDTO.DeletionResponse.builder().blogId(blog.getId()).action("the blog is deleted successfuly.")
+                .build();
     }
 
     public String updateBlog(Long idBlog, UserInfo auth, BlogDTO.BlogInput data) throws ForbiddenAction {
@@ -101,9 +102,9 @@ public class BlogService {
                 .orElseThrow(() -> new NoSuchElementException("Blog not found."));
     }
 
-    public  List<BlogDTO.BlogOutput> getUserBlogs(Long idUser, Long id) {
-        
-        List<BlogDTO.BlogOutput> blogs=blgRepo.findBlogsById(idUser,id);
+    public List<BlogDTO.BlogOutput> getUserBlogs(Long idUser, Long id) {
+
+        List<BlogDTO.BlogOutput> blogs = blgRepo.findBlogsById(idUser, id);
         return blogs;
     }
 

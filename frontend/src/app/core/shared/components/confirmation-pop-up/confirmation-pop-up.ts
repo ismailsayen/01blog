@@ -9,8 +9,8 @@ import { ReportService } from '../../../services/reports/report.service';
 })
 export class ConfirmationPopUp {
   reportService = inject(ReportService);
-  
-    @Output() confirm = new EventEmitter<void>()
+
+  @Output() confirm = new EventEmitter<void>()
   submit() {
     this.confirm.emit()
   }

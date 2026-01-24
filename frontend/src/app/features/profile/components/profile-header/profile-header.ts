@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, inject, input, model, OnInit, signal } from '@angular/core';
 import { ReportService } from '../../../../core/services/reports/report.service';
 import { ProfileService } from '../../profile.service';
 import { ProfileData } from '../../../../core/shared/interfaces/userDTO';
@@ -23,7 +23,7 @@ export class ProfileHeader implements OnInit {
   snackBar = inject(SnackbarService)
   loaderFollow = signal<boolean>(false)
   loaderDataProfile = signal<boolean>(false)
-
+ 
   ngOnInit(): void {
     this.loaderDataProfile.set(true)
 

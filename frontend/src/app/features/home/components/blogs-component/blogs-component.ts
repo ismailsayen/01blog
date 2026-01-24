@@ -36,7 +36,6 @@ export class BlogsComponent implements AfterViewInit, OnInit, OnDestroy {
 
 
   fetchPosts() {
-
     if (this.loader() || this.allDataGeted()) {
       return
     }
