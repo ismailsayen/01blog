@@ -89,25 +89,29 @@ export class Register implements OnInit, OnDestroy {
   onUploadMedia(event: Event) {
     const inputElement = event.target as HTMLInputElement
     if (!inputElement.files || inputElement.files.length === 0) {
+
       return
     }
     const file = inputElement.files[0]
     if (!ValidImage(file.type)) {
-      this.registerForm.controls.avatar.markAllAsTouched()
-      this.registerForm.controls.avatar.setErrors({
+      this.avatar.markAsTouched()
+      this.avatar.setErrors({
         invalidMedia: true,
       })
+      inputElement.value = ""
       return
     }
 
     if (!VerifySize(file.type, file.size)) {
 
-      this.registerForm.controls.avatar.markAllAsTouched()
-      this.registerForm.controls.avatar.setErrors({
+      this.avatar.markAsTouched()
+      this.avatar.setErrors({
         invalidMedia: true,
       })
+      inputElement.value = ""
       return
     }
+    this.avatar.setErrors(null)
     this.previewUrl.set({ previewUrl: URL.createObjectURL(file), file })
     this.mediaService.serveMediaLocaly(file)
     inputElement.value = ""
@@ -118,9 +122,9 @@ export class Register implements OnInit, OnDestroy {
 
     if (this.registerForm.invalid) {
       this.backendError.set(null)
+      this.avatar.setErrors(null)
       return
     }
-    console.log(this.mediaService.mediaItems);
 
     from(this.mediaService.mediaItems).pipe(
       mergeMap((item) => {

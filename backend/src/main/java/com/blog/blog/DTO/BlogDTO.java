@@ -24,7 +24,16 @@ public class BlogDTO {
         private String content;
         @NotBlank(message = "Categorie cannot be empty or null")
         private String categorie;
+    }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BlogUpdateOutput {
+        private Long id;
+        private String title;
+        private String content;
+        private String categorie;
     }
 
     @Data

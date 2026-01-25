@@ -58,13 +58,14 @@ public class BlogService {
         return blgRepo.findAllData(id, pageable);
     }
 
-    public BlogDTO.BlogOutput findBlogById(Long idBlog) throws NoSuchElementException {
-        Optional<BlogDTO.BlogOutput> res = blgRepo.findBlogById(idBlog);
+    public BlogDTO.BlogUpdateOutput findBlogById(Long idBlog,Long idUser) throws NoSuchElementException {
+        Optional<BlogDTO.BlogUpdateOutput> res = blgRepo.findBlogById(idBlog,idUser);
 
         if (res.isEmpty()) {
             throw new NoSuchElementException("No data found for the given blog ID.");
         }
-        return blgRepo.findBlogById(idBlog).get();
+
+        return res.get();
     }
 
     public BlogDTO.DeletionResponse DeleteBlog(Long idBlog, UserInfo auth) throws ForbiddenAction {
@@ -86,6 +87,7 @@ public class BlogService {
             throw new ForbiddenAction("You don't have the permission to do this action.");
         }
         blog.setTitle(data.getTitle());
+        blog.setCategorie(data.getCategorie());
         blog.setContent(data.getContent());
         blog.setLastUpdateAt(DateNowFormatted.nowDateTime());
         blgRepo.save(blog);

@@ -55,8 +55,8 @@ public class BlogController {
     }
 
     @GetMapping("/{idBlog}")
-    public BlogDTO.BlogOutput getBLogById(@PathVariable Long idBlog) throws NoSuchElementException {
-        return blgService.findBlogById(idBlog);
+    public BlogDTO.BlogUpdateOutput getBLogById(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth) throws NoSuchElementException {
+        return blgService.findBlogById(idBlog,auth.getUser().getId());
     }
 
     @DeleteMapping("/{idBlog}")
@@ -67,6 +67,7 @@ public class BlogController {
     @PatchMapping("/{idBlog}")
     public String UpdateBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth,
             @Valid @RequestBody BlogDTO.BlogInput input) throws ForbiddenAction {
+                System.out.println("system");
         return blgService.updateBlog(idBlog, auth, input);
     }
 }

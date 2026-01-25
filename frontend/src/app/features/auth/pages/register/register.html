@@ -82,6 +82,17 @@
         <img [src]="previewUrl()?.previewUrl" alt="" width="100" height="100" class="rounded-circle">
       </div>
       }
+
+
+
+      @if (avatar.invalid && (avatar.dirty || avatar.touched)) {
+      @if (avatar.hasError("invalidMedia")) {
+      <div class="text-danger">Image Error</div>
+      }
+
+      }
+
+
     </div>
     <div class="mb-3">
       <app-button-submit [value]="'register'" />

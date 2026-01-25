@@ -16,6 +16,12 @@ export interface BlogInterface {
   myBlog: boolean;
 }
 
+export interface BlogUpdateOutput {
+  id: number;
+  title: string;
+  content: string;
+  categorie: string;
+}
 
 
 export interface ResponseMedia {

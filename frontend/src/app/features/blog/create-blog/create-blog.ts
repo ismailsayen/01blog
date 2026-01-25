@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { JobsSelect } from '../../auth/components/jobs-select/jobs-select';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonSubmit } from '../../auth/components/button-submit/button-submit';
@@ -21,8 +21,9 @@ import { ValidJob } from '../../../utils/customValidators';
 import { ValidImage, ValidVideo, VerifySize } from '../../../utils/ValidationMedia';
 import { itCategories } from '../../../core/shared/webDevJobs';
 import { MediaService } from '../../../core/services/media/media.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SnackbarService } from '../../../core/shared/components/snackbar/snackbar.service';
+import { BlogUpdateOutput } from '../../../core/shared/interfaces/BlogInterface';
 
 @Component({
   selector: 'app-create-blog',
@@ -30,16 +31,44 @@ import { SnackbarService } from '../../../core/shared/components/snackbar/snackb
   templateUrl: './create-blog.html',
   styleUrl: './create-blog.scss',
 })
-export class CreateBlog implements OnDestroy {
+export class CreateBlog implements OnDestroy, OnInit {
+
   blogService = inject(BlogService);
   showResult = signal(false);
   mediaService = inject(MediaService);
   router = inject(Router);
   categories = itCategories;
   snackbarService = inject(SnackbarService);
+  blogId = Number(inject(ActivatedRoute).snapshot.paramMap.get('id'))
+  blogInfo = signal<BlogUpdateOutput | null>(null)
+  path = location.pathname
+  ngOnInit(): void {
+    if (isNaN(this.blogId)) {
+      this.router.navigateByUrl('/')
+      return
+    }
+    if (this.blogId) {
+      this.blogService.getBLogById(this.blogId).subscribe({
+        next: ((res) => {
+          this.blogInfo.set(res)
+          this.createForm.patchValue({
+            categorie: res.categorie,
+            title: res.title,
+            content: res.content,
+          });
+
+        }),
+        error: ((err) => {
+          console.log("err:", err);
+
+        })
+      })
+    }
+  }
+
 
   createForm = new FormGroup({
-    categorie: new FormControl('', {
+    categorie: new FormControl("", {
       validators: [ValidJob],
       updateOn: 'submit',
     }),
@@ -68,6 +97,7 @@ export class CreateBlog implements OnDestroy {
   );
 
   get title() {
+
     return this.createForm.get('title');
   }
 
@@ -155,15 +185,17 @@ export class CreateBlog implements OnDestroy {
         }),
         switchMap(() => {
           const body = this.createForm.getRawValue();
-          return this.blogService.create(body);
+          return this.blogService.create(body, location.pathname,this.blogInfo()?.id);
         })
       )
       .subscribe({
-        next: (res) => {
+        next: () => {
           this.router.navigateByUrl('/');
           this.snackbarService.success('Your blog was created successfully.');
         },
         error: (err) => {
+          console.log(err);
+
           if (err.status === 400 && err.error) {
             Object.keys(err.error).forEach((field: any) => {
               const control = this.createForm.get(field);
@@ -176,4 +208,5 @@ export class CreateBlog implements OnDestroy {
         },
       });
   }
+
 }

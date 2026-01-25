@@ -21,7 +21,8 @@
       </svg>
 
       <ul class="dropdown-menu ">
-        <li><a routerLink="/blog/{{id()}}" class="dropdown-item d-flex align-items-center gap-1" href="#"><i class="bi bi-eye"></i>
+        <li><a routerLink="/blog/{{id()}}" class="dropdown-item d-flex align-items-center gap-1" href="#"><i
+              class="bi bi-eye"></i>
             <span>view</span></a></li>
         <li class="dropdown-item d-flex align-items-center gap-1 " style="cursor: pointer;"
           (click)="reportService.show(id(),'blog',userName(),'report')">
@@ -32,7 +33,8 @@
           (click)="reportService.showConfirmAction(id(),'blog',userName(),'delete')"><i class="bi bi-trash3-fill "></i>
           Delete
         </li>
-        <li class="dropdown-item d-flex align-items-center gap-1 text-warning"><i class="bi bi-pencil-square"></i> Edit
+        <li routerLink="/update-blog/{{id()}}" class="dropdown-item d-flex align-items-center gap-1 text-warning"><i
+            class="bi bi-pencil-square"></i> Edit
         </li>
         }
 
