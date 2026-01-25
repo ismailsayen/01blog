@@ -70,6 +70,15 @@ public class BlogDTO {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class UpdateResponse {
+        private Long blogId;
+        private String message;
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class DeletionResponse {
         private Long blogId;
         private String action;

@@ -1,9 +1,12 @@
 <div class="container-md ">
-  @if (!check || profileService.errorPage()) {
-  <p>error</p>
+  @if ( profileService.errorPage()) {
+  <div class="text-center">
+    <h1>404 </h1>
+    <p> <i class="bi bi-person-fill"></i> No Profile found.</p>
+  </div>
   }@else {
-  <app-profile-header [profileId]="check" />
-  <app-profile-blogs [profileId]="check" />
+  <app-profile-header [profileId]="profileId() " />
+  <app-profile-blogs [profileId]="profileId() " />
   @if(reportService.showReport()){
   <app-report-modal />
   }

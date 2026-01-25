@@ -1,6 +1,7 @@
 <div class="profile rounded mb-4">
-
+@if(!loaderDataProfile()){
   <img [src]="profileData()?.avatar || '/assets/images/default-user.jpg'" alt="" class="">
+}
 </div>
 
 @if(loaderDataProfile()){

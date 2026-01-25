@@ -1,4 +1,4 @@
-import { Component, inject, input, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnChanges, OnDestroy, OnInit, signal, SimpleChanges } from '@angular/core';
 import { BlogService } from '../../../blog/services/blog.service';
 import { BlogCard } from "../../../blog/blog-card/blog-card";
 
@@ -8,7 +8,7 @@ import { BlogCard } from "../../../blog/blog-card/blog-card";
   templateUrl: './profile-blogs.html',
   styleUrl: './profile-blogs.scss',
 })
-export class ProfileBlogs implements OnInit, OnDestroy {
+export class ProfileBlogs implements OnChanges, OnDestroy {
   blogService = inject(BlogService)
   profileId = input<number | null>()
   loader = signal<boolean>(false)
@@ -17,10 +17,11 @@ export class ProfileBlogs implements OnInit, OnDestroy {
     this.blogService.blogs.set([])
   }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    this.blogService.blogs.set([])
     this.loader.set(true)
 
-    this.blogService.getProfileBlogs(this.profileId()).subscribe({
+    this.blogService.getProfileBlogs(changes['profileId'].currentValue).subscribe({
       next: (res => {
         if (location.pathname.startsWith('/profile')) {
           this.blogService.blogs.set(res)
@@ -36,5 +37,6 @@ export class ProfileBlogs implements OnInit, OnDestroy {
       })
     })
   }
-
 }
+
+

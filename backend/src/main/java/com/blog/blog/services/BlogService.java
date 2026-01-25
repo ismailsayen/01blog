@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.DTO.BlogDTO;
+import com.blog.blog.DTO.BlogDTO.UpdateResponse;
 import com.blog.blog.models.BlogEntity;
 import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.blog.repositories.BlogRepository;
@@ -58,8 +59,8 @@ public class BlogService {
         return blgRepo.findAllData(id, pageable);
     }
 
-    public BlogDTO.BlogUpdateOutput findBlogById(Long idBlog,Long idUser) throws NoSuchElementException {
-        Optional<BlogDTO.BlogUpdateOutput> res = blgRepo.findBlogById(idBlog,idUser);
+    public BlogDTO.BlogUpdateOutput findBlogById(Long idBlog, Long idUser) throws NoSuchElementException {
+        Optional<BlogDTO.BlogUpdateOutput> res = blgRepo.findBlogById(idBlog, idUser);
 
         if (res.isEmpty()) {
             throw new NoSuchElementException("No data found for the given blog ID.");
@@ -81,7 +82,7 @@ public class BlogService {
                 .build();
     }
 
-    public String updateBlog(Long idBlog, UserInfo auth, BlogDTO.BlogInput data) throws ForbiddenAction {
+    public UpdateResponse updateBlog(Long idBlog, UserInfo auth, BlogDTO.BlogInput data) throws ForbiddenAction {
         BlogEntity blog = getBlogById(idBlog);
         if (!blog.getUserBlog().getId().equals(auth.getId())) {
             throw new ForbiddenAction("You don't have the permission to do this action.");
@@ -91,7 +92,7 @@ public class BlogService {
         blog.setContent(data.getContent());
         blog.setLastUpdateAt(DateNowFormatted.nowDateTime());
         blgRepo.save(blog);
-        return "Updated Succesfully.";
+        return UpdateResponse.builder().message("Updated Succesfully.").blogId(blog.getId()).build();
     }
 
     public static boolean isAdmin(Collection<? extends GrantedAuthority> authorities) {

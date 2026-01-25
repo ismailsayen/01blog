@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.DTO.BlogDTO;
+import com.blog.blog.DTO.BlogDTO.UpdateResponse;
 import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.blog.services.BlogService;
 
@@ -65,9 +66,9 @@ public class BlogController {
     }
 
     @PatchMapping("/{idBlog}")
-    public String UpdateBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth,
+    public UpdateResponse UpdateBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth,
             @Valid @RequestBody BlogDTO.BlogInput input) throws ForbiddenAction {
-                System.out.println("system");
         return blgService.updateBlog(idBlog, auth, input);
     }
+
 }

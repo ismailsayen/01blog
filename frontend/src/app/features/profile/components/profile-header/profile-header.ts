@@ -1,4 +1,4 @@
-import { Component, inject, input, model, OnInit, signal } from '@angular/core';
+import { Component, inject, input, model, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { ReportService } from '../../../../core/services/reports/report.service';
 import { ProfileService } from '../../profile.service';
 import { ProfileData } from '../../../../core/shared/interfaces/userDTO';
@@ -13,7 +13,7 @@ import { SearchUsersService } from '../../../../layouts/header/services/search-u
   templateUrl: './profile-header.html',
   styleUrl: './profile-header.scss',
 })
-export class ProfileHeader implements OnInit {
+export class ProfileHeader implements OnChanges {
   profileId = input<number | null>()
   reportService = inject(ReportService)
   profileService = inject(ProfileService)
@@ -23,14 +23,12 @@ export class ProfileHeader implements OnInit {
   snackBar = inject(SnackbarService)
   loaderFollow = signal<boolean>(false)
   loaderDataProfile = signal<boolean>(false)
- 
-  ngOnInit(): void {
-    this.loaderDataProfile.set(true)
 
-    this.profileService.fetchProfile(this.profileId()).subscribe({
+  ngOnChanges(changes: SimpleChanges): void {
+    this.loaderDataProfile.set(true)
+    this.profileService.fetchProfile(changes['profileId'].currentValue).subscribe({
       next: (res => {
         this.profileData.set(res)
-
       }),
       error: (err => {
         if (err.status === 404) {
@@ -44,7 +42,9 @@ export class ProfileHeader implements OnInit {
         this.loaderDataProfile.set(false)
       })
     })
+
   }
+
   sendFollowReq(id: number) {
     this.loaderFollow.set(true)
     this.searchUsersService.sendRequestFollow(id).subscribe({
