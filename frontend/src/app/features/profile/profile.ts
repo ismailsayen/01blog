@@ -27,8 +27,6 @@ export class Profile implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((pm) => {
       const id = Number(pm.get('id'));
-
-
       if (Number.isNaN(id)) {
         this.snackBar.error('Invalid profile id');
         this.router.navigateByUrl('/');

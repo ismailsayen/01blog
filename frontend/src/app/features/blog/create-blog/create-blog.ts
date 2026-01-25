@@ -45,8 +45,10 @@ export class CreateBlog implements OnDestroy, OnInit {
   ngOnInit(): void {
     if (isNaN(this.blogId)) {
       this.router.navigateByUrl('/')
+      this.snackbarService.error('Invalid Blog id');
       return
     }
+
     if (this.blogId) {
       this.blogService.getBLogById(this.blogId).subscribe({
         next: ((res) => {
@@ -59,7 +61,12 @@ export class CreateBlog implements OnDestroy, OnInit {
 
         }),
         error: ((err) => {
-          console.log("err:", err);
+          if (err.status === 404) {
+            this.router.navigateByUrl('/');
+            this.snackbarService.error('Blog Not Found');
+            return
+          }
+          this.snackbarService.error('Invalid Blog id');
 
         })
       })
@@ -185,7 +192,7 @@ export class CreateBlog implements OnDestroy, OnInit {
         }),
         switchMap(() => {
           const body = this.createForm.getRawValue();
-          return this.blogService.create(body, location.pathname,this.blogInfo()?.id);
+          return this.blogService.create(body, location.pathname, this.blogInfo()?.id);
         })
       )
       .subscribe({
