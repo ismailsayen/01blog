@@ -12,7 +12,7 @@ export class BlogService {
   blogs = signal<BlogInterface[]>([]);
 
   create(data: any, path: string, id: number | undefined) {
-    if (path.startsWith("/create")) {
+    if (path.startsWith("Share")) {
       return this.http.post<BlogInterface>(API_URL + '/blog', data);
     }
     return this.http.patch<string>(API_URL + `/blog/${id}`, data)

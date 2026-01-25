@@ -35,13 +35,14 @@ export class CreateBlog implements OnDestroy, OnInit {
 
   blogService = inject(BlogService);
   showResult = signal(false);
+  shwoPage = signal(false);
   mediaService = inject(MediaService);
   router = inject(Router);
   categories = itCategories;
   snackbarService = inject(SnackbarService);
   blogId = Number(inject(ActivatedRoute).snapshot.paramMap.get('id'))
   blogInfo = signal<BlogUpdateOutput | null>(null)
-  path = location.pathname
+  path = location.pathname.startsWith('/create') ? 'Share' : 'Update'
   ngOnInit(): void {
     if (isNaN(this.blogId)) {
       this.router.navigateByUrl('/')
@@ -50,6 +51,7 @@ export class CreateBlog implements OnDestroy, OnInit {
     }
 
     if (this.blogId) {
+      this.shwoPage.set(true)
       this.blogService.getBLogById(this.blogId).subscribe({
         next: ((res) => {
           this.blogInfo.set(res)
@@ -68,6 +70,9 @@ export class CreateBlog implements OnDestroy, OnInit {
           }
           this.snackbarService.error('Invalid Blog id');
 
+        }),
+        complete: (() => {
+          this.shwoPage.set(false)
         })
       })
     }
@@ -192,7 +197,7 @@ export class CreateBlog implements OnDestroy, OnInit {
         }),
         switchMap(() => {
           const body = this.createForm.getRawValue();
-          return this.blogService.create(body, location.pathname, this.blogInfo()?.id);
+          return this.blogService.create(body, this.path, this.blogInfo()?.id);
         })
       )
       .subscribe({
