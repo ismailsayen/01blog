@@ -7,10 +7,11 @@ import { HeaderCardBlog } from "../components/header-card-blog/header-card-blog"
 import { BlogResult } from "../blog-result/blog-result";
 import { ReportService } from '../../../core/services/reports/report.service';
 import { ReportModal } from "../../../core/shared/components/report-modal/report-modal";
+import { ConfirmationPopUp } from "../../../core/shared/components/confirmation-pop-up/confirmation-pop-up";
 
 @Component({
   selector: 'app-blog-page',
-  imports: [HeaderCardBlog, BlogResult, ReportModal],
+  imports: [HeaderCardBlog, BlogResult, ReportModal, ConfirmationPopUp],
   templateUrl: './blog-page.html',
   styleUrl: './blog-page.scss',
 })
@@ -57,6 +58,21 @@ export class BlogPage implements OnInit {
         this.Likeloader.set(false);
       },
     });
+  }
+
+  DelteBlog() {
+    console.log(this.reportService.id());
+
+    this.reportService.deleteBlog().subscribe({
+      next: (() => {
+        this.router.navigateByUrl('/')
+        this.snackBar.success("Blog deleted successfully.")
+      }),
+      error: (() => {
+        this.snackBar.error("Faild to Delete please try again")
+
+      })
+    })
   }
 
 }

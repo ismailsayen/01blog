@@ -62,6 +62,7 @@ export class ReportService {
     return this.http.post<ReportMessage>(API_URL + "/report", body)
   }
   deleteBlog() {
+    
     this.loader.set(true)
     return this.http.delete<DeletionResponse>(API_URL + `/blog/${this.id()}`).pipe(
 
