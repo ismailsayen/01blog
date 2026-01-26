@@ -40,7 +40,6 @@ export class ReportService {
   }
 
   showConfirmAction(id: number, type: string, userName: string, action: string) {
-
     this.id.set(id)
     this.type.set(type)
     this.userName.set(userName)
@@ -65,6 +64,7 @@ export class ReportService {
   deleteBlog() {
     this.loader.set(true)
     return this.http.delete<DeletionResponse>(API_URL + `/blog/${this.id()}`).pipe(
+
       finalize(() => {
         this.loader.set(false)
         this.ConfirmAction.set(false)

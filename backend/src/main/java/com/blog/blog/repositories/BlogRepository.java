@@ -23,4 +23,8 @@ public interface BlogRepository extends JpaRepository<BlogEntity, Long> {
 
     @Query(value = "SELECT b.*, u.user_name, u.job, u.avatar, EXISTS(SELECT 1 FROM reactions r WHERE r.user_id=:id AND b.id=r.blog_id) as liked , (:id=:idUser) AS myBlog FROM blogs b INNER JOIN users u ON b.user_id=u.id WHERE  b.user_id=:idUser ORDER BY b.created_at DESC", nativeQuery = true)
     List<BlogOutput> findBlogsById(Long idUser, Long id);
+
+    @Query(value = "SELECT b.*, u.user_name, u.job, u.avatar, EXISTS(SELECT 1 FROM reactions r WHERE r.user_id=:id AND b.id=r.blog_id) as liked , (b.user_id=:id) AS myBlog FROM blogs b INNER JOIN users u ON b.user_id=u.id WHERE  b.id=:idBlog ORDER BY b.created_at DESC", nativeQuery = true)
+    Optional<BlogOutput> findAnyBlogById(@Param("idBlog") Long idBlog, @Param("id") Long id);
+
 }

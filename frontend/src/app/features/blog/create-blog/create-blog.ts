@@ -159,7 +159,7 @@ export class CreateBlog implements OnDestroy, OnInit {
       });
       return;
     }
-    const fileToMarkdow = file.type.startsWith("video/") ? this.mediaService.generateVideoHtml(file_url) : `\n![media](${file_url})`
+    const fileToMarkdow = file.type.startsWith("video/") ? this.mediaService.generateVideoHtml(file_url) : `![media](${file_url})`
     this.content?.setValue(this.content?.value + fileToMarkdow);
     inputElement.value = '';
   }
@@ -203,7 +203,7 @@ export class CreateBlog implements OnDestroy, OnInit {
       .subscribe({
         next: () => {
           this.router.navigateByUrl('/');
-          this.snackbarService.success('Your blog was created successfully.');
+          this.snackbarService.success(`Your blog was ${this.path === "Share" ? 'created' : 'updated'} successfully.`);
         },
         error: (err) => {
           console.log(err);

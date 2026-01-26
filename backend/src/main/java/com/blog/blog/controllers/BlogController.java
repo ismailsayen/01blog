@@ -42,26 +42,32 @@ public class BlogController {
     }
 
     @GetMapping("/user/{idUser}")
-    public List<BlogDTO.BlogOutput> getMethodName(@PathVariable Long idUser,@AuthenticationPrincipal UserInfo auth) {
+    public List<BlogDTO.BlogOutput> getMethodName(@PathVariable Long idUser, @AuthenticationPrincipal UserInfo auth) {
         return blgService.getUserBlogs(idUser, auth.getId());
     }
-    
 
+    
     @GetMapping
     public List<BlogDTO.BlogOutput> getAllBlogController(@RequestParam int page,
-            @RequestParam int size, @AuthenticationPrincipal UserInfo auth) {
+    @RequestParam int size, @AuthenticationPrincipal UserInfo auth) {
         Sort sort = Sort.by(Sort.Order.desc("created_at"));
         Pageable pageable = PageRequest.of(page, size, sort);
         return blgService.getAllBlogs(pageable, auth.getId());
     }
-
+    
     @GetMapping("/{idBlog}")
-    public BlogDTO.BlogUpdateOutput getBLogById(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth) throws NoSuchElementException {
-        return blgService.findBlogById(idBlog,auth.getUser().getId());
+    public BlogDTO.BlogUpdateOutput getBLogById(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth)
+    throws NoSuchElementException {
+        return blgService.findBlogById(idBlog, auth.getId());
+    }
+    @GetMapping("/public/{idBlog}")
+    public BlogDTO.BlogOutput getAnyBlogById(@PathVariable Long idBlog,@AuthenticationPrincipal UserInfo auth) {
+        return blgService.getAnyBlogById(idBlog, auth.getId());
     }
 
     @DeleteMapping("/{idBlog}")
-    public BlogDTO.DeletionResponse DeleteBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth) throws ForbiddenAction {
+    public BlogDTO.DeletionResponse DeleteBlog(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth)
+            throws ForbiddenAction {
         return blgService.DeleteBlog(idBlog, auth);
     }
 

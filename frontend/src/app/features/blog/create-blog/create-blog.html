@@ -67,10 +67,10 @@
         <textarea class="form-control text-area p-3" formControlName="content" id="content"
           placeholder="Share your ideas…" minlength="100" maxlength="10000">
         </textarea>
-        @if(showResult()){
-        <app-blog-result [data]="data()" />
-        }
       </div>
+      @if(showResult()){
+      <app-blog-result [data]="data()" />
+      }
     </div>
   </div>
 </form>

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.DTO.BlogDTO;
+import com.blog.blog.DTO.BlogDTO.BlogOutput;
 import com.blog.blog.DTO.BlogDTO.UpdateResponse;
 import com.blog.blog.models.BlogEntity;
 import com.blog.blog.models.Exception.ForbiddenAction;
@@ -95,6 +96,17 @@ public class BlogService {
         return UpdateResponse.builder().message("Updated Succesfully.").blogId(blog.getId()).build();
     }
 
+    public List<BlogDTO.BlogOutput> getUserBlogs(Long idUser, Long id) {
+
+        List<BlogDTO.BlogOutput> blogs = blgRepo.findBlogsById(idUser, id);
+        return blogs;
+    }
+
+    public BlogOutput getAnyBlogById(Long idBlog, Long id) throws NoSuchElementException {
+        BlogOutput blog = blgRepo.findAnyBlogById(idBlog, id).orElseThrow(() -> new NoSuchElementException("Blog not found."));
+        return blog;
+    }
+
     public static boolean isAdmin(Collection<? extends GrantedAuthority> authorities) {
         return authorities.stream()
                 .anyMatch(a -> a.getAuthority().equals("ADMIN"));
@@ -103,12 +115,6 @@ public class BlogService {
     public BlogEntity getBlogById(Long idBlog) throws NoSuchElementException {
         return blgRepo.findById(idBlog)
                 .orElseThrow(() -> new NoSuchElementException("Blog not found."));
-    }
-
-    public List<BlogDTO.BlogOutput> getUserBlogs(Long idUser, Long id) {
-
-        List<BlogDTO.BlogOutput> blogs = blgRepo.findBlogsById(idUser, id);
-        return blogs;
     }
 
 }

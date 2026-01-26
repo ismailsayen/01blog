@@ -1,1 +1,47 @@
-<p>blog-page works! {{blogId}}</p>
+@if (loader()) {
+<div class="loader"></div>
+}@else{
+<div class="w-75 mx-auto">
+  <app-header-card-blog [id]="blogDetails()?.id!" [avatar]="blogDetails()?.avatar" [userName]="blogDetails()?.userName!"
+    [job]="blogDetails()?.job!" [userId]="blogDetails()?.userId!" [categorie]="blogDetails()?.categorie!"
+    [myBlog]="blogDetails()?.myBlog!" />
+  <h1 class="mt-2">{{blogDetails()?.title}}</h1>
+  <hr>
+  <div class="w-100 d-flex align-items-center justify-content-between mt-2">
+    <div class="d-flex align-items-center justify-content-between gap-3">
+      <div class="react">
+        @if(Likeloader()){
+        <div class="loader"></div>
+        }@else {
+        @if(blogDetails()?.likeCount){
+        <i class="bi bi-hand-thumbs-up-fill liked" role="button" (click)="onClik(blogDetails()?.id!)"></i>
+        }@else {
+        <i class="bi bi-hand-thumbs-up" role="button" (click)="onClik(blogDetails()?.id!)"></i>
+        }
+        {{blogDetails()?.likeCount}}
+        }
+      </div>
+      <div class="react">
+        <i class="bi bi-chat"></i>
+        {{ blogDetails()?. commentsCount}}
+      </div>
+    </div>
+    <p class="text-muted p-0 m-0">
+      @if( blogDetails()?.lastUpdateAt){
+      last update: {{ blogDetails()?.lastUpdateAt}}
+      }@else {
+      {{ blogDetails()?.createdAt}}
+      }
+    </p>
+  </div>
+  <hr>
+
+  <app-blog-result [data]="blogDetails()?.content!" />
+</div>
+@if(reportService.showReport()){
+<app-report-modal />
+}
+@if(reportService.ConfirmAction()){
+  <app-confirmation-pop-up (confirm)="DelteBlog()" />
+  }
+}

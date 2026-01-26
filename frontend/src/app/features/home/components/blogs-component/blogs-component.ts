@@ -39,13 +39,17 @@ export class BlogsComponent implements AfterViewInit, OnInit, OnDestroy {
     if (this.loader() || this.allDataGeted()) {
       return
     }
+
     this.loader.set(true)
     this.blogService.getBlogsHome(this.from(), 5).subscribe({
       next: (res) => {
         if (res.length === 0) {
           this.allDataGeted.set(true)
         }
+
         this.blogService.blogs.set([...this.blogService.blogs(), ...res])
+        console.log(this.blogService.blogs());
+
         this.from.set(this.from() + 1)
 
       },

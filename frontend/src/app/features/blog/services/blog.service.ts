@@ -43,9 +43,7 @@ export class BlogService {
         });
         return ele;
       }),
-
       catchError((err) => {
-        console.log(err);
         return of(err)
       })
     );
@@ -86,6 +84,11 @@ export class BlogService {
   getBLogById(id: number) {
     return this.http.get<BlogUpdateOutput>(API_URL + `/blog/${id}`)
   }
+
+  getAnyBLogById(id: number) {
+    return this.http.get<BlogInterface>(API_URL + `/blog/public/${id}`)
+  }
+
 
   ReactToBlog(blogId: number) {
     return this.http.post<ReactionResponse>(API_URL + `/reaction/${blogId}`, null);

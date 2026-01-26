@@ -1,0 +1,14 @@
+:host ::ng-deep h1,:host ::ng-deep h2,:host ::ng-deep h3,:host ::ng-deep h4,:host ::ng-deep h5,:host ::ng-deep h6 {
+  font-weight: 400;
+}
+
+
+:host ::ng-deep p>img,:host ::ng-deep video {
+
+  border-radius:10px;
+  width: 700px;
+  height: 700px;
+  margin: 10px auto;
+  object-fit: contain;
+  display: block;
+}
