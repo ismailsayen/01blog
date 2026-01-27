@@ -80,7 +80,7 @@ public class BlogDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DeletionResponse {
-        private Long blogId;
+        private Long id;
         private String action;
     }
 }

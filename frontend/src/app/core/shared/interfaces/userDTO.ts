@@ -27,3 +27,10 @@ export interface ProfileData {
   followed: boolean;
   MyAccount: boolean;
 }
+export interface SearchedUsers {
+  id: number;
+  userName: string;
+  job: string;
+  avatar: string;
+  followed:boolean;
+}

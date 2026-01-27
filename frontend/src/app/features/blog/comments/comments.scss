@@ -1,23 +1,29 @@
 @use '../../../../styles/variables' as vars;
 
-
 input:focus {
   border: 1px solid vars.$my-green;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
+.empty {
+  background-color: #f9fafb;
+  text-align: center;
+  img {
+    width: 70px;
+  }
+}
+
 button {
   background-color: vars.$my-green;
-
 }
 
 .bi {
   font-size: 1.2rem;
   cursor: pointer;
   color: rgb(255, 101, 101);
-  transition: .2s ease-in-out;
-  &:hover{
+  transition: 0.2s ease-in-out;
+  &:hover {
     color: red;
   }
 }

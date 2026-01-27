@@ -1,6 +1,8 @@
 import { Component, inject, input, OnChanges, OnDestroy, OnInit, signal, SimpleChanges } from '@angular/core';
 import { BlogService } from '../../../blog/services/blog.service';
 import { BlogCard } from "../../../blog/blog-card/blog-card";
+import { finalize } from 'rxjs';
+import { SnackbarService } from '../../../../core/shared/components/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-profile-blogs',
@@ -10,6 +12,8 @@ import { BlogCard } from "../../../blog/blog-card/blog-card";
 })
 export class ProfileBlogs implements OnChanges, OnDestroy {
   blogService = inject(BlogService)
+  snackBar = inject(SnackbarService)
+  
   profileId = input<number | null>()
   loader = signal<boolean>(false)
 
@@ -21,19 +25,18 @@ export class ProfileBlogs implements OnChanges, OnDestroy {
     this.blogService.blogs.set([])
     this.loader.set(true)
 
-    this.blogService.getProfileBlogs(changes['profileId'].currentValue).subscribe({
+    this.blogService.getProfileBlogs(changes['profileId'].currentValue).pipe(
+      finalize(() => {
+        this.loader.set(false);
+      })
+    ).subscribe({
       next: (res => {
         if (location.pathname.startsWith('/profile')) {
           this.blogService.blogs.set(res)
         }
       }),
-      error: (err => {
-        console.log(err);
-
-      }),
-      complete: (() => {
-        this.loader.set(false)
-
+      error: (() => {
+        this.snackBar.error('Error while fetching profile blogs.');
       })
     })
   }

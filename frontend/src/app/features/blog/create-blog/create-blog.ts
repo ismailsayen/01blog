@@ -33,16 +33,19 @@ import { BlogUpdateOutput } from '../../../core/shared/interfaces/BlogInterface'
 })
 export class CreateBlog implements OnDestroy, OnInit {
 
-  blogService = inject(BlogService);
   showResult = signal(false);
   shwoPage = signal(false);
+  blogInfo = signal<BlogUpdateOutput | null>(null)
+
+  blogService = inject(BlogService);
   mediaService = inject(MediaService);
   router = inject(Router);
-  categories = itCategories;
   snackbarService = inject(SnackbarService);
+  
+  categories = itCategories;
   blogId = Number(inject(ActivatedRoute).snapshot.paramMap.get('id'))
-  blogInfo = signal<BlogUpdateOutput | null>(null)
   path = location.pathname.startsWith('/create') ? 'Share' : 'Update'
+  
   ngOnInit(): void {
     if (isNaN(this.blogId)) {
       this.router.navigateByUrl('/')

@@ -78,7 +78,7 @@ public class BlogService {
 
         blgRepo.delete(blog);
         reportRepo.deleteByTargetIdAndTargetType(blog.getId(), ReportTargetType.BLOG);
-        return BlogDTO.DeletionResponse.builder().blogId(blog.getId()).action("the blog is deleted successfuly.")
+        return BlogDTO.DeletionResponse.builder().id(blog.getId()).action("the blog is deleted successfuly.")
                 .build();
     }
 

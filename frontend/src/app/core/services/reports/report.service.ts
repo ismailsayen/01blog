@@ -61,10 +61,18 @@ export class ReportService {
     return this.http.post<ReportMessage>(API_URL + "/report", body)
   }
   deleteBlog() {
-
     this.loader.set(true)
     return this.http.delete<DeletionResponse>(API_URL + `/blog/${this.id()}`).pipe(
+      finalize(() => {
+        this.loader.set(false)
+        this.ConfirmAction.set(false)
+      })
+    )
+  }
 
+  deleteComment(){
+    this.loader.set(true)
+    return this.http.delete<DeletionResponse>(API_URL + `/comment/${this.id()}`).pipe(
       finalize(() => {
         this.loader.set(false)
         this.ConfirmAction.set(false)

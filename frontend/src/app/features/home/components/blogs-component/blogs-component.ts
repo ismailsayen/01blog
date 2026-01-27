@@ -13,12 +13,14 @@ import { ObserverService } from '../../../../core/services/observer/observer.ser
 })
 export class BlogsComponent implements AfterViewInit, OnInit, OnDestroy {
   blogService = inject(BlogService)
-  loader = signal(false)
-  allDataGeted = signal(false)
   snackbarService = inject(SnackbarService)
   reportService = inject(ReportService)
-  lastId = signal<number>(0)
   observer = inject(ObserverService)
+
+  loader = signal(false)
+  allDataGeted = signal(false)
+  lastId = signal<number>(0)
+  
   @ViewChild('ob', { read: ElementRef })
   ob!: ElementRef
 
@@ -49,9 +51,6 @@ export class BlogsComponent implements AfterViewInit, OnInit, OnDestroy {
         }
         this.lastId.set(res[res.length - 1].id!)
         this.blogService.blogs.set([...this.blogService.blogs(), ...res])
-
-
-
       },
       error: () => {
         this.snackbarService.error('error while fetching blogs!')

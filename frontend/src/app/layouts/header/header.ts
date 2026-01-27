@@ -15,6 +15,7 @@ export class Header {
   tokenService = inject(TokenService);
   authService = inject(AuthService);
   router = inject(Router);
+  
   onclick() {
     this.tokenService.clearToken();
     this.authService.currentUser.set(null);

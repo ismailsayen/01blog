@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { API_URL } from '../../../core/shared/api-url';
-import { SearchedUsers } from '../../../core/shared/interfaces/SearchedUsers';
-import { followResponse } from '../../../core/shared/interfaces/userDTO';
+import { followResponse, SearchedUsers } from '../../../core/shared/interfaces/userDTO';
 import { finalize } from 'rxjs';
 
 interface loaderByIdInterface {

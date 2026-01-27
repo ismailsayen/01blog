@@ -19,6 +19,7 @@ export class Login implements OnInit {
   tokenService = inject(TokenService);
   router = inject(Router);
   auth = inject(Auth)
+
   backendError = signal<string | null>(null)
 
   ngOnInit(): void {
@@ -59,7 +60,7 @@ export class Login implements OnInit {
       },
       error: (err) => {
         this.authService.currentUser.set(null);
-        if ((err.status === 400 || err.status === 403 ) && err.error) {
+        if ((err.status === 400 || err.status === 403) && err.error) {
           this.backendError.set(err.error["detail"]);
         }
       },

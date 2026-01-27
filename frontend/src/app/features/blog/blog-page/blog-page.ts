@@ -22,6 +22,7 @@ export class BlogPage implements OnInit {
   snackBar = inject(SnackbarService)
   router = inject(Router);
   reportService = inject(ReportService);
+
   blogDetails = signal<BlogInterface | null>(null)
   loader = signal<boolean>(false)
   Likeloader = signal<boolean>(false)
@@ -65,6 +66,8 @@ export class BlogPage implements OnInit {
 
     this.reportService.deleteBlog().subscribe({
       next: (() => {
+        console.log("myaw");
+
         this.router.navigateByUrl('/')
         this.snackBar.success("Blog deleted successfully.")
       }),

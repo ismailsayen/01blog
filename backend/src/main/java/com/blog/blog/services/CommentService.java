@@ -64,7 +64,7 @@ public class CommentService {
 
         cmntRepo.delete(comment);
         reportRepo.deleteByTargetIdAndTargetType(cmntId, ReportTargetType.COMMENT);
-        return DeletionResponse.builder().blogId(cmntId).action("comment deleted successfully.").build();
+        return DeletionResponse.builder().id(cmntId).action("comment deleted successfully.").build();
     }
 
     public CommentEntity getComment(Long id) {

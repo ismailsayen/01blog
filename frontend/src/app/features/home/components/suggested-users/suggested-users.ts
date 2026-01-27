@@ -1,9 +1,9 @@
 import { finalize } from 'rxjs';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { SearchUsersService } from '../../../../layouts/header/services/search-users.service';
-import { SearchedUsers } from '../../../../core/shared/interfaces/SearchedUsers';
 import { UserCard } from "../../../auth/components/user-card/user-card";
 import { SnackbarService } from '../../../../core/shared/components/snackbar/snackbar.service';
+import { SearchedUsers } from '../../../../core/shared/interfaces/userDTO';
 
 
 @Component({
@@ -15,10 +15,9 @@ import { SnackbarService } from '../../../../core/shared/components/snackbar/sna
 
 export class SuggestedUsers implements OnInit {
   searchUsersService = inject(SearchUsersService)
-  users = signal<SearchedUsers[] | null | undefined>([])
   snackBar = inject(SnackbarService)
-  
 
+  users = signal<SearchedUsers[] | null | undefined>([])
 
   ngOnInit(): void {
     this.searchUsersService.getSuggestedUser().subscribe({
@@ -33,7 +32,7 @@ export class SuggestedUsers implements OnInit {
   }
 
   sendFollowReq(id: number) {
-   
+
     this.searchUsersService.sendRequestFollow(id).subscribe({
       next: (res => {
         this.users.update(users =>
@@ -46,7 +45,6 @@ export class SuggestedUsers implements OnInit {
       ),
       error: (() => {
         this.snackBar.error("failed to send follow Request")
-
       }),
     })
   }

@@ -19,11 +19,13 @@ import { SnackbarService } from '../../core/shared/components/snackbar/snackbar.
 export class Profile implements OnInit {
   reportService = inject(ReportService)
   profileService = inject(ProfileService)
-  profileId = signal<number | null>(null)
   blogService = inject(BlogService)
   snackBar = inject(SnackbarService)
   router = inject(Router);
   route = inject(ActivatedRoute);
+
+  profileId = signal<number | null>(null)
+  
   ngOnInit(): void {
     this.route.paramMap.subscribe((pm) => {
       const id = Number(pm.get('id'));
@@ -38,14 +40,13 @@ export class Profile implements OnInit {
     )
   }
 
-
-
   DelteBlog() {
     this.reportService.deleteBlog().subscribe({
       next: ((res) => {
-        this.blogService.blogs.update(blogs => {
-
-          return blogs.filter(ele => ele.id !== res.blogId)
+        this.blogService.blogs.update(blogs => {      
+          return blogs.filter(ele => {            
+            return ele.id !== res.id;
+          })
         })
         this.snackBar.success(res.action)
       }),

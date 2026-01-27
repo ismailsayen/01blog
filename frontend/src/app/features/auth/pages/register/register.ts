@@ -25,10 +25,12 @@ export class Register implements OnInit, OnDestroy {
   tokenService = inject(TokenService)
   auth = inject(Auth)
   router = inject(Router)
-  backendError = signal<string | null>(null)
   snackbarService = inject(SnackbarService)
+
+  backendError = signal<string | null>(null)
   previewUrl = signal<{ previewUrl: string, file: File } | null>(null)
   mediaService = inject(MediaService)
+  
   ngOnInit(): void {
     this.auth.showPassword.set(false)
   }

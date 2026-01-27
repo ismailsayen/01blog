@@ -34,11 +34,7 @@ export interface BlogUpdateOutput {
 }
 
 
-export interface ResponseMedia {
-  previewUrl(previewUrl: any, newURL: string): string | null;
-  OldUrl: string;
-  newURL: string;
-}
+
 
 export interface ReactionResponse {
   blogId: number;
@@ -49,6 +45,6 @@ export interface ReportMessage {
   Message: string
 }
 export interface DeletionResponse {
-  blogId: number;
+  id: number;
   action: string
 }

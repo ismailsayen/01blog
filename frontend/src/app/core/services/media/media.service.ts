@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { MediaItem } from '../../shared/interfaces/MediaItem';
+import { MediaItem, ResponseMedia } from '../../shared/interfaces/MediaItem';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from '../../shared/api-url';
-import { ResponseMedia } from '../../shared/interfaces/BlogInterface';
 
 @Injectable({
   providedIn: 'root',

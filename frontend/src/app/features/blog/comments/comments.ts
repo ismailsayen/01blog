@@ -21,7 +21,6 @@ export class Comments implements OnInit, AfterViewInit {
   allDataGeted = signal(false)
   loader = signal<boolean>(false)
   loaderCmnt = signal<boolean>(false)
-
   lastId = signal<number>(0)
   commentsInfo = signal<commentInterface[]>([])
 
@@ -57,7 +56,6 @@ export class Comments implements OnInit, AfterViewInit {
     ).subscribe({
       next: ((res) => {
         this.commentsInfo.set([res, ...this.commentsInfo()])
-        this.commentContent.setValue('')
         this.commentContent.reset('', { emitEvent: false });
         this.snackBar.success('Comment added successfully')
       }),
@@ -69,8 +67,26 @@ export class Comments implements OnInit, AfterViewInit {
   }
 
   deleteComment() {
-      
+    this.reportService.deleteComment().subscribe({
+      next: ((res) => {
+        this.commentsInfo.update(cmnts =>
+          cmnts.filter(cmt => cmt.id !== res.id)
+        )
+        this.snackBar.success(res.action)
+      }),
+      error: ((err) => {
+        if (err.status === 403) {
+          this.snackBar.error("You dont't have permission to delete this comment.")
+          return
+        }
+        if (err.status === 404) {
+          this.snackBar.error("Comment not Found so you can delete anything.")
+          return
+        }
+        this.snackBar.error("Error while delete comment.")
 
+      })
+    })
   }
 
   fetchComments() {

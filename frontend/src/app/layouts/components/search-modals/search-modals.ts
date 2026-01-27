@@ -2,9 +2,9 @@ import { Component, inject, OnInit, signal } from '@angular/core'
 import { FormControl, ReactiveFormsModule, Validators, } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs'
 import { SearchUsersService } from '../../header/services/search-users.service';
-import { SearchedUsers } from '../../../core/shared/interfaces/SearchedUsers';
 import { UserCard } from '../../../features/auth/components/user-card/user-card';
 import { SnackbarService } from '../../../core/shared/components/snackbar/snackbar.service';
+import { SearchedUsers } from '../../../core/shared/interfaces/userDTO';
 
 @Component({
   selector: 'app-search-modals',
@@ -14,9 +14,10 @@ import { SnackbarService } from '../../../core/shared/components/snackbar/snackb
 })
 export class SearchModals implements OnInit {
   searchService = inject(SearchUsersService)
+  snackBar = inject(SnackbarService)
+  
   users = signal<SearchedUsers[] | null | undefined>(undefined);
   loader = signal(false)
-  snackBar = inject(SnackbarService)
 
 
   userInput = new FormControl('', [
