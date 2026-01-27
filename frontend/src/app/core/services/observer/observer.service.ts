@@ -13,7 +13,7 @@ export class ObserverService {
       threshold: 0.1
     };
     this.observer = new IntersectionObserver((entries) => {
-      
+
       const entry = entries[0];
 
       if (entry.isIntersecting) {

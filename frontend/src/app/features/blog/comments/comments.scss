@@ -1,0 +1,70 @@
+@use '../../../../styles/variables' as vars;
+
+
+input:focus {
+  border: 1px solid vars.$my-green;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+button {
+  background-color: vars.$my-green;
+
+}
+
+.bi {
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: rgb(255, 101, 101);
+  transition: .2s ease-in-out;
+  &:hover{
+    color: red;
+  }
+}
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.comment__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 32px;
+}
+
+.comment__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.comment__meta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  line-height: 1.2;
+}
+
+.comment__name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #111;
+}
+
+.comment__time {
+  font-size: 12px;
+  color: #8b8b8b;
+}
+
+.comment__text {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #111;
+}

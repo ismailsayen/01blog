@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,9 +22,12 @@ public class CommentDTO {
         private String content;
     }
 
+
+
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
+    @Builder
     public static class CommentOutput {
         Long blogId;
         LocalDateTime createdAt;

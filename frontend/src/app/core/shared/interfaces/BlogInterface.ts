@@ -16,6 +16,16 @@ export interface BlogInterface {
   myBlog: boolean;
 }
 
+export interface commentInterface {
+  blogId: number;
+  createdAt: Date;
+  id: number;
+  userId: number;
+  content: string;
+  userName: string;
+  avatar: string | null;
+}
+
 export interface BlogUpdateOutput {
   id: number;
   title: string;

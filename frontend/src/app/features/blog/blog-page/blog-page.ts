@@ -22,7 +22,6 @@ export class BlogPage implements OnInit {
   snackBar = inject(SnackbarService)
   router = inject(Router);
   reportService = inject(ReportService);
-
   blogDetails = signal<BlogInterface | null>(null)
   loader = signal<boolean>(false)
   Likeloader = signal<boolean>(false)
@@ -62,7 +61,7 @@ export class BlogPage implements OnInit {
   }
 
   DelteBlog() {
-    console.log(this.reportService.id());
+    console.log(this.reportService.type());
 
     this.reportService.deleteBlog().subscribe({
       next: (() => {

@@ -1,1 +1,49 @@
-<p>comments works!</p>
+<div class="container p-0 m-0">
+  <div class="d-flex gap-2">
+    <input type="text" class="form-control " placeholder="Type here..." [formControl]="commentContent">
+    <button class="btn" (click)="onClick()" [disabled]="loader()">Post</button>
+  </div>
+  @if (commentContent.invalid && (commentContent.dirty || commentContent.touched)) {
+  @if (commentContent.hasError("required")) {
+  <div class="text-danger">you cannot send an empty comment</div>
+  }
+  @if (commentContent.hasError("minlength")|| commentContent.hasError("maxlength")) {
+  <div class="text-danger">comment must be between 8 and 500 characters.</div>
+  }
+  }
+
+  <div class="my-2">
+    @for (comment of commentsInfo(); track $index) {
+    <div class="comment">
+      <img class="comment__avatar" [src]="comment.avatar || '/assets/images/default-user.jpg'" alt="user avatar" />
+      <div class="comment__content">
+        <div class="comment__meta">
+          <span class="comment__name">{{comment.userName}}</span>
+          <span class="comment__time">{{comment.createdAt}}</span>
+        </div>
+        <p class="comment__text">{{comment.content}}</p>
+      </div>
+      @if (authService.currentUser()?.id == comment.userId || authService.currentUser()?.role =='ROLE_ADMIN') {
+      <i class="bi bi-trash3-fill " role="button" (click)="reportService.showConfirmAction(comment.id,'Comment',comment.userName,'Delete')"></i>
+      }
+    </div>
+    <hr class="m-2">
+    }
+
+    <div #cm [hidden]="loaderCmnt() || !commentsInfo().length"></div>
+
+    @if(!loaderCmnt() && !commentsInfo().length) {
+    <div class="w-100 p-2 rounded empty">
+      <p>empty</p>
+    </div>
+    }
+
+    @if(loaderCmnt()){
+    <p class="w-100 text-center">loading...</p>
+    }
+
+    @if(reportService.ConfirmAction() && reportService.type() === 'Comment'){
+      <app-confirmation-pop-up (confirm)="deleteComment()"/>
+    }
+  </div>
+</div>

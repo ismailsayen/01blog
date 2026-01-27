@@ -38,12 +38,13 @@
 
   <app-blog-result [data]="blogDetails()?.content!" />
 
-  <app-comments />
+  <app-comments [blogId]="blogId" />
 </div>
 @if(reportService.showReport()){
 <app-report-modal />
 }
-@if(reportService.ConfirmAction()){
+@if(reportService.ConfirmAction() && reportService.type() === 'blog'){
+<h1>blog PAge</h1>
 <app-confirmation-pop-up (confirm)="DelteBlog()" />
 }
 }

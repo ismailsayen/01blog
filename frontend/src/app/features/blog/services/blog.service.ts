@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { API_URL } from '../../../core/shared/api-url';
-import { BlogInterface, BlogUpdateOutput, ReactionResponse } from '../../../core/shared/interfaces/BlogInterface';
+import { BlogInterface, BlogUpdateOutput, commentInterface, ReactionResponse } from '../../../core/shared/interfaces/BlogInterface';
 import { catchError, defaultIfEmpty, delay, map, of, tap } from 'rxjs';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class BlogService {
     }
     return this.http.patch<string>(API_URL + `/blog/${id}`, data)
   }
-  getBlogsHome(page: number ) {
+  getBlogsHome(page: number) {
 
     return this.http.get<BlogInterface[]>(API_URL + `/blog?lastId=${page}`).pipe(
       map((ele) => {
@@ -83,6 +83,17 @@ export class BlogService {
     );
   }
 
+  getComments(blogId: number, lastId: number) {
+
+    return this.http.get<commentInterface[]>(API_URL + `/comment?blogId=${blogId}&lastId=${lastId}`);
+  }
+
+  addComment(blogId: number, content: string) {
+    const body = { blogId, content }
+    return this.http.post<commentInterface>(API_URL + "/comment", body)
+  }
+
+
   getBLogById(id: number) {
     return this.http.get<BlogUpdateOutput>(API_URL + `/blog/${id}`)
   }
@@ -91,8 +102,8 @@ export class BlogService {
     return this.http.get<BlogInterface>(API_URL + `/blog/public/${id}`)
   }
 
-
   ReactToBlog(blogId: number) {
     return this.http.post<ReactionResponse>(API_URL + `/reaction/${blogId}`, null);
   }
+
 }
