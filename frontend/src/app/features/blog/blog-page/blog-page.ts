@@ -8,10 +8,11 @@ import { BlogResult } from "../blog-result/blog-result";
 import { ReportService } from '../../../core/services/reports/report.service';
 import { ReportModal } from "../../../core/shared/components/report-modal/report-modal";
 import { ConfirmationPopUp } from "../../../core/shared/components/confirmation-pop-up/confirmation-pop-up";
+import { Comments } from "../comments/comments";
 
 @Component({
   selector: 'app-blog-page',
-  imports: [HeaderCardBlog, BlogResult, ReportModal, ConfirmationPopUp],
+  imports: [HeaderCardBlog, BlogResult, ReportModal, ConfirmationPopUp, Comments],
   templateUrl: './blog-page.html',
   styleUrl: './blog-page.scss',
 })
@@ -38,9 +39,9 @@ export class BlogPage implements OnInit {
         this.blogDetails.set(res)
 
       }),
-      error: ((err) => {
-        console.log("errrrr", err);
-
+      error: (() => {
+        this.snackBar.error('Error while fetching blog details')
+        this.router.navigateByUrl('/');
       }),
       complete: (() => {
         this.loader.set(false)

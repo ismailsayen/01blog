@@ -17,7 +17,7 @@ export class BlogsComponent implements AfterViewInit, OnInit, OnDestroy {
   allDataGeted = signal(false)
   snackbarService = inject(SnackbarService)
   reportService = inject(ReportService)
-  from = signal<number>(0)
+  lastId = signal<number>(0)
   observer = inject(ObserverService)
   @ViewChild('ob', { read: ElementRef })
   ob!: ElementRef
@@ -41,16 +41,16 @@ export class BlogsComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     this.loader.set(true)
-    this.blogService.getBlogsHome(this.from(), 5).subscribe({
+    this.blogService.getBlogsHome(this.lastId()).subscribe({
       next: (res) => {
         if (res.length === 0) {
           this.allDataGeted.set(true)
+          return
         }
-
+        this.lastId.set(res[res.length - 1].id!)
         this.blogService.blogs.set([...this.blogService.blogs(), ...res])
-        console.log(this.blogService.blogs());
 
-        this.from.set(this.from() + 1)
+
 
       },
       error: () => {

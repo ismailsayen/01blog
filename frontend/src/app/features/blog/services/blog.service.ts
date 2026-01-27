@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { API_URL } from '../../../core/shared/api-url';
 import { BlogInterface, BlogUpdateOutput, ReactionResponse } from '../../../core/shared/interfaces/BlogInterface';
-import { catchError, delay, map, of, tap } from 'rxjs';
+import { catchError, defaultIfEmpty, delay, map, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +17,9 @@ export class BlogService {
     }
     return this.http.patch<string>(API_URL + `/blog/${id}`, data)
   }
-  getBlogsHome(page: number, size: number) {
+  getBlogsHome(page: number ) {
 
-    return this.http.get<BlogInterface[]>(API_URL + `/blog?page=${page}&size=${size}`).pipe(
+    return this.http.get<BlogInterface[]>(API_URL + `/blog?lastId=${page}`).pipe(
       map((ele) => {
         const imagePattern: RegExp = /!\[[^\]]*]\((https?:\/\/[^)]+)\)/mg;
         const videoPattern: RegExp = /<video\b[^>]*>[\s\S]*?<\/video>/gm
@@ -43,6 +43,8 @@ export class BlogService {
         });
         return ele;
       }),
+      defaultIfEmpty(null),
+
       catchError((err) => {
         return of(err)
       })

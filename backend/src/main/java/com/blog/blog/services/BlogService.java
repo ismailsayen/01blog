@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,8 +55,8 @@ public class BlogService {
                 .build();
     }
 
-    public List<BlogDTO.BlogOutput> getAllBlogs(Pageable pageable, long id) {
-        return blgRepo.findAllData(id, pageable);
+    public List<BlogDTO.BlogOutput> getAllBlogs(Long lastId, long id) {
+        return blgRepo.findAllData(id, lastId);
     }
 
     public BlogDTO.BlogUpdateOutput findBlogById(Long idBlog, Long idUser) throws NoSuchElementException {

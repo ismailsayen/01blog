@@ -10,9 +10,37 @@
     color: vars.$my-green;
   }
 }
+.chat {
+  cursor: pointer;
+}
+
 .liked {
   color: vars.$my-green;
 }
+
+
+.loader2 {
+  border: 2px solid vars.$my-green;
+  border-left-color: transparent;
+  border-radius: 50%;
+}
+
+.loader2 {
+  border: 2px solid vars.$my-green;
+  border-left-color: transparent;
+  width: 10px;
+  height: 10px;
+}
+
+.loader2 {
+  border: 2px solid vars.$my-green;
+  border-left-color: transparent;
+  width: 20px;
+  height: 20px;
+  animation: spin89345 0.5s linear infinite;
+}
+
+
 .loader {
   border: 2px solid vars.$my-green;
   border-radius: 50%;

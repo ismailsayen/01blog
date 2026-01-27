@@ -4,9 +4,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,22 +43,20 @@ public class BlogController {
         return blgService.getUserBlogs(idUser, auth.getId());
     }
 
-    
     @GetMapping
-    public List<BlogDTO.BlogOutput> getAllBlogController(@RequestParam int page,
-    @RequestParam int size, @AuthenticationPrincipal UserInfo auth) {
-        Sort sort = Sort.by(Sort.Order.desc("created_at"));
-        Pageable pageable = PageRequest.of(page, size, sort);
-        return blgService.getAllBlogs(pageable, auth.getId());
+    public List<BlogDTO.BlogOutput> getAllBlogController(@RequestParam Long lastId,
+            @AuthenticationPrincipal UserInfo auth) {
+        return blgService.getAllBlogs(lastId, auth.getId());
     }
-    
+
     @GetMapping("/{idBlog}")
     public BlogDTO.BlogUpdateOutput getBLogById(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth)
-    throws NoSuchElementException {
+            throws NoSuchElementException {
         return blgService.findBlogById(idBlog, auth.getId());
     }
+
     @GetMapping("/public/{idBlog}")
-    public BlogDTO.BlogOutput getAnyBlogById(@PathVariable Long idBlog,@AuthenticationPrincipal UserInfo auth) {
+    public BlogDTO.BlogOutput getAnyBlogById(@PathVariable Long idBlog, @AuthenticationPrincipal UserInfo auth) {
         return blgService.getAnyBlogById(idBlog, auth.getId());
     }
 

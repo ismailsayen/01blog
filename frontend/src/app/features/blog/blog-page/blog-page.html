@@ -11,7 +11,7 @@
     <div class="d-flex align-items-center justify-content-between gap-3">
       <div class="react">
         @if(Likeloader()){
-        <div class="loader"></div>
+        <div class="loader2"></div>
         }@else {
         @if(blogDetails()?.likeCount){
         <i class="bi bi-hand-thumbs-up-fill liked" role="button" (click)="onClik(blogDetails()?.id!)"></i>
@@ -22,7 +22,7 @@
         }
       </div>
       <div class="react">
-        <i class="bi bi-chat"></i>
+        <i class="bi bi-chat chat"></i>
         {{ blogDetails()?. commentsCount}}
       </div>
     </div>
@@ -37,11 +37,13 @@
   <hr>
 
   <app-blog-result [data]="blogDetails()?.content!" />
+
+  <app-comments />
 </div>
 @if(reportService.showReport()){
 <app-report-modal />
 }
 @if(reportService.ConfirmAction()){
-  <app-confirmation-pop-up (confirm)="DelteBlog()" />
-  }
+<app-confirmation-pop-up (confirm)="DelteBlog()" />
+}
 }

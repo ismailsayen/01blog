@@ -1,5 +1,6 @@
 package com.blog.blog.services;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.DTO.CommentDTO;
+import com.blog.blog.DTO.CommentDTO.CommentOutput;
 import com.blog.blog.models.BlogEntity;
 import com.blog.blog.models.CommentEntity;
 import com.blog.blog.models.Exception.ForbiddenAction;
@@ -59,5 +61,9 @@ public class CommentService {
     public CommentEntity getComment(Long id) {
         return cmntRepo.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("No Comment found."));
+    }
+
+    public List<CommentOutput> getComments(Long lastId, Long id) {
+        return cmntRepo.findAllComments(id, lastId);
     }
 }
