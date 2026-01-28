@@ -7,7 +7,15 @@
             <div class="w-25">
                 <app-search-modals />
             </div>
-            <ul class="d-flex align-items-center p-0 m-0 gap-3">
+            <ul class="d-flex align-items-center p-0 m-0 gap-4">
+
+                @if(authService.currentUser()?.role==="ROLE_ADMIN"){
+                <li>
+                    <a routerLink="/dashboard">
+                        <i class="bi bi-clipboard-data"></i> </a>
+                </li>
+                }
+
                 <li><a routerLink="/create-blog">
                         <i class="bi bi-plus-square"></i>
                     </a>
@@ -21,8 +29,20 @@
                                 alt="mdo" width="35" height="35" class="rounded-circle" />
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                            <li class="dropdown-item fw-bold">{{authService.currentUser()?.userName}}
+                                @if(authService.currentUser()?.role==="ROLE_ADMIN"){
+                                <span class="admin text-muted">(admin)</span>
+                                }
+                            </li>
+                            <hr class="dropdown-divider">
                             <li><a routerLink="/create-blog" class="dropdown-item">Create blog</a></li>
-                            <li><a routerLink="/profile/{{authService.currentUser()?.id}}" class="dropdown-item">Profile</a></li>
+                            <li><a routerLink="/profile/{{authService.currentUser()?.id}}"
+                                    class="dropdown-item">Profile</a>
+                            </li>
+                            @if(authService.currentUser()?.role==="ROLE_ADMIN"){
+                            <li><a routerLink="/dashboard" class="dropdown-item">Dashboard</a>
+                            </li>
+                            }
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

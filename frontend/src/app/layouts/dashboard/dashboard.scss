@@ -1,0 +1,67 @@
+@use '../../../styles/variables' as vars;
+
+.wrapper {
+  align-items: stretch;
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.sidebar {
+  position: fixed;
+  top: 65px; 
+  left: 0;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - 65px);
+  background-color: vars.$my-green;
+}
+
+a {
+  cursor: pointer;
+  color: white;
+  font-size: 1.1rem;
+  width: 100%;
+  text-decoration: none;
+  display: block;
+  padding: 20px;
+}
+
+li{
+    margin: 15px 0;
+    width: 100%;
+}
+.active {
+    position: relative;
+    background-color: white;
+    border-radius: 20px 0 0 20px;
+    color: vars.$my-green;
+
+
+  &::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -20px;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 0 0, transparent 20px, white 20px);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -20px;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 0 100%, transparent 20px, white 20px);
+  }
+}
+
+.dash-cont{
+    width: 100%;
+    padding-left: 250px;
+}

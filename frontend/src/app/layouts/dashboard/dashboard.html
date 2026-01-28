@@ -1,0 +1,40 @@
+<div class="wrapper">
+    <nav class="sidebar">
+        <div>
+            <h2 class="text-center text-white">AuraWeb</h2>
+            <hr>
+        </div>
+
+        <ul class="list-group">
+            <li>
+                <a routerLink="/dashboard" class="p-2 fw-bold text-center" routerLinkActive="active"
+                    [routerLinkActiveOptions]=" {exact:true}">
+                    <i class="bi bi-house-fill"></i> Home
+                </a>
+            </li>
+            <li>
+                <a routerLink="/dashboard/users" class="p-2 fw-bold text-center" routerLinkActive="active">
+                    <i class="bi bi-person-fill"></i> Users
+                </a>
+            </li>
+            <li>
+                <a routerLink="/dashboard/blogs" class="p-2 fw-bold text-center" routerLinkActive="active">
+                    <i class="bi bi-card-heading"></i> Blogs
+                </a>
+            </li>
+            <li>
+                <a routerLink="/dashboard/reports" class="p-2 fw-bold text-center" routerLinkActive="active">
+                    <i class="bi bi-flag-fill"></i> Reports
+                </a>
+            </li>
+        </ul>
+
+        <div class="d-flex justify-content-center align-items-center flex-column px-3">
+            <button class="btn btn-success w-100 fw-bold mb-2">Home</button>
+            <button class="btn btn-danger w-100 fw-bold mb-2">Log Out</button>
+        </div>
+    </nav>
+    <div class="dash-cont">
+        <router-outlet />
+    </div>
+</div>
