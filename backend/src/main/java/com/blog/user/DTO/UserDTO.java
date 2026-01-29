@@ -31,6 +31,13 @@ public class UserDTO {
         private Long following;
         private Boolean followed;
         private Boolean MyAccount;
-
+    }
+    @Data
+    @AllArgsConstructor
+    @Builder
+    public static class StatiqueInfo {
+        private Long usersCount;  
+        private Long blogsCount;
+        private Long reportsCount;
     }
 }

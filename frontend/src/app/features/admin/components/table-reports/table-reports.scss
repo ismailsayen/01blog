@@ -1,0 +1,17 @@
+td,th{
+    padding: 10px;
+    text-align: center;
+}
+
+.status{
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    background-color: rgba(206, 255, 133, 0.888);
+    color: green;
+    font-weight: bold;
+}
+
+.resolved{
+    background-color: rgba(147, 199, 255, 0.653);
+}

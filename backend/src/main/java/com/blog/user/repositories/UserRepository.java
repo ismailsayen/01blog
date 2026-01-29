@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.blog.user.DTO.UserDTO;
 import com.blog.user.DTO.UserDTO.ProfileOutput;
 import com.blog.user.DTO.UserDTO.SearchedUsers;
 import com.blog.user.model.UserEntity;
@@ -28,4 +29,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT u.id, u.user_name, u.job, u.avatar, u.created_at,u.countfollowers,  u.countfollowing, EXISTS(SELECT 1 FROM follows f WHERE f.follower_id=:userId AND f.following_id=u.id) as followed, (:id=:userId) as MyAccount FROM users u WHERE u.id=:id", nativeQuery = true)
     Optional<ProfileOutput> findProfileId(@Param("id") Long id, @Param("userId") Long userId);
 
+    @Query(value=" SELECT (SELECT COUNT(*) FROM users)   AS usersCount,(SELECT COUNT(*) FROM blogs)   AS blogsCount, (SELECT COUNT(*) FROM reports) AS reportsCount;", nativeQuery=true)
+    public UserDTO.StatiqueInfo findStatiques();
 }

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blog.user.DTO.UserDTO;
 import com.blog.user.DTO.UserDTO.ProfileOutput;
 import com.blog.user.DTO.UserDTO.SearchedUsers;
 import com.blog.user.repositories.UserRepository;
@@ -32,5 +33,9 @@ public class UserServices {
     public List<SearchedUsers> getSuggestedProfiles(Long id) {
 
         return userRepo.findSuggestedProfiles(id);
+    }
+
+    public UserDTO.StatiqueInfo getStatiques() {
+       return userRepo.findStatiques();
     }
 }

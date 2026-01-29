@@ -52,6 +52,7 @@ public class ReportDTO {
         private Long id;
         private String reason;
         private LocalDateTime reportedAt;
+        private Boolean resolved;
         private Long targetId;
         private String targetType;
         private Long reportedBy;

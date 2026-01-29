@@ -37,7 +37,8 @@ public class ReportService {
                 .reason(data.getReason())
                 .targetId(blog.getId())
                 .targetType(ReportTargetType.BLOG)
-                .userReported(auth.getUser())
+                .userReported(blog.getUserBlog())
+                .resolved(false)
                 .build();
         reportRepo.save(report);
         return ReportReponse.builder().Message("blog reported successfully").build();
@@ -50,7 +51,7 @@ public class ReportService {
                 .reason(data.getReason())
                 .targetId(userEntity.getId())
                 .targetType(ReportTargetType.PROFILE)
-                .userReported(auth.getUser())
+                .userReported(userEntity)
                 .build();
         reportRepo.save(report);
         return ReportReponse.builder().Message("Profile reported successfully").build();

@@ -51,6 +51,7 @@ public class ReportEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReportTargetType targetType;
+    private ReportTargetType targetType; 
 
+    private Boolean resolved;
 }

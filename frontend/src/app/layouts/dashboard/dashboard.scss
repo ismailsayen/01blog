@@ -9,14 +9,15 @@
 
 .sidebar {
   position: fixed;
-  top: 65px; 
+  top: 65px;
   left: 0;
   width: 240px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: calc(100% - 65px);
-  background-color: vars.$my-green;
+  background-color: #333;
+  z-index: 10;
 }
 
 a {
@@ -29,16 +30,15 @@ a {
   padding: 20px;
 }
 
-li{
-    margin: 15px 0;
-    width: 100%;
+li {
+  margin: 15px 0;
+  width: 100%;
 }
 .active {
-    position: relative;
-    background-color: white;
-    border-radius: 20px 0 0 20px;
-    color: vars.$my-green;
-
+  position: relative;
+  background-color: white;
+  border-radius: 20px 0 0 20px;
+  color: #151515;
 
   &::before {
     content: '';
@@ -61,7 +61,8 @@ li{
   }
 }
 
-.dash-cont{
-    width: 100%;
-    padding-left: 250px;
+.dash-cont {
+  width: 100%;
+  padding-left: 250px;
+  position: relative;
 }

@@ -3,6 +3,7 @@ package com.blog.user.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,10 +31,16 @@ public class UserController {
     public List<SearchedUsers> getProfiles(@RequestParam String name, @AuthenticationPrincipal UserInfo auth) {
         return userServices.getProfiles(name, auth.getId());
     }
-
-     @GetMapping("/suggested")
+    
+    @GetMapping("/suggested")
     public List<SearchedUsers> getSuggestedProfiles(@AuthenticationPrincipal UserInfo auth) {
         return userServices.getSuggestedProfiles(auth.getId());
+    }
+
+    @GetMapping("/admin/statiques")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public UserDTO.StatiqueInfo getStatiques(@AuthenticationPrincipal UserInfo auth){
+        return userServices.getStatiques();
     }
 
 }

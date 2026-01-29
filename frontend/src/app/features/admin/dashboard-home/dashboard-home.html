@@ -1,1 +1,30 @@
-<p>dashboard-home works!</p>
+@if(adminService.loader()){
+<div class="loader"></div>
+
+}@else {
+<div class="container">
+    <div class="d-flex justify-content-around gap-3 flex-wrap mb-4">
+
+        <div class="col-3 bg-primary text-white rounded p-3 shadow-sm">
+            <p class="m-0 fw-bold">Total users</p>
+            <h1 class="fw-bold">{{ statiques()?.usersCount }}</h1>
+        </div>
+
+        <div class="col-3 bg-success text-white rounded p-3 shadow-sm">
+            <p class="m-0 fw-bold">Total blogs</p>
+            <h1 class="fw-bold">{{ statiques()?.blogsCount }}</h1>
+        </div>
+
+        <div class="col-3 bg-danger text-white rounded p-3 shadow-sm">
+            <p class="m-0 fw-bold">Total reports</p>
+            <h1 class="fw-bold">{{ statiques()?.reportsCount }}</h1>
+        </div>
+    </div>
+
+    <div class="p-3">
+        <h4>Last reports:</h4>
+        <app-table-reports [(reports)]="reports" />
+
+    </div>
+</div>
+}
