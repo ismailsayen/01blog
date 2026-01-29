@@ -25,7 +25,7 @@
                 <a [routerLink]="['/profile', report.targetId]">{{ report.targetType }}</a>
                 }
             </td>
-            <td>{{report.reportedAt}}</td>
+            <td class="text-muted">{{report.reportedAt}}</td>
             <td>@if (report.resolved) {
                 <span class="status resolved text-primary">Resolved</span>
                 }@else {
