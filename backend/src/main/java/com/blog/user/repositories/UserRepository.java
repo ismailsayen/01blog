@@ -41,6 +41,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     StatiqueUsers getStatiqueUsers();
 
 
-    @Query(value="SELECT u.id, u.avatar, u.role, u.created_at FROM users u ORDER BY u.created_at",nativeQuery=true)
+    @Query(value="SELECT u.id, u.avatar, u.user_name,u.role, u.banned,u.created_at FROM users u ORDER BY u.created_at",nativeQuery=true)
     List<UsersData> findAllUsers();
 }

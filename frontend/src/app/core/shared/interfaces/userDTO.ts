@@ -41,10 +41,16 @@ export interface Resolve {
   message: string;
 }
 
+export interface ActionResponse {
+  id: number;
+  status: boolean;
+}
 
 export interface UsersData {
-          id:number;
-          avatar:string | null;
-          role:string;
-          joined:Date;
-    }
+  id: number;
+  avatar: string | null;
+  userName: string;
+  role: string;
+  banned: boolean;
+  joined: Date;
+}

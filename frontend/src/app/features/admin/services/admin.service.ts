@@ -34,17 +34,13 @@ export class AdminService {
   }
 
   getStatiquesUsers() {
-    this.loader.set(true)
-    return this.http.get<StatiqueUsers>(API_URL + "/user/admin/statiquesUsers").pipe(
-      finalize(() => {
-        this.loader.set(false)
-      })
-    );
+    
+    return this.http.get<StatiqueUsers>(API_URL + "/user/admin/statiquesUsers")
   }
 
   getUsers() {
     this.loader.set(true)
-    return this.http.get<UsersData>(API_URL + "/user/admin/allUsers").pipe(
+    return this.http.get<UsersData[]>(API_URL + "/user/admin/allUsers").pipe(
       finalize(() => {
         this.loader.set(false)
       })

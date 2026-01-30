@@ -3,7 +3,7 @@ import { inject, Injectable, signal } from '@angular/core'
 import { API_URL } from '../../shared/api-url'
 import { DeletionResponse, ReportMessage } from '../../shared/interfaces/BlogInterface'
 import { finalize } from 'rxjs'
-import { Resolve } from '../../shared/interfaces/userDTO'
+import { ActionResponse, Resolve } from '../../shared/interfaces/userDTO'
 
 
 @Injectable({
@@ -99,5 +99,23 @@ export class ReportService {
       })
     )
   }
+  BanOrUnban() {
+    this.loader.set(true)
+    return this.http.patch<ActionResponse>(API_URL + `/user/admin/Ban/${this.id()}`, null).pipe(
+      finalize(() => {
+        this.loader.set(false)
+        this.ConfirmAction.set(false)
+      })
+    );
+  }
 
+  deleteUser() {
+    this.loader.set(true)
+    return this.http.delete<ActionResponse>(API_URL + `/user/admin/delete/${this.id()}`).pipe(
+      finalize(() => {
+        this.loader.set(false)
+        this.ConfirmAction.set(false)
+      })
+    );
+  }
 }

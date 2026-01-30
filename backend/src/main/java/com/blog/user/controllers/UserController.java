@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +18,7 @@ import com.blog.user.DTO.UserDTO;
 import com.blog.user.DTO.UserDTO.SearchedUsers;
 import com.blog.user.DTO.UserDTO.UsersData;
 import com.blog.user.services.UserServices;
+import com.cloudinary.api.exceptions.BadRequest;
 
 @RestController
 @RequestMapping("/user")
@@ -62,4 +65,15 @@ public class UserController {
         return userServices.getAllUsers();
     }
 
+    @PatchMapping("/admin/Ban/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public UserDTO.ActionResponse BanOrUnbanUser(@PathVariable Long id) throws BadRequest {
+        return userServices.BanOrUnbanUser(id);
+    }
+
+    @DeleteMapping("/admin/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public UserDTO.ActionResponse DeleteUser(@PathVariable Long id) throws BadRequest {
+        return userServices.DeleteUser(id);
+    }
 }

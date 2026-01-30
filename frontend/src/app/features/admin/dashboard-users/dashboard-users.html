@@ -3,18 +3,95 @@
   <div class="spinner-border text-success"></div>
 </div>
 }@else {
-  <div class="container py-3">
+<div class="container py-3">
 
   <app-header-reports [statiques]="null" [statiquesUsers]="statiques()" type="users" />
 
-  <!-- Reports -->
+  <!-- Users -->
   <div class="card shadow-sm border-0">
     <div class="card-header bg-white fw-bold">
       users
     </div>
     <div class="card-body p-2">
+      <table class="table table-hover">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">user</th>
+            <th scope="col">status</th>
+            <th scope="col">role</th>
+            <th scope="col">joined at</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of users(); track user.id) {
+          <tr class="text-center">
+            <td class="text-start">
+              <img [src]="user.avatar || '/assets/images/default-user.jpg'" width="40" height="40"
+                class="rounded-circle">
+              <span class="fw-bold mx-3">{{user.userName}}</span>
+            </td>
+            <td>
+              <span [ngClass]="user.banned?'status banned text-danger fw-bold':'status fw-bold'">
+                @if (user.banned) {
+                Banned
+                }@else {
+                Active
+                }
+              </span>
 
+            </td>
+            <td>
+              {{user.role}}
+            </td>
+            <td class="text-muted">
+              {{user.joined}}
+            </td>
+            <td>
+              @if(user.role!=="ROLE_ADMIN"){
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="12" cy="5" r="1"></circle>
+                <circle cx="12" cy="19" r="1"></circle>
+              </svg>
+              <ul class="dropdown-menu">
+                <button class="dropdown-item d-flex align-items-center gap-2">
+                  <a routerLink="/profile/{{user.id}}">
+                    <i class="bi bi-eye"></i><span>View profile</span>
+                  </a>
+                </button>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center gap-2 text-warning"
+                    (click)="reportsService.showConfirmAction(user.id,'profile',user.userName,'ban/unban')">
+                    <i class="bi bi-ban"></i><span>Ban/Unban user</span>
+                  </button>
+                </li>
+
+                <li>
+                  <button class="dropdown-item d-flex align-items-center gap-2 text-danger"
+                    (click)="reportsService.showConfirmAction(user.id,'profile',user.userName,'delete')">
+                    <i class="bi bi-person-x"></i><span>Delete user</span>
+                  </button>
+                </li>
+              </ul>
+              }
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+@if(reportsService.ConfirmAction() && reportsService.action()==="ban/unban"){
+<app-confirmation-pop-up (confirm)="banOrUnban()" />
+}
+@if(reportsService.ConfirmAction() ){
+<app-confirmation-pop-up (confirm)="deleteUser()" />
+}
 }

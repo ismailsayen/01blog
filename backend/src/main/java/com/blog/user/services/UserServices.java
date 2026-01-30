@@ -13,7 +13,9 @@ import com.blog.user.DTO.UserDTO.SearchedUsers;
 import com.blog.user.DTO.UserDTO.StatiqueInfo;
 import com.blog.user.DTO.UserDTO.StatiqueUsers;
 import com.blog.user.DTO.UserDTO.UsersData;
+import com.blog.user.model.UserEntity;
 import com.blog.user.repositories.UserRepository;
+import com.cloudinary.api.exceptions.BadRequest;
 
 @Service
 public class UserServices {
@@ -48,12 +50,37 @@ public class UserServices {
 
     public StatiqueUsers getStatiquesUsers() {
         StatiqueUsers statique = userRepo.getStatiqueUsers();
-        statique.setActiveCount(statique.getUsersCount() - statique.getBannnedCount());
         return statique;
     }
 
     public  List<UsersData> getAllUsers() {
         
         return userRepo.findAllUsers();
+    }
+
+    public UserDTO.ActionResponse BanOrUnbanUser(Long id) throws BadRequest {
+         UserEntity user = userRepo.findById(id).orElseThrow(()->new NoSuchElementException("No profile Founded with this id"));
+        
+        if(user.getRole().equals("ROLE_ADMIN")){
+            throw new BadRequest("You cannot ban an admin");
+        }
+        
+        user.setBanned(!user.getBanned());
+        userRepo.save(user);
+
+        return UserDTO.ActionResponse.builder().id(user.getId()).status(user.getBanned()).build();
+    }
+
+    public UserDTO.ActionResponse DeleteUser(Long id) throws  BadRequest {
+        UserEntity user = userRepo.findById(id).orElseThrow(()->new NoSuchElementException("No profile Founded with this id"));
+        
+        if(user.getRole().equals("ROLE_ADMIN")){
+            throw new BadRequest("You cannot delete an admin");
+        }
+        
+        
+        userRepo.delete(user);
+
+        return UserDTO.ActionResponse.builder().id(user.getId()).status(user.getBanned()).build();
     }
 }

@@ -56,7 +56,17 @@ public class UserDTO {
     public static class UsersData {
         private Long id;
         private String avatar;
+        private String userName;
         private String role;
+        private Boolean banned;
         private LocalDateTime joined;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    public static class ActionResponse {
+        private Long id;
+        private Boolean status;
     }
 }
