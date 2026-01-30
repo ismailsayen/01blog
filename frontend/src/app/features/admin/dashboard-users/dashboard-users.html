@@ -42,8 +42,11 @@
 
             </td>
             <td>
-              {{user.role}}
+              <span class="role-badge" [ngClass]="user.role === 'ROLE_ADMIN' ? 'role-admin' : 'role-user'">
+                {{ user.role === 'ROLE_ADMIN' ? 'Admin' : 'User' }}
+              </span>
             </td>
+
             <td class="text-muted">
               {{user.joined}}
             </td>
