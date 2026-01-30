@@ -32,5 +32,19 @@ export interface SearchedUsers {
   userName: string;
   job: string;
   avatar: string;
-  followed:boolean;
+  followed: boolean;
 }
+
+
+export interface Resolve {
+  reportID: number;
+  message: string;
+}
+
+
+export interface UsersData {
+          id:number;
+          avatar:string | null;
+          role:string;
+          joined:Date;
+    }

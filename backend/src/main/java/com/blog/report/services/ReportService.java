@@ -14,6 +14,7 @@ import com.blog.blog.services.BlogService;
 import com.blog.report.DTO.ReportDTO;
 import com.blog.report.DTO.ReportDTO.AllReports;
 import com.blog.report.DTO.ReportDTO.ReportReponse;
+import com.blog.report.DTO.ReportDTO.UpdateResponse;
 import com.blog.report.models.ReportEntity;
 import com.blog.report.models.ReportTargetType;
 import com.blog.report.repositories.ReportRepository;
@@ -52,6 +53,7 @@ public class ReportService {
                 .targetId(userEntity.getId())
                 .targetType(ReportTargetType.PROFILE)
                 .userReported(userEntity)
+                .resolved(false)
                 .build();
         reportRepo.save(report);
         return ReportReponse.builder().Message("Profile reported successfully").build();
@@ -62,24 +64,27 @@ public class ReportService {
         return reportRepo.getNewRports(pageable).toList();
     }
 
-    public ReportDTO.Report getReport(Long reportId, ReportTargetType reportTargetType) {
-        return getReportByIdAndType(reportId, reportTargetType);
-    }
-
-    public ReportDTO.Report getReportByIdAndType(Long id, ReportTargetType reportTargetType)
-            throws NoSuchElementException {
-        return reportRepo.findByIdAndTargetType(id, reportTargetType.toString())
-                .orElseThrow(() -> new NoSuchElementException("Report not found."));
-    }
-
-    public String deleteReport(Long reportId) {
+    public UpdateResponse deleteReport(Long reportId) {
         ReportEntity report = reportRepo.findById(reportId)
                 .orElseThrow(() -> new NoSuchElementException("Report not found."));
         reportRepo.delete(report);
-        return "Post deleted successfully";
+        return UpdateResponse.builder().reportID(report.getId()).message("Blog deleted successfully").build();
     }
 
     public List<AllReports> getReportByType(Pageable pageable, ReportTargetType reportTargetType) {
         return reportRepo.findByTargetType(reportTargetType.toString(), pageable);
+    }
+
+    public UpdateResponse resolveReport(Long reportId) {
+        ReportEntity report = reportRepo.findById(reportId)
+                .orElseThrow(() -> new NoSuchElementException("Report not found."));
+
+        report.setResolved(true);
+        reportRepo.save(report);
+        return UpdateResponse.builder().reportID(report.getId()).message("Report resolved succcessfully").build();
+    }
+
+    public List<AllReports> getAllReports() {
+        return reportRepo.findAllReports().toList();
     }
 }

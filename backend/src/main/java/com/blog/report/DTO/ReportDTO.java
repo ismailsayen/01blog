@@ -29,7 +29,15 @@ public class ReportDTO {
     @Builder
     public static class ReportReponse {
         private String Message;
+    }
 
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpdateResponse {
+        private Long reportID;
+        private String message;
     }
 
     @Data

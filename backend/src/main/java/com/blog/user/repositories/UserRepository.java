@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.blog.user.DTO.UserDTO;
 import com.blog.user.DTO.UserDTO.ProfileOutput;
 import com.blog.user.DTO.UserDTO.SearchedUsers;
+import com.blog.user.DTO.UserDTO.StatiqueUsers;
+import com.blog.user.DTO.UserDTO.UsersData;
 import com.blog.user.model.UserEntity;
 
 @Repository
@@ -29,6 +31,16 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT u.id, u.user_name, u.job, u.avatar, u.created_at,u.countfollowers,  u.countfollowing, EXISTS(SELECT 1 FROM follows f WHERE f.follower_id=:userId AND f.following_id=u.id) as followed, (:id=:userId) as MyAccount FROM users u WHERE u.id=:id", nativeQuery = true)
     Optional<ProfileOutput> findProfileId(@Param("id") Long id, @Param("userId") Long userId);
 
-    @Query(value=" SELECT (SELECT COUNT(*) FROM users)   AS usersCount,(SELECT COUNT(*) FROM blogs)   AS blogsCount, (SELECT COUNT(*) FROM reports) AS reportsCount;", nativeQuery=true)
+    @Query(value = " SELECT (SELECT COUNT(*) FROM users) AS usersCount,(SELECT COUNT(*) FROM blogs) AS blogsCount, (SELECT COUNT(*) FROM reports) AS reportsCount;", nativeQuery = true)
     public UserDTO.StatiqueInfo findStatiques();
+
+    @Query(value = " SELECT (SELECT COUNT(*) FROM reports WHERE target_type='PROFILE') AS userReported, (SELECT COUNT(*) FROM reports WHERE target_type='BLOG') AS blogsReported, (SELECT COUNT(*) FROM reports) AS reportsCount;", nativeQuery = true)
+    UserDTO.StatiqueInfo findStatiqueReport();
+
+    @Query(value = " SELECT (SELECT COUNT(*) FROM users) AS usersCount, (SELECT COUNT(*) FROM users WHERE banned=TRUE) AS BannnedCount, (SELECT COUNT(*) FROM users WHERE banned=FALSE) AS ActiveCount", nativeQuery = true)
+    StatiqueUsers getStatiqueUsers();
+
+
+    @Query(value="SELECT u.id, u.avatar, u.role, u.created_at FROM users u ORDER BY u.created_at",nativeQuery=true)
+    List<UsersData> findAllUsers();
 }

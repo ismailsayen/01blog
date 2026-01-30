@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import com.blog.user.DTO.UserDTO;
 import com.blog.user.DTO.UserDTO.ProfileOutput;
 import com.blog.user.DTO.UserDTO.SearchedUsers;
+import com.blog.user.DTO.UserDTO.StatiqueInfo;
+import com.blog.user.DTO.UserDTO.StatiqueUsers;
+import com.blog.user.DTO.UserDTO.UsersData;
 import com.blog.user.repositories.UserRepository;
 
 @Service
@@ -22,7 +25,7 @@ public class UserServices {
         if (!user.isPresent()) {
             throw new NoSuchElementException("No profile Founded with this id");
         }
-   
+
         return user.get();
     }
 
@@ -36,6 +39,21 @@ public class UserServices {
     }
 
     public UserDTO.StatiqueInfo getStatiques() {
-       return userRepo.findStatiques();
+        return userRepo.findStatiques();
+    }
+
+    public StatiqueInfo getStatiquesReports() {
+        return userRepo.findStatiqueReport();
+    }
+
+    public StatiqueUsers getStatiquesUsers() {
+        StatiqueUsers statique = userRepo.getStatiqueUsers();
+        statique.setActiveCount(statique.getUsersCount() - statique.getBannnedCount());
+        return statique;
+    }
+
+    public  List<UsersData> getAllUsers() {
+        
+        return userRepo.findAllUsers();
     }
 }

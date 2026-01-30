@@ -14,6 +14,7 @@ export interface BlogInterface {
   image: string | null;
   liked: boolean;
   myBlog: boolean;
+  hide: boolean;
 }
 
 export interface commentInterface {

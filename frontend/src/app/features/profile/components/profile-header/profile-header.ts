@@ -3,10 +3,9 @@ import { ReportService } from '../../../../core/services/reports/report.service'
 import { ProfileService } from '../../profile.service';
 import { ProfileData } from '../../../../core/shared/interfaces/userDTO';
 import { Router } from '@angular/router';
-import { Snackbar } from '../../../../core/shared/components/snackbar/snackbar';
 import { SnackbarService } from '../../../../core/shared/components/snackbar/snackbar.service';
-import { SearchUsersService } from '../../../../layouts/header/services/search-users.service';
 import { finalize } from 'rxjs';
+import { SearchUsersService } from '../../../../layouts/components/header/services/search-users.service';
 
 @Component({
   selector: 'app-profile-header',

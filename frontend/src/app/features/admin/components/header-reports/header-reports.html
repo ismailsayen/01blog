@@ -1,0 +1,71 @@
+<!-- Header -->
+<div class="mb-4">
+  <h4 class="fw-bold mb-1">Admin dashboard</h4>
+  <small class="text-muted">
+    @if(type()==='report'){
+    Overview & latest reports
+    }@else if(type()==='users') {
+    manage users
+    }
+  </small>
+</div>
+<!-- Stats -->
+<div class="row g-3 mb-4">
+
+  <div class="col-12 col-md-4">
+    <div class="card shadow-sm border-0">
+      <div class="card-body d-flex align-items-center gap-3">
+        <div class="bg-primary text-white rounded-circle p-3">
+          <i class="bi bi-people-fill fs-6"></i>
+        </div>
+        <div>
+          @if(type()==='report'){
+          <p class="mb-1 fw-bold text-muted">Total users</p>
+          <h3 class="mb-0 fw-bold">{{ statiques()?.usersCount }}</h3>
+          }@else if(type()==='users') {
+          <p class="mb-1 fw-bold text-muted">Total users</p>
+          <h3 class="mb-0 fw-bold">{{ statiquesUsers()?.usersCount }}</h3>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-md-4">
+    <div class="card shadow-sm border-0">
+      <div class="card-body d-flex align-items-center gap-3">
+        <div class="bg-success text-white rounded-circle p-3">
+          <i class="bi bi-journal-text fs-6"></i>
+        </div>
+        <div>
+          @if(type()==='report'){
+          <p class="mb-1 fw-bold text-muted">Total blogs</p>
+          <h3 class="mb-0 fw-bold">{{ statiques()?.blogsCount }}</h3>
+          }@else if(type()==='users') {
+          <p class="mb-1 fw-bold text-muted">Active users</p>
+          <h3 class="mb-0 fw-bold">{{ statiquesUsers()?.ActiveCount }}</h3>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-md-4">
+    <div class="card shadow-sm border-0">
+      <div class="card-body d-flex align-items-center gap-3">
+        <div class="bg-danger text-white rounded-circle p-3">
+          <i class="bi bi-flag-fill fs-6"></i>
+        </div>
+        <div>
+          @if(type()==='report'){
+          <p class="mb-1 fw-bold text-muted">Total reports</p>
+          <h3 class="mb-0 fw-bold">{{ statiques()?.reportsCount }}</h3>
+          }@else if(type()==='users') {
+          <p class="mb-1 fw-bold text-muted">Banned users</p>
+          <h3 class="mb-0 fw-bold">{{ statiquesUsers()?.BannnedCount }}</h3>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

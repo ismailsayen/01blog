@@ -1,10 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core'
 import { FormControl, ReactiveFormsModule, Validators, } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs'
-import { SearchUsersService } from '../../header/services/search-users.service';
 import { UserCard } from '../../../features/auth/components/user-card/user-card';
 import { SnackbarService } from '../../../core/shared/components/snackbar/snackbar.service';
 import { SearchedUsers } from '../../../core/shared/interfaces/userDTO';
+import { SearchUsersService } from '../header/services/search-users.service';
 
 @Component({
   selector: 'app-search-modals',
@@ -15,7 +15,7 @@ import { SearchedUsers } from '../../../core/shared/interfaces/userDTO';
 export class SearchModals implements OnInit {
   searchService = inject(SearchUsersService)
   snackBar = inject(SnackbarService)
-  
+
   users = signal<SearchedUsers[] | null | undefined>(undefined);
   loader = signal(false)
 
@@ -59,7 +59,7 @@ export class SearchModals implements OnInit {
 
   sendFollowReq(id: number) {
     this.searchService.sendRequestFollow(id).subscribe({
-      next: (res => {        
+      next: (res => {
         this.users.update(users =>
           users?.map(user =>
             user.id === res.userId ? { ...user, followed: res.status } : user
@@ -73,6 +73,6 @@ export class SearchModals implements OnInit {
 
       })
     })
-  
+
   }
 }

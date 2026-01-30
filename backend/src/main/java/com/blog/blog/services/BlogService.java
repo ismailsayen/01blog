@@ -37,6 +37,7 @@ public class BlogService {
                 .content(input.getContent())
                 .categorie(input.getCategorie())
                 .userBlog(auth.getUser())
+                .hide(false)
                 .build();
         blgRepo.save(blgEnt);
 
@@ -52,6 +53,7 @@ public class BlogService {
                 .userName(auth.getUsername())
                 .job(auth.getUser().getJob())
                 .avatar(auth.getUser().getAvatar())
+                .hide(false)
                 .build();
     }
 
@@ -102,13 +104,14 @@ public class BlogService {
     }
 
     public BlogOutput getAnyBlogById(Long idBlog, Long id) throws NoSuchElementException {
-        BlogOutput blog = blgRepo.findAnyBlogById(idBlog, id).orElseThrow(() -> new NoSuchElementException("Blog not found."));
+        BlogOutput blog = blgRepo.findAnyBlogById(idBlog, id)
+                .orElseThrow(() -> new NoSuchElementException("Blog not found."));
         return blog;
     }
 
     public static boolean isAdmin(Collection<? extends GrantedAuthority> authorities) {
         return authorities.stream()
-                .anyMatch(a -> a.getAuthority().equals("ADMIN"));
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
     }
 
     public BlogEntity getBlogById(Long idBlog) throws NoSuchElementException {

@@ -4,17 +4,18 @@ import { ReportsData, StatiqueInfo } from '../../../core/shared/interfaces/dashb
 import { SnackbarService } from '../../../core/shared/components/snackbar/snackbar.service';
 import { Router } from '@angular/router';
 import { TableReports } from "../components/table-reports/table-reports";
+import { HeaderReports } from "../components/header-reports/header-reports";
 
 @Component({
   selector: 'app-dashboard-home',
-  imports: [TableReports],
+  imports: [TableReports, HeaderReports],
   templateUrl: './dashboard-home.html',
   styleUrl: './dashboard-home.scss',
 })
 export class DashboardHome implements OnInit {
-   adminService = inject(AdminService);
-   snackBar = inject(SnackbarService);
-   router = inject(Router);
+  adminService = inject(AdminService);
+  snackBar = inject(SnackbarService);
+  router = inject(Router);
 
   statiques = signal<StatiqueInfo | null>(null);
   reports = signal<ReportsData[] | null>(null);

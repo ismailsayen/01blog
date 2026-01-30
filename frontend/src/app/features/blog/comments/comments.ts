@@ -59,7 +59,9 @@ export class Comments implements OnInit, AfterViewInit {
         this.commentContent.reset('', { emitEvent: false });
         this.snackBar.success('Comment added successfully')
       }),
-      error: (() => {
+      error: ((err) => {
+        console.log(err);
+
         this.snackBar.error('Failed to add your comment!')
       }),
 

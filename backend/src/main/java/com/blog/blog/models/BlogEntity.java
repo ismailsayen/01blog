@@ -51,4 +51,6 @@ public class BlogEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity userBlog;
+
+    private Boolean hide;
 }

@@ -1,6 +1,5 @@
 package com.blog.user.DTO;
 
-
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -32,12 +31,32 @@ public class UserDTO {
         private Boolean followed;
         private Boolean MyAccount;
     }
+
     @Data
     @AllArgsConstructor
     @Builder
     public static class StatiqueInfo {
-        private Long usersCount;  
+        private Long usersCount;
         private Long blogsCount;
         private Long reportsCount;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @Builder
+    public static class StatiqueUsers {
+        private Long usersCount;
+        private Long BannnedCount;
+        private Long ActiveCount;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @Builder
+    public static class UsersData {
+        private Long id;
+        private String avatar;
+        private String role;
+        private LocalDateTime joined;
     }
 }

@@ -50,6 +50,7 @@ public class BlogDTO {
         private String categorie;
         private String content;
         private String title;
+        private Boolean hide;
         private String userName;
         private String job;
         private String avatar;

@@ -1,1 +1,21 @@
-<p>dashboard-reports works!</p>
+@if(adminService.loader()){
+<div class="d-flex justify-content-center align-items-center" style="min-height:50vh">
+  <div class="spinner-border text-success"></div>
+</div>
+}@else {
+
+<div class="container py-3">
+
+  <app-header-reports [statiques]="statiques()" />
+
+  <!-- Reports -->
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-white fw-bold">
+      Last reports
+    </div>
+    <div class="card-body p-2">
+      <app-table-reports [(reports)]="reports" />
+    </div>
+  </div>
+</div>
+}

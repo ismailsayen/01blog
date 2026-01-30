@@ -3,6 +3,7 @@ import { inject, Injectable, signal } from '@angular/core'
 import { API_URL } from '../../shared/api-url'
 import { DeletionResponse, ReportMessage } from '../../shared/interfaces/BlogInterface'
 import { finalize } from 'rxjs'
+import { Resolve } from '../../shared/interfaces/userDTO'
 
 
 @Injectable({
@@ -70,7 +71,7 @@ export class ReportService {
     )
   }
 
-  deleteComment(){
+  deleteComment() {
     this.loader.set(true)
     return this.http.delete<DeletionResponse>(API_URL + `/comment/${this.id()}`).pipe(
       finalize(() => {
@@ -79,5 +80,24 @@ export class ReportService {
       })
     )
   }
-  
+
+  ResolveReport() {
+    this.loader.set(true)
+    return this.http.patch<Resolve>(API_URL + `/report/resolve/${this.id()}`, null).pipe(
+      finalize(() => {
+        this.loader.set(false)
+        this.ConfirmAction.set(false)
+      })
+    )
+  }
+  RejectReport() {
+    this.loader.set(true)
+    return this.http.delete<Resolve>(API_URL + `/report/${this.id()}`).pipe(
+      finalize(() => {
+        this.loader.set(false)
+        this.ConfirmAction.set(false)
+      })
+    )
+  }
+
 }

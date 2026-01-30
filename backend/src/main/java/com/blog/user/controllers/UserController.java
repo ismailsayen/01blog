@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blog.auth.DTO.UserInfo;
 import com.blog.user.DTO.UserDTO;
 import com.blog.user.DTO.UserDTO.SearchedUsers;
+import com.blog.user.DTO.UserDTO.UsersData;
 import com.blog.user.services.UserServices;
 
 @RestController
@@ -24,14 +25,14 @@ public class UserController {
 
     @GetMapping("/{id}")
     public UserDTO.ProfileOutput getProfile(@PathVariable Long id, @AuthenticationPrincipal UserInfo auth) {
-        return userServices.getProfile(id,auth.getId());
+        return userServices.getProfile(id, auth.getId());
     }
 
     @GetMapping("/search")
     public List<SearchedUsers> getProfiles(@RequestParam String name, @AuthenticationPrincipal UserInfo auth) {
         return userServices.getProfiles(name, auth.getId());
     }
-    
+
     @GetMapping("/suggested")
     public List<SearchedUsers> getSuggestedProfiles(@AuthenticationPrincipal UserInfo auth) {
         return userServices.getSuggestedProfiles(auth.getId());
@@ -39,8 +40,26 @@ public class UserController {
 
     @GetMapping("/admin/statiques")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public UserDTO.StatiqueInfo getStatiques(@AuthenticationPrincipal UserInfo auth){
+    public UserDTO.StatiqueInfo getStatiques() {
         return userServices.getStatiques();
+    }
+
+    @GetMapping("/admin/statiquesReports")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public UserDTO.StatiqueInfo getStatiquesReports() {
+        return userServices.getStatiquesReports();
+    }
+
+    @GetMapping("/admin/statiquesUsers")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public UserDTO.StatiqueUsers getStatiquesUsers() {
+        return userServices.getStatiquesUsers();
+    }
+
+    @GetMapping("/admin/allUsers")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public  List<UsersData> getAllUsers() {
+        return userServices.getAllUsers();
     }
 
 }

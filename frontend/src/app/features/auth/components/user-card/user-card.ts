@@ -1,7 +1,7 @@
 import { Component, EventEmitter, inject, input, Output } from '@angular/core';
-import { SearchUsersService } from '../../../../layouts/header/services/search-users.service';
 import { RouterLink } from "@angular/router";
 import { SearchedUsers } from '../../../../core/shared/interfaces/userDTO';
+import { SearchUsersService } from '../../../../layouts/components/header/services/search-users.service';
 
 @Component({
   selector: 'app-user-card',
