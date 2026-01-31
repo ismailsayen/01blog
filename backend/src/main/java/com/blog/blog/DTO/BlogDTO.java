@@ -84,4 +84,26 @@ public class BlogDTO {
         private Long id;
         private String action;
     }
+
+
+    @Data
+    @AllArgsConstructor
+    @Builder
+    public static class BlogsStatique {
+        private Long blogsCount;
+        private Long activeCount;
+        private Long hiddenCount;
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BlogsAdmin {
+        private Long id;
+        private String title;
+        private LocalDateTime created_at;
+        private Boolean status;
+        private String author;
+    }
 }

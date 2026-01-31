@@ -70,8 +70,8 @@
                 </li>
                 <li>
                   <button class="dropdown-item d-flex align-items-center gap-2 text-warning"
-                    (click)="reportsService.showConfirmAction(user.id,'profile',user.userName,'ban/unban')">
-                    <i class="bi bi-ban"></i><span>Ban/Unban user</span>
+                    (click)="reportsService.showConfirmAction(user.id,'profile',user.userName,'banned/unbanned')">
+                    <i class="bi bi-ban"></i><span>banne/unbanne user</span>
                   </button>
                 </li>
 
@@ -91,10 +91,10 @@
     </div>
   </div>
 </div>
-@if(reportsService.ConfirmAction() && reportsService.action()==="ban/unban"){
+@if(reportsService.ConfirmAction() && reportsService.action()==="banned/unbanned"){
 <app-confirmation-pop-up (confirm)="banOrUnban()" />
 }
-@if(reportsService.ConfirmAction() ){
+@if(reportsService.ConfirmAction() && reportsService.action()==="delete" ){
 <app-confirmation-pop-up (confirm)="deleteUser()" />
 }
 }

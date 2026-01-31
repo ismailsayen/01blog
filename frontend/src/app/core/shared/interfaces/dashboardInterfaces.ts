@@ -9,6 +9,13 @@ export interface StatiqueUsers {
   ActiveCount: number;
 }
 
+export interface StatiqueBlogs {
+  blogsCount: number;
+  activeCount: number;
+  hiddenCount: number;
+}
+
+
 export interface ReportsData {
   id: number;
   reason: string;
@@ -26,3 +33,11 @@ export interface UsersData {
   role: string;
   joined: Date;
 }
+
+export interface BlogsData {
+         id:number;
+         title:string;
+         created_at:Date;
+         status:boolean;
+         author:string;
+    }

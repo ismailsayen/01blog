@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,4 +73,15 @@ public class BlogController {
         return blgService.updateBlog(idBlog, auth, input);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/admin/blogs")
+    public List<BlogDTO.BlogsAdmin> getAllBlogsForAdmin() {
+        return blgService.getAllBlogsForAdmin();
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/admin/Statiqueblogs")
+    public BlogDTO.BlogsStatique getStatiqyue() {
+        return blgService.getBlogStatique();
+    }
 }

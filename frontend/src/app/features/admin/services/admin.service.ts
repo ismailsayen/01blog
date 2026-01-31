@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { ReportsData, StatiqueInfo, StatiqueUsers } from '../../../core/shared/interfaces/dashboardInterfaces';
+import { BlogsData, ReportsData, StatiqueBlogs, StatiqueInfo, StatiqueUsers } from '../../../core/shared/interfaces/dashboardInterfaces';
 import { API_URL } from '../../../core/shared/api-url';
 import { finalize } from 'rxjs';
 import { UsersData } from '../../../core/shared/interfaces/userDTO';
@@ -34,7 +34,7 @@ export class AdminService {
   }
 
   getStatiquesUsers() {
-    
+
     return this.http.get<StatiqueUsers>(API_URL + "/user/admin/statiquesUsers")
   }
 
@@ -49,6 +49,20 @@ export class AdminService {
 
   getAllReports() {
     return this.http.get<ReportsData[]>(API_URL + "/report/all")
+  }
+
+
+  getStatiqueBlogs() {
+    return this.http.get<StatiqueBlogs>(API_URL + "/blog/admin/Statiqueblogs")
+  }
+
+  getBlogs() {
+    this.loader.set(true)
+    return this.http.get<BlogsData[]>(API_URL + "/blog/admin/blogs").pipe(
+      finalize(() => {
+        this.loader.set(false)
+      })
+    );
   }
 
 }

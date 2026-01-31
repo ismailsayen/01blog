@@ -46,6 +46,7 @@ export class DashboardUsers implements OnInit {
               : user
           ) ?? null
         );
+        this.snackBar.success("The user has been successfully banned/unbanned.")
       }
       ,
       error: (err) => this.handleError(err),
@@ -60,6 +61,8 @@ export class DashboardUsers implements OnInit {
             user.id !== res.id
           ) ?? null
         );
+        this.snackBar.success("You have been deleted successfully")
+
       }
       ,
       error: (err) => this.handleError(err),

@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.DTO.BlogDTO;
 import com.blog.blog.DTO.BlogDTO.BlogOutput;
+import com.blog.blog.DTO.BlogDTO.BlogsAdmin;
+import com.blog.blog.DTO.BlogDTO.BlogsStatique;
 import com.blog.blog.DTO.BlogDTO.UpdateResponse;
 import com.blog.blog.models.BlogEntity;
 import com.blog.blog.models.Exception.ForbiddenAction;
@@ -117,6 +119,16 @@ public class BlogService {
     public BlogEntity getBlogById(Long idBlog) throws NoSuchElementException {
         return blgRepo.findById(idBlog)
                 .orElseThrow(() -> new NoSuchElementException("Blog not found."));
+    }
+
+    public List<BlogsAdmin> getAllBlogsForAdmin() {
+
+        return blgRepo.findAllBlogsForAdmin();
+    }
+
+    public BlogsStatique getBlogStatique() {
+        
+        return blgRepo.fingBlogsStatiques();
     }
 
 }

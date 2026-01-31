@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.blog.blog.DTO.BlogDTO;
 import com.blog.blog.DTO.BlogDTO.BlogOutput;
+import com.blog.blog.DTO.BlogDTO.BlogsAdmin;
+import com.blog.blog.DTO.BlogDTO.BlogsStatique;
 import com.blog.blog.models.BlogEntity;
 
 @Repository
@@ -25,5 +27,12 @@ public interface BlogRepository extends JpaRepository<BlogEntity, Long> {
 
     @Query(value = "SELECT b.*, u.user_name, u.job, u.avatar, EXISTS(SELECT 1 FROM reactions r WHERE r.user_id=:id AND b.id=r.blog_id) as liked , (b.user_id=:id) AS myBlog FROM blogs b INNER JOIN users u ON b.user_id=u.id WHERE  b.id=:idBlog ORDER BY b.created_at DESC", nativeQuery = true)
     Optional<BlogOutput> findAnyBlogById(@Param("idBlog") Long idBlog, @Param("id") Long id);
+
+    @Query(value = "SELECT b.id, b.title, b.created_at, b.hide, u.user_name FROM blogs b INNER JOIN users u ON b.user_id=u.id ORDER BY b.created_at ", nativeQuery = true)
+    List<BlogsAdmin> findAllBlogsForAdmin();
+
+
+    @Query(value = " SELECT (SELECT COUNT(*) FROM blogs) AS blogsCount, (SELECT COUNT(*) FROM blogs WHERE hide=FALSE) AS activeCount, (SELECT COUNT(*) FROM blogs WHERE hide=TRUE) AS hiddenCount", nativeQuery = true)
+    BlogsStatique fingBlogsStatiques();
 
 }
