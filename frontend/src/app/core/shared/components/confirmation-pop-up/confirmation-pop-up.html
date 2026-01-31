@@ -1,18 +1,17 @@
-<div class="cont p-3 rounded border">
+<div class="cont p-3 rounded border" (click)="$event.stopPropagation()">
   <div class="text-center">
     <i class="bi bi-exclamation-circle-fill text-danger"></i>
     <h4>Are you sure?</h4>
   </div>
   <p>You want to {{reportService.action()}} this <span class="fw-bold">{{reportService.type()}}</span> of <span class="fw-bold">{{reportService.userName()}}</span></p>
   <div class="footer justify-content-end gap-2 d-flex ">
-    <button class="btn border" (click)="reportService.hideConfirm()">Back</button>
+    <button class="btn border" (click)="close()">Back</button>
     <button class="btn bg-danger text-white" (click)="submit()" [disabled]="reportService.loader()" >
       @if(reportService.loader()){
         <div class="loader"></div>
       }@else {
         Yes i'm sure
       }
-
     </button>
   </div>
 </div>

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.DTO.BlogDTO;
+import com.blog.blog.DTO.BlogDTO.ActionResponse;
 import com.blog.blog.DTO.BlogDTO.BlogOutput;
 import com.blog.blog.DTO.BlogDTO.BlogsAdmin;
 import com.blog.blog.DTO.BlogDTO.BlogsStatique;
@@ -129,6 +130,17 @@ public class BlogService {
     public BlogsStatique getBlogStatique() {
         
         return blgRepo.fingBlogsStatiques();
+    }
+
+    public ActionResponse hideOrUnhideBlog(Long id) {
+        BlogEntity blog = blgRepo.findById(id).orElseThrow(()->new NoSuchElementException("No profile Founded with this id"));
+        
+       
+        
+        blog.setHide(!blog.getHide());
+        blgRepo.save(blog);
+
+        return ActionResponse.builder().id(blog.getId()).status(blog.getHide()).build();
     }
 
 }

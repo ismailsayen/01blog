@@ -39,7 +39,14 @@ export class BlogPage implements OnInit {
         this.blogDetails.set(res)
 
       }),
-      error: (() => {
+      error: ((err) => {
+        console.log(err);
+
+        if (err.status === 404) {
+          this.snackBar.info(err.error.detail)
+          this.router.navigateByUrl('/');
+          return
+        }
         this.snackBar.error('Error while fetching blog details')
         this.router.navigateByUrl('/');
       }),
@@ -66,7 +73,6 @@ export class BlogPage implements OnInit {
 
     this.reportService.deleteBlog().subscribe({
       next: (() => {
-        console.log("myaw");
 
         this.router.navigateByUrl('/')
         this.snackBar.success("Blog deleted successfully.")

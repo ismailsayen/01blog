@@ -37,7 +37,6 @@ export class ReportService {
   hideConfirm() {
     this.showConfirmation.set(false)
     this.ConfirmAction.set(false)
-
   }
 
   showConfirmAction(id: number, type: string, userName: string, action: string) {
@@ -112,6 +111,16 @@ export class ReportService {
   deleteUser() {
     this.loader.set(true)
     return this.http.delete<ActionResponse>(API_URL + `/user/admin/delete/${this.id()}`).pipe(
+      finalize(() => {
+        this.loader.set(false)
+        this.ConfirmAction.set(false)
+      })
+    );
+  }
+
+  HideOrUnhide() {
+    this.loader.set(true)
+    return this.http.patch<ActionResponse>(API_URL + `/blog/admin/hideOrUnhide/${this.id()}`, null).pipe(
       finalize(() => {
         this.loader.set(false)
         this.ConfirmAction.set(false)

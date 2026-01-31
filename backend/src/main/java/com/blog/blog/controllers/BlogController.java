@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.DTO.BlogDTO;
+import com.blog.blog.DTO.BlogDTO.ActionResponse;
 import com.blog.blog.DTO.BlogDTO.UpdateResponse;
 import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.blog.services.BlogService;
@@ -83,5 +84,11 @@ public class BlogController {
     @GetMapping("/admin/Statiqueblogs")
     public BlogDTO.BlogsStatique getStatiqyue() {
         return blgService.getBlogStatique();
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/admin/hideOrUnhide/{id}")
+    public ActionResponse hideOrUnhide(@PathVariable Long id){
+        return blgService.hideOrUnhideBlog(id);
     }
 }

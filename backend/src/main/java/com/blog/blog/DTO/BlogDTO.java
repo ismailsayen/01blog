@@ -85,7 +85,6 @@ public class BlogDTO {
         private String action;
     }
 
-
     @Data
     @AllArgsConstructor
     @Builder
@@ -105,5 +104,13 @@ public class BlogDTO {
         private LocalDateTime created_at;
         private Boolean status;
         private String author;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    public static class ActionResponse {
+        private Long id;
+        private Boolean status;
     }
 }

@@ -65,7 +65,7 @@
                   <hr class="dropdown-divider">
                 </li>
                 <li>
-                  <button class="dropdown-item d-flex align-items-center gap-2">
+                  <button class="dropdown-item d-flex align-items-center gap-2" (click)="reportsService.showConfirmAction(blog.id,'blog',blog.author,'Hide/Unhide')">
                     <i class="bi bi-eye-slash"></i>
                     <span>Hide / Unhide blog</span>
                   </button>
@@ -85,4 +85,10 @@
     </div>
   </div>
 </div>
+@if(reportsService.ConfirmAction() && reportsService.action()==="Delete"){
+<app-confirmation-pop-up (confirm)="deleteBlog()" />
+}
+@if(reportsService.ConfirmAction() && reportsService.action()==="Hide/Unhide"){
+<app-confirmation-pop-up (confirm)="HideOrUnhide()" />
+}
 }

@@ -35,9 +35,9 @@ export interface UsersData {
 }
 
 export interface BlogsData {
-         id:number;
-         title:string;
-         created_at:Date;
-         status:boolean;
-         author:string;
-    }
+  id: number;
+  title: string;
+  created_at: Date;
+  status: boolean;
+  author: string;
+}
