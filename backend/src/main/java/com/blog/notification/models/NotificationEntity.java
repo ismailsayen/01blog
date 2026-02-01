@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.blog.user.model.UserEntity;
+import com.blog.utils.DateNowFormatted;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class NotificationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime created_at;
+    private final LocalDateTime createdAt = DateNowFormatted.nowDateTime();
 
     private Boolean readed;
 

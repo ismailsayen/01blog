@@ -20,6 +20,7 @@ import com.blog.blog.DTO.BlogDTO.UpdateResponse;
 import com.blog.blog.models.BlogEntity;
 import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.blog.repositories.BlogRepository;
+import com.blog.notification.services.NotificationService;
 import com.blog.report.models.ReportTargetType;
 import com.blog.report.repositories.ReportRepository;
 import com.blog.utils.DateNowFormatted;
@@ -32,6 +33,9 @@ public class BlogService {
     @Autowired
     ReportRepository reportRepo;
 
+    @Autowired
+    NotificationService notifService;
+
     public BlogDTO.BlogOutput addPostService(BlogDTO.BlogInput input, UserInfo auth) {
         BlogEntity blgEnt = BlogEntity.builder()
                 .title(input.getTitle())
@@ -43,6 +47,8 @@ public class BlogService {
                 .hide(false)
                 .build();
         blgRepo.save(blgEnt);
+
+        notifService.PostNotfis(auth.getUser());
 
         return BlogDTO.BlogOutput.builder()
                 .id(blgEnt.getId())
@@ -128,15 +134,14 @@ public class BlogService {
     }
 
     public BlogsStatique getBlogStatique() {
-        
+
         return blgRepo.fingBlogsStatiques();
     }
 
     public ActionResponse hideOrUnhideBlog(Long id) {
-        BlogEntity blog = blgRepo.findById(id).orElseThrow(()->new NoSuchElementException("No profile Founded with this id"));
-        
-       
-        
+        BlogEntity blog = blgRepo.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("No profile Founded with this id"));
+
         blog.setHide(!blog.getHide());
         blgRepo.save(blog);
 
