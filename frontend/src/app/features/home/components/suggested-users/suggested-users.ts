@@ -3,7 +3,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { UserCard } from "../../../auth/components/user-card/user-card";
 import { SnackbarService } from '../../../../core/shared/components/snackbar/snackbar.service';
 import { SearchedUsers } from '../../../../core/shared/interfaces/userDTO';
-import { SearchUsersService } from '../../../../layouts/components/header/services/search-users.service';
+import { SearchUsersService } from '../../../../layouts/header/services/search-users.service';
 
 
 @Component({

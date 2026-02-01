@@ -7,7 +7,6 @@ import { ProfileService } from './profile.service'
 import { ProfileBlogs } from "./components/profile-blogs/profile-blogs"
 import { ConfirmationPopUp } from "../../core/shared/components/confirmation-pop-up/confirmation-pop-up"
 import { BlogService } from '../blog/services/blog.service'
-import { Snackbar } from '../../core/shared/components/snackbar/snackbar'
 import { SnackbarService } from '../../core/shared/components/snackbar/snackbar.service'
 
 @Component({
@@ -25,7 +24,7 @@ export class Profile implements OnInit {
   route = inject(ActivatedRoute);
 
   profileId = signal<number | null>(null)
-  
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((pm) => {
       const id = Number(pm.get('id'));
@@ -43,8 +42,8 @@ export class Profile implements OnInit {
   DelteBlog() {
     this.reportService.deleteBlog().subscribe({
       next: ((res) => {
-        this.blogService.blogs.update(blogs => {      
-          return blogs.filter(ele => {            
+        this.blogService.blogs.update(blogs => {
+          return blogs.filter(ele => {
             return ele.id !== res.id;
           })
         })

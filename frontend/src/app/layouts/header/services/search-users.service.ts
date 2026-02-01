@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { finalize } from 'rxjs';
-import { followResponse, SearchedUsers } from '../../../../core/shared/interfaces/userDTO';
-import { API_URL } from '../../../../core/shared/api-url';
+import { followResponse, SearchedUsers } from '../../../core/shared/interfaces/userDTO';
+import { API_URL } from '../../../core/shared/api-url';
 
 interface loaderByIdInterface {
   isLoad: boolean,

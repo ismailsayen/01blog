@@ -5,7 +5,7 @@ import { ProfileData } from '../../../../core/shared/interfaces/userDTO';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../../../../core/shared/components/snackbar/snackbar.service';
 import { finalize } from 'rxjs';
-import { SearchUsersService } from '../../../../layouts/components/header/services/search-users.service';
+import { SearchUsersService } from '../../../../layouts/header/services/search-users.service';
 
 @Component({
   selector: 'app-profile-header',

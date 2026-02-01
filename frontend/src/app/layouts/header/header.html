@@ -1,0 +1,66 @@
+<header class="border-bottom">
+  <div class="container py-2" bis_skin_checked="1">
+    <div class="d-flex flex-wrap align-items-center justify-content-between" bis_skin_checked="1">
+      <a routerLink="/">
+        <img src="/assets/images/logo.png" width="278" height="133" class="logo-auth" alt="logo">
+      </a>
+      <div class="w-25">
+        <app-search-modals />
+      </div>
+      <ul class="d-flex align-items-center p-0 m-0 gap-4">
+
+        @if(authService.currentUser()?.role==="ROLE_ADMIN"){
+        <li>
+          <a routerLink="/dashboard">
+            <i class="bi bi-clipboard-data"></i> </a>
+        </li>
+        }
+
+        <li><a routerLink="/create-blog">
+            <i class="bi bi-plus-square"></i>
+          </a>
+        </li>
+
+
+
+
+        <li><app-notifications /> </li>
+
+
+
+        <li>
+          <div class="dropdown text-end" bis_skin_checked="1">
+            <a class="d-block link-dark text-decoration-none dropdown-toggle profile-details" id="dropdownUser1"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img [src]="authService.currentUser()?.avatar || '/assets/images/default-user.jpg'" alt="mdo" width="35"
+                height="35" class="rounded-circle" />
+            </a>
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+              <li class="dropdown-item fw-bold">{{authService.currentUser()?.userName}}
+                @if(authService.currentUser()?.role==="ROLE_ADMIN"){
+                <span class="admin text-muted">(admin)</span>
+                }
+              </li>
+              <hr class="dropdown-divider">
+              <li><a routerLink="/create-blog" class="dropdown-item">Create blog</a></li>
+              <li><a routerLink="/profile/{{authService.currentUser()?.id}}" class="dropdown-item">Profile</a>
+              </li>
+              @if(authService.currentUser()?.role==="ROLE_ADMIN"){
+              <li><a routerLink="/dashboard" class="dropdown-item">Dashboard</a>
+              </li>
+              }
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-danger" role="button" (click)="onclick()">Sign out</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <i class="bi bi-moon"></i>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</header>

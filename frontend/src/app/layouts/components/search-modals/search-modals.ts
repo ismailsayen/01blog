@@ -4,7 +4,7 @@ import { debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs'
 import { UserCard } from '../../../features/auth/components/user-card/user-card';
 import { SnackbarService } from '../../../core/shared/components/snackbar/snackbar.service';
 import { SearchedUsers } from '../../../core/shared/interfaces/userDTO';
-import { SearchUsersService } from '../header/services/search-users.service';
+import { SearchUsersService } from '../../header/services/search-users.service';
 
 @Component({
   selector: 'app-search-modals',

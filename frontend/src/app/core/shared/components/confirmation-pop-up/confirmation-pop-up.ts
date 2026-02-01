@@ -17,7 +17,6 @@ export class ConfirmationPopUp {
 
   @HostListener('document:click')
   close(){
-    
     this.reportService.hideConfirm()
   }
 }
