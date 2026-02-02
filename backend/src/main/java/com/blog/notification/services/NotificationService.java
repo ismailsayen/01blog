@@ -51,8 +51,10 @@ public class NotificationService {
     public void MarkAllAsRead(Long receiverId) {
         List<NotificationEntity> notifs = notifRepo.findAllByReceiverId(receiverId);
         for (NotificationEntity notif : notifs) {
-            notif.setReaded(true);
-            notifRepo.save(notif);
+            if (!notif.getReaded()) {
+                notif.setReaded(true);
+                notifRepo.save(notif);
+            }
         }
     }
 

@@ -42,3 +42,19 @@ input:focus {
   right: -10px;
   cursor: pointer;
 }
+
+.media{
+  display: flex;
+  flex-direction: column;
+}
+.t{
+  align-self: center;
+}
+
+
+
+@media screen and (max-width:956px) {
+.media{
+  flex-direction: row;
+}
+}

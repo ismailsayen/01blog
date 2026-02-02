@@ -10,11 +10,7 @@
 theorique:
 - how angular works
 - diff between signals and zoneJS
-- DI in angular
 - ngModal
 - data binding
 task: 
-- css for activate link
-- style the content of markdown 
-- add snackbar for logout
 - handle message error of media

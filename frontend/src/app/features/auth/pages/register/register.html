@@ -67,32 +67,29 @@
       </div>
       }
     </div>
-    <div class="mb-3">
-      <label for="avatar" class="form-label fw-bold">Avatar:<span class="text-muted fw-light">(Optional)</span> </label>
-      <input type="file" id="avatar" class="form-control" accept="image/*" (change)="onUploadMedia($event)">
-    </div>
-    <div class="mb-3 d-flex justify-content-center p-2">
-      @if (!previewUrl()) {
-      <label for="avatar" class="form-label fw-bold">
-        <i class="bi bi-upload upload-icon"></i>
-      </label>
-      }@else {
-      <div class="position-relative media-prev ">
-        <i class="bi bi-trash3-fill delete-icon" role="button" (click)="removePerview()"></i>
-        <img [src]="previewUrl()?.previewUrl" alt="" width="100" height="100" class="rounded-circle">
+    <div class="mb-3 media gap-3">
+      <div >
+        <label for="avatar" class="form-label fw-bold">Avatar:<span class="text-muted fw-light">(Optional)</span>
+        </label>
+        <input type="file" id="avatar" class="form-control" accept="image/*" (change)="onUploadMedia($event)">
       </div>
-      }
-
-
-
-      @if (avatar.invalid && (avatar.dirty || avatar.touched)) {
-      @if (avatar.hasError("invalidMedia")) {
-      <div class="text-danger">Image Error</div>
-      }
-
-      }
-
-
+      <div class="mb-3 justify-content-center t p-2">
+        @if (!previewUrl()) {
+        <label for="avatar" class="form-label fw-bold">
+          <i class="bi bi-upload upload-icon"></i>
+        </label>
+        }@else {
+        <div class="position-relative media-prev ">
+          <i class="bi bi-trash3-fill delete-icon" role="button" (click)="removePerview()"></i>
+          <img [src]="previewUrl()?.previewUrl" alt="" width="100" height="100" class="rounded-circle">
+        </div>
+        }
+        @if (avatar.invalid && (avatar.dirty || avatar.touched)) {
+        @if (avatar.hasError("invalidMedia")) {
+        <div class="text-danger">Image Error</div>
+        }
+        }
+      </div>
     </div>
     <div class="mb-3">
       <app-button-submit [value]="'register'" />

@@ -17,7 +17,19 @@ export class NotificationsService {
 
   ReadOrUnread(id: number) {
 
-    return this.http.patch<ActionResponse>(API_URL + `/notif/${id}`,null);
+    return this.http.patch<ActionResponse>(API_URL + `/notif/${id}`, null);
   }
 
+
+  DeletNotif(id: number) {
+    return this.http.delete<ActionResponse>(API_URL + `/notif/${id}`);
+  }
+
+   DeletAll() {
+    return this.http.delete(API_URL + `/notif/deleteAll`);
+  }
+
+  ReadAll() {
+    return this.http.patch(API_URL + `/notif/markAllAsRead`, null);
+  }
 }

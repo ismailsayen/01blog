@@ -29,7 +29,6 @@ export class InternalService {
 
   LogOut() {
     this.error.set(false)
-
     this.authService.currentUser.set(null)
   }
 }
