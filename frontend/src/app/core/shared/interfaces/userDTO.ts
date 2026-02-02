@@ -54,3 +54,11 @@ export interface UsersData {
   banned: boolean;
   joined: Date;
 }
+
+export interface NotificationsData {
+  id: number;
+  createdAt: Date;
+  readed: boolean;
+  userName: string;
+  avatar: string | null;
+}

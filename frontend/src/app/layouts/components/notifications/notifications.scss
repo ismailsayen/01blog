@@ -10,8 +10,8 @@
   }
 }
 
-.number{
-top: -10px;
+.number {
+  top: -10px;
   text-align: center;
   font-size: 12px;
   color: white;
@@ -51,4 +51,55 @@ top: -10px;
 
 .notification-header button:hover {
   background-color: #e9ecef;
+}
+
+
+.notif {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.read{
+  background-color: rgb(128 128 128 / 9%);
+}
+
+.notif__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 32px;
+}
+
+.notif__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notif__meta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  line-height: 1.2;
+}
+
+.notif__name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #111;
+}
+
+.notif__time {
+  font-size: 12px;
+  color: #8b8b8b;
+}
+
+.notif__text {
+  font-size: 14px;
+  color: #111;
 }

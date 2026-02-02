@@ -1,7 +1,9 @@
 @use '../../../../../styles/variables' as vars;
+
 .user-card {
   cursor: pointer;
   transition: 0.3s ease-in-out;
+
   &:hover {
     background-color: #f5f5f5;
   }
@@ -9,23 +11,23 @@
 
 button {
   margin-left: auto;
-  background-color: vars.$my_green;
+  background-color: #333;
   cursor: pointer;
   border: none;
-  &:hover{
-  background-color: vars.$my_green;
-  }
+
 }
+
 .ico {
   color: white;
   font-size: 18px;
 }
 
-.link{
+.link {
   text-decoration: none;
   color: black;
   transition: .2s ease-in-out;
-  &:hover{
+
+  &:hover {
     color: gray;
   }
 }
