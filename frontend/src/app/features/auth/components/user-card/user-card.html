@@ -1,24 +1,26 @@
 @if( !users()){
 <p>no suggested user found.</p>
 }
+<div [ngClass]="page()==='home'?'style':''">
+  @for (user of users(); track user.id) {
+  <div class="rounded p-1 border-bottom mb-2 d-flex gap-2 align-items-center user-card">
+    <img [src]="user.avatar || '/assets/images/default-user.jpg'" alt="avatar" class="rounded-circle" width="40"
+      height="40">
+    <div class="d-flex  justify-content-center flex-column">
+      <a routerLink="profile/{{user.id}}" class="m-0 link">{{user.userName}}</a>
+      <p class="text-muted m-0 " style="font-size: 14px;">{{user.job}}</p>
+    </div>
+    <button class="btn" (click)="onClick(user.id)">
 
-@for (user of users(); track user.id) {
-<div class="rounded p-1 border-bottom mb-2 d-flex gap-2 align-items-center user-card">
-  <img [src]="user.avatar || '/assets/images/default-user.jpg'" alt="avatar" class="rounded-circle" width="40"
-    height="40">
-  <div class="d-flex  justify-content-center flex-column">
-    <a routerLink="profile/{{user.id}}"class="m-0 link">{{user.userName}}</a>
-    <p class="text-muted m-0 " style="font-size: 14px;">{{user.job}}</p>
+      @if(req.loaderById()?.isLoad && req.loaderById()?.id===user.id ){
+      <div class="loader"></div>
+      }@else if(user.followed){
+      <i class="bi bi-person-fill-dash ico"></i>
+      }@else {
+      <i class="bi bi-person-fill-add ico"></i>
+      }
+    </button>
   </div>
-  <button class="btn" (click)="onClick(user.id)">
+  }
 
-    @if(req.loaderById()?.isLoad && req.loaderById()?.id===user.id ){
-    <div class="loader"></div>
-    }@else if(user.followed){
-    <i class="bi bi-person-fill-dash ico"></i>
-    }@else {
-    <i class="bi bi-person-fill-add ico"></i>
-    }
-  </button>
 </div>
-}

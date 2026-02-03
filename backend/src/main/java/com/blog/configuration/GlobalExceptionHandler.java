@@ -32,9 +32,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetail> catchAny(Exception ex) {
-        System.out.println("-------------------------------------------");
-        log.error("Unhandled exception", ex);
-        System.out.println("-------------------------------------------");
+        
 
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(pd);

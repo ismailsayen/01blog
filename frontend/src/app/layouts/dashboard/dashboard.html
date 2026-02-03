@@ -1,5 +1,9 @@
 <div class="wrapper">
-  <nav class="sidebar">
+  <button class="sidebar-toggle btn btn-dark" type="button" (click)="toggleSidebar()" aria-label="Toggle sidebar">
+    <i class="bi bi-list"></i>
+  </button>
+
+  <nav class="sidebar" [class.open]="sidebarOpen()">
     <div>
       <h2 class="text-center text-white">AuraWeb</h2>
       <hr>
@@ -34,6 +38,7 @@
       <button class="btn btn-danger w-100 fw-bold mb-2" (click)="onclick()">Log Out</button>
     </div>
   </nav>
+
   <div class="dash-cont mt-2">
     <router-outlet />
   </div>

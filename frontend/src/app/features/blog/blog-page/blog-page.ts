@@ -40,7 +40,6 @@ export class BlogPage implements OnInit {
 
       }),
       error: ((err) => {
-        console.log(err);
 
         if (err.status === 404) {
           this.snackBar.info(err.error.detail)
@@ -69,7 +68,6 @@ export class BlogPage implements OnInit {
   }
 
   DelteBlog() {
-    console.log(this.reportService.type());
 
     this.reportService.deleteBlog().subscribe({
       next: (() => {

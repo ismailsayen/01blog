@@ -1,25 +1,32 @@
 @use '../../../styles/variables' as vars;
 
 .wrapper {
-  align-items: stretch;
   display: flex;
+  align-items: stretch;
   width: 100%;
   position: relative;
 }
 
+/* Sidebar */
 .sidebar {
   position: fixed;
   top: 65px;
   left: 0;
   width: 240px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   height: calc(100% - 65px);
   background-color: #333;
   z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  /* smooth slide */
+  transition: transform 0.25s ease;
+  transform: translateX(0);
 }
 
+/* Links */
 a {
   cursor: pointer;
   color: white;
@@ -34,6 +41,8 @@ li {
   margin: 15px 0;
   width: 100%;
 }
+
+/* Active item style */
 .active {
   position: relative;
   background-color: white;
@@ -61,8 +70,44 @@ li {
   }
 }
 
+/* Main dashboard content */
 .dash-cont {
   width: 100%;
   padding-left: 250px;
   position: relative;
+}
+
+/* Toggle button (hidden on large screens) */
+.sidebar-toggle {
+  display: none;
+}
+
+/* ✅ Responsive: from 775px and below */
+@media (max-width: 775px) {
+  .sidebar {
+    transform: translateX(-100%); /* hide */
+  }
+
+  .sidebar.open {
+    transform: translateX(0); /* show */
+  }
+
+  .sidebar-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    top: 102px;
+    right: 10px;
+    z-index: 20;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .dash-cont {
+    padding-left: 0; /* no sidebar space on mobile */
+  }
 }

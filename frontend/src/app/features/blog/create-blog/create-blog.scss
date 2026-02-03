@@ -85,3 +85,20 @@
     transform: rotate(360deg);
   }
 }
+
+@media screen and (max-width:583px) {
+.text-area,.input{
+  border-left: none;
+}
+.buttons{
+  flex-direction: column;
+  div{
+    width: 100%;
+  }
+ 
+}
+}
+
+
+
+

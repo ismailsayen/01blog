@@ -68,8 +68,8 @@ export class SearchModals implements OnInit {
         this.snackBar.success(res.action)
       }
       ),
-      error: (err => {
-        console.log(err);
+      error: (() => {
+         this.snackBar.error("Failed to do this action.")
 
       })
     })

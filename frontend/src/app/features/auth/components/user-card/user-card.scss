@@ -14,7 +14,6 @@ button {
   background-color: #333;
   cursor: pointer;
   border: none;
-
 }
 
 .ico {
@@ -25,7 +24,7 @@ button {
 .link {
   text-decoration: none;
   color: black;
-  transition: .2s ease-in-out;
+  transition: 0.2s ease-in-out;
 
   &:hover {
     color: gray;
@@ -60,5 +59,20 @@ button {
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1200px) {
+  .style {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .style > .user-card {
+    min-width: fit-content;
+    border: 1px solid ;
+    margin-bottom: 30px;
   }
 }

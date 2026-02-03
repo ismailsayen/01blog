@@ -209,7 +209,6 @@ export class CreateBlog implements OnDestroy, OnInit {
           this.snackbarService.success(`Your blog was ${this.path === "Share" ? 'created' : 'updated'} successfully.`);
         },
         error: (err) => {
-          console.log(err);
 
           if (err.status === 400 && err.error) {
             Object.keys(err.error).forEach((field: any) => {

@@ -45,7 +45,6 @@ input:focus {
 
 .media{
   display: flex;
-  flex-direction: column;
 }
 .t{
   align-self: center;
@@ -53,8 +52,3 @@ input:focus {
 
 
 
-@media screen and (max-width:956px) {
-.media{
-  flex-direction: row;
-}
-}

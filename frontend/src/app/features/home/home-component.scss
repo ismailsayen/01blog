@@ -4,3 +4,17 @@
   top: 71px;
   // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+
+
+@media screen and (max-width:1200px) {
+.home-cont{
+  flex-wrap: wrap-reverse;
+}
+.users-home{
+  position: relative;
+  
+  top: 0;
+}
+}
+
+

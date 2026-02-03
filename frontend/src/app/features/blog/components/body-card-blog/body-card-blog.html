@@ -1,5 +1,5 @@
 <div class="mb-1">
-  <p class="fw-bold mb-1">{{title()}}</p>
+  <p class="fw-bold mb-1" routerLink="/blog/{{id()}}">{{title()}}</p>
 
   <div class="w-100 main-body ">
     <img [src]="image()  || '/assets/images/no-image.jpg'" alt="" class="img">

@@ -1,8 +1,9 @@
 import { Component, input } from '@angular/core';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-body-card-blog',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './body-card-blog.html',
   styleUrl: './body-card-blog.scss',
 })
@@ -10,4 +11,6 @@ export class BodyCardBlog {
   image = input<string | null>('');
   title = input.required<string>();
   content = input.required<string>();
+  id = input.required<number>();
+  
 }

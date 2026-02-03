@@ -1,13 +1,15 @@
 <div class="container">
-  <div class="row  justify-content-between pt-1 ">
-    <div class="col-9">
-    <app-blogs-component />
-  </div>
-  <div class="users-home col-3">
-    <app-suggested-users />
-  </div>
-  @if(reportService.showReport()){
+  <div class="row justify-content-between pt-1 home-cont">
+    <div class="col-12 col-xl-9">
+      <app-blogs-component />
+    </div>
+
+    <div class="col-12 col-xl-3 users-home">
+      <app-suggested-users />
+    </div>
+
+    @if(reportService.showReport()){
     <app-report-modal />
-  }
-</div>
+    }
+  </div>
 </div>
