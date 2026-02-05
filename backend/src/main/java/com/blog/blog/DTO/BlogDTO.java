@@ -41,16 +41,16 @@ public class BlogDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class BlogOutput {
-        private Long commentsCount;
-        private LocalDateTime createdAt;
         private Long id;
+        private String categorie;
+        private Long commentsCount;
+        private String content;
+        private LocalDateTime createdAt;
+        private Boolean hide;
         private LocalDateTime lastUpdateAt;
         private Long likeCount;
-        private Long userId;
-        private String categorie;
-        private String content;
         private String title;
-        private Boolean hide;
+        private Long userId;
         private String userName;
         private String job;
         private String avatar;
