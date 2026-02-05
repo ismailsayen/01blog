@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.blog.blog.models.BlogEntity;
 import com.blog.user.model.UserEntity;
 import com.blog.utils.DateNowFormatted;
 
@@ -46,4 +47,9 @@ public class NotificationEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "sender_id", nullable = false)
     private UserEntity sender;
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "blog_id", nullable = false)
+    private BlogEntity blog;
 }

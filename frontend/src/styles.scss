@@ -2,15 +2,18 @@
 @import "../node_modules/bootstrap/scss/variables";
 @import "styles/variables";
 
-$theme-colors:map-merge($theme-colors, $custom-colors );
+$theme-colors: map-merge($theme-colors, $custom-colors );
 
 
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
 
-
+body{
+  word-break: break-all;
+  background-color: red;
+}

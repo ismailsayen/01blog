@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blog.blog.DTO.BlogDTO.ActionResponse;
+import com.blog.blog.models.BlogEntity;
 import com.blog.follow.repositories.FollowRepository;
 import com.blog.notification.DTO.NotifOutput;
 import com.blog.notification.models.NotificationEntity;
@@ -24,13 +25,14 @@ public class NotificationService {
     @Autowired
     NotificationRepositpry notifRepo;
 
-    public void PostNotfis(UserEntity user) {
+    public void PostNotfis(UserEntity user , BlogEntity blog) {
 
         List<UserEntity> followers = followRepo.findFollowers(user.getId());
         for (UserEntity follower : followers) {
             NotificationEntity notif = NotificationEntity.builder()
                     .receiver(follower)
                     .sender(user)
+                    .blog(blog)
                     .readed(false)
                     .build();
             notifRepo.save(notif);

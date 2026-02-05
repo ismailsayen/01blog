@@ -20,7 +20,7 @@ export class BlogsComponent implements AfterViewInit, OnInit, OnDestroy {
   loader = signal(false)
   allDataGeted = signal(false)
   lastId = signal<number>(0)
-  
+
   @ViewChild('ob', { read: ElementRef })
   ob!: ElementRef
 
@@ -49,6 +49,9 @@ export class BlogsComponent implements AfterViewInit, OnInit, OnDestroy {
           this.allDataGeted.set(true)
           return
         }
+
+        console.log(res);
+
         this.lastId.set(res[res.length - 1].id!)
         this.blogService.blogs.set([...this.blogService.blogs(), ...res])
       },

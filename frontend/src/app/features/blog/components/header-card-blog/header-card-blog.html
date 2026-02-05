@@ -2,7 +2,7 @@
   <div class="d-flex align-items-center gap-1">
     <img [src]="avatar() || '/assets/images/default-user.jpg'" width="40" height="40" class="rounded-circle">
     <div>
-      <a routerLink="profile/{{userId()}}" class="p-0 m-0 d-block link">{{userName()}}</a>
+      <a routerLink="/profile/{{userId()}}" class="p-0 m-0 d-block link">{{userName()}}</a>
       <span class="p-0 m-0 text-muted">{{job()}}</span>
     </div>
   </div>

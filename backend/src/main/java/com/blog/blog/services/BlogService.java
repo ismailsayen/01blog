@@ -48,7 +48,7 @@ public class BlogService {
                 .build();
         blgRepo.save(blgEnt);
 
-        notifService.PostNotfis(auth.getUser());
+        notifService.PostNotfis(auth.getUser(),blgEnt);
 
         return BlogDTO.BlogOutput.builder()
                 .id(blgEnt.getId())
