@@ -29,3 +29,7 @@
     margin: 0 auto;
   }
 }
+
+ :host ::ng-deep P{
+  word-break: break-all;
+}

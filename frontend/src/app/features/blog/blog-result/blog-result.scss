@@ -17,6 +17,9 @@
   display: block;
 }
 
+ :host ::ng-deep P{
+  word-break: break-all;
+}
 /* 🔽 Responsive from 787px and below */
 @media (max-width: 787px) {
   :host ::ng-deep p > img,

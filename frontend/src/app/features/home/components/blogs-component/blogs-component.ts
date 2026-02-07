@@ -50,8 +50,6 @@ export class BlogsComponent implements AfterViewInit, OnInit, OnDestroy {
           return
         }
 
-        console.log(res);
-
         this.lastId.set(res[res.length - 1].id!)
         this.blogService.blogs.set([...this.blogService.blogs(), ...res])
       },
