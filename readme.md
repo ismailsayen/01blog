@@ -137,7 +137,7 @@ If you are running the seeded database (via Docker), you can use the configured 
 *   **Username**: `isayen`
 *   **Password**: `@1234`
 
-Or if you don't have Docker on your Machine You can use a distant database on acceding to this path `src/main/resources/application.properties`:
+Or if you don't have Docker on your Machine You can use a distant database on acceding to this path `src/main/resources/application.properties` and setup it like this:
 
 ```bash
 # spring.datasource.url=${POSTGRES_URL}
