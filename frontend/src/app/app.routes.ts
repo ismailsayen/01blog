@@ -17,5 +17,5 @@ export const routes: Routes = [
     loadChildren: () => import('./layouts/main-layout.routes').then((m) => m.routes),
     title: 'home',
     canActivateChild: [authGuard],
-  },
+  }
 ];
