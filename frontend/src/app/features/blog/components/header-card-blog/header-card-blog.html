@@ -1,9 +1,9 @@
-<div class="w-100 mb-1 d-flex  justify-content-between align-items-center">
-  <div class="d-flex align-items-center gap-1">
+<div class="w-100 mb-1 d-flex  justify-content-between align-items-center mb-2">
+  <div class="d-flex align-items-center gap-3">
     <img [src]="avatar() || '/assets/images/default-user.jpg'" width="40" height="40" class="rounded-circle">
     <div>
-      <a routerLink="/profile/{{userId()}}" class="p-0 m-0 d-block link">{{userName()}}</a>
-      <span class="p-0 m-0 text-muted">{{job()}}</span>
+      <a routerLink="/profile/{{userId()}}" class="p-0 m-0 d-block link text-white">{{userName()}}</a>
+      <span class="p-0 m-0 text-muted jo">{{job()}}</span>
     </div>
   </div>
 

@@ -1,11 +1,11 @@
 @use '../../../../../styles/variables' as vars;
 
-.profile{
-  background-color: #F3F4F6;
+.profile {
+  background-color: #3E4144;
   display: flex;
   justify-content: center;
-  // align-items: center;
-  img{
+
+  img {
     width: 105px;
     height: 105px;
     border-radius: 50%;
@@ -13,7 +13,8 @@
     top: 20px;
   }
 }
-.folow-btn{
+
+.folow-btn {
   background-color: vars.$my_green;
 }
 

@@ -1,12 +1,17 @@
 @use '../../../styles/variables' as vars;
 
 
-header{
+header {
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1060;
-  background-color: white;
+  background-color: #212529;
+
+  .au {
+    color: white;
+    text-decoration: none;
+  }
 }
 
 .logo-auth {
@@ -29,7 +34,7 @@ ul {
 
   a {
     text-decoration: none;
-    color: black;
+    color: white;
   }
 }
 
@@ -38,11 +43,12 @@ ul {
 }
 
 
-.admin{
+.admin {
   font-size: 12px;
 }
+
 @media (max-width: 500px) {
-  .logo-auth{
+  .logo-auth {
     display: none;
   }
 }

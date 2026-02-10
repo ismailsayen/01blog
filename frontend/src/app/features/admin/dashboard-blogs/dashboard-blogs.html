@@ -10,7 +10,7 @@
 
   <!-- Users -->
   <div class="card shadow-sm border-0">
-    <div class="card-header bg-white fw-bold">
+    <div class="card-header hea fw-bold">
       Blogs
     </div>
     <div class="card-body p-2">
@@ -35,7 +35,7 @@
               {{blog.author}}
             </td>
             <td>
-              <span [ngClass]="blog.status?'status hidden text-danger fw-bold':'status fw-bold'">
+              <span [ngClass]="blog.status?'status hidden fw-bold':'status fw-bold'">
                 @if (blog.status) {
                 Hidden
                 }@else {

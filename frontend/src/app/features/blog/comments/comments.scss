@@ -7,12 +7,11 @@ input:focus {
 }
 
 .empty {
-  background-color: #f9fafb;
+  background-color: #6b6b6b66;
   text-align: center;
-  img {
-    width: 70px;
-  }
+
 }
+
 
 button {
   background-color: vars.$my-green;
@@ -23,6 +22,7 @@ button {
   cursor: pointer;
   color: rgb(255, 101, 101);
   transition: 0.2s ease-in-out;
+
   &:hover {
     color: red;
   }
@@ -35,7 +35,7 @@ button {
   padding: 10px 12px;
   border: 1px solid #e6e6e6;
   border-radius: 10px;
-  background: #fff;
+  background-color: #6b6b6b66;
 }
 
 .comment__avatar {
@@ -49,6 +49,7 @@ button {
 .comment__content {
   flex: 1;
   min-width: 0;
+
 }
 
 .comment__meta {
@@ -61,7 +62,8 @@ button {
 .comment__name {
   font-weight: 600;
   font-size: 14px;
-  color: #111;
+  color: white;
+
 }
 
 .comment__time {
@@ -72,5 +74,5 @@ button {
 .comment__text {
   margin: 4px 0 0;
   font-size: 14px;
-  color: #111;
+  color: white;
 }

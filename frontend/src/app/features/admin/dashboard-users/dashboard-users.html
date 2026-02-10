@@ -9,7 +9,7 @@
 
   <!-- Users -->
   <div class="card shadow-sm border-0">
-    <div class="card-header bg-white fw-bold">
+    <div class="card-header hea fw-bold">
       users
     </div>
     <div class="card-body p-2">
@@ -32,7 +32,7 @@
               <span class="fw-bold mx-3">{{user.userName}}</span>
             </td>
             <td>
-              <span [ngClass]="user.banned?'status banned text-danger fw-bold':'status fw-bold'">
+              <span [ngClass]="user.banned?'status banned fw-bold':'status fw-bold'">
                 @if (user.banned) {
                 Banned
                 }@else {

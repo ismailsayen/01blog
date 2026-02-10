@@ -1,35 +1,37 @@
 .main-body {
-  div {
-    text-align: justify;
-    width: 70%;
-    overflow-wrap: break-word;
-  }
+  text-align: justify;
+  overflow-wrap: break-word;
+}
 
+.img {
+  width: 45%;
+  min-width: 200px;
+  max-width: 340px;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.text:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media (max-width: 767.98px) {
   .img {
-    height: 115px;
-    width: 25%;
-    border-radius: 10px;
-    object-fit: cover;
-    object-position: center;
-    float: right;
-    shape-margin: 1rem;
+    width: 100%;
+    max-width: 100%;
   }
-
 }
 
 @media (max-width: 400px) {
-  .main-body{
-    display: flex;
-    flex-direction: column-reverse;
-  }
-  .img {
-    height: 115px;
-    border-radius: 10px;
-    object-fit: cover;
-    margin: 0 auto;
+  .main-body {
+    text-align: left;
   }
 }
 
- :host ::ng-deep P{
+:host ::ng-deep P {
   word-break: break-all;
+  line-height: 1.9rem;
 }

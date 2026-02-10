@@ -7,10 +7,10 @@
 @if(loaderDataProfile()){
 <p class="fw-bold text-center">wait...</p>
 }@else{
-<div class="text-center">
+<div class="text-center mb-4">
   <h1 class="m-0">{{profileData()?.userName}}</h1>
   <p class="fw-bolder m-1">{{profileData()?.job}}</p>
-  <div class="d-flex justify-content-center align-items-center gap-2">
+  <div class="d-flex justify-content-center align-items-center gap-2 my-2">
     <div>
       <span class="px-1 fw-bolder text-muted">{{profileData()?.followers}}</span><span>followers </span>
     </div>

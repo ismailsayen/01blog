@@ -1,8 +1,12 @@
-<div class="mb-1">
-  <p class="fw-bold mb-1" routerLink="/blog/{{id()}}">{{title()}}</p>
+<div class="mb-3">
+  <p class="fw-bold fs-5 mb-2 text" routerLink="/blog/{{id()}}">{{title()}}</p>
 
-  <div class="w-100 main-body ">
-    <img [src]="image()  || '/assets/images/no-image.jpg'" alt="" class="img">
-      <p>{{content()}}</p>
+  <div class="main-body d-flex flex-column flex-md-row gap-3 align-items-start w-100">
+    <img
+      [src]="image()  || '/assets/images/no-image.jpg'"
+      alt=""
+      class="img order-md-2 ms-md-3"
+    >
+    <p class="mb-0">{{content()}}</p>
   </div>
 </div>
