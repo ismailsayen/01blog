@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.DTO.BlogDTO;
+import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.blog.services.ReactionService;
 
 @RestController
@@ -19,8 +20,9 @@ public class ReactionController {
     ReactionService rctService;
 
     @PostMapping("/{blogId}")
-    public BlogDTO.ReactionResponse addOrDeleteReaction(@PathVariable Long blogId,@AuthenticationPrincipal UserInfo auth) {
-        return rctService.addOrDeleteReaction(blogId,auth);
+    public BlogDTO.ReactionResponse addOrDeleteReaction(@PathVariable Long blogId,
+            @AuthenticationPrincipal UserInfo auth) throws ForbiddenAction {
+        return rctService.addOrDeleteReaction(blogId, auth);
     }
-    
+
 }

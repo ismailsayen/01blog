@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.blog.auth.DTO.UserInfo;
 import com.blog.blog.DTO.BlogDTO;
 import com.blog.blog.models.BlogEntity;
+import com.blog.blog.models.Exception.ForbiddenAction;
 import com.blog.blog.models.ReactionEntity;
 import com.blog.blog.repositories.ReactionRepository;
 
@@ -20,8 +21,11 @@ public class ReactionService {
     @Autowired
     BlogService blgService;
 
-    public BlogDTO.ReactionResponse addOrDeleteReaction(Long blogId, UserInfo auth) {
+    public BlogDTO.ReactionResponse addOrDeleteReaction(Long blogId, UserInfo auth) throws ForbiddenAction {
         BlogEntity blog = blgService.getBlogById(blogId);
+        if (blog.getHide()) {
+            throw new ForbiddenAction("You can do any action for this post.");
+        }
         Optional<ReactionEntity> reaction = rctRepo.findByBlogReacted_IdAndUserReacted_Id(blogId, auth.getId());
         if (!reaction.isPresent()) {
             ReactionEntity newReaction = ReactionEntity.builder()

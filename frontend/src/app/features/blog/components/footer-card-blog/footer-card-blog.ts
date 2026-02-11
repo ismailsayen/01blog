@@ -1,5 +1,7 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
+import { finalize } from 'rxjs';
+import { SnackbarService } from '../../../../core/shared/components/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-footer-card-blog',
@@ -16,11 +18,17 @@ export class FooterCardBlog {
   liked = input.required<boolean>();
 
   blogService = inject(BlogService);
+  snackbar = inject(SnackbarService)
+
   loader = signal(false);
 
   onClik() {
     this.loader.set(true);
-    this.blogService.ReactToBlog(this.id()).subscribe({
+    this.blogService.ReactToBlog(this.id()).pipe(
+      finalize(() => {
+        this.loader.set(false);
+      })
+    ).subscribe({
       next: (res) => {
         const n = res.status ? 1 : -1;
 
@@ -34,6 +42,10 @@ export class FooterCardBlog {
         );
         this.loader.set(false);
       },
+      error: () => {
+        this.snackbar.error("error while like this post")
+      }
+
     });
   }
 }
