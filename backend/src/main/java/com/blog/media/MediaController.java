@@ -1,7 +1,5 @@
 package com.blog.media;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +16,7 @@ public class MediaController {
 
     @PostMapping("/uploadMedia")
     public ResponseEntity<MediaResponse> UploadMedia(@RequestParam("file") MultipartFile file,
-            @RequestParam("oldUrl") String oldUrl) throws IOException {
+            @RequestParam("oldUrl") String oldUrl) throws Exception {
         return mediaService.saveMedia(file, oldUrl);
     }
 

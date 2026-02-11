@@ -43,7 +43,8 @@ export class FooterCardBlog {
         this.loader.set(false);
       },
       error: () => {
-        this.snackbar.error("error while like this post")
+
+        this.snackbar.error("error while react to this post")
       }
 
     });
