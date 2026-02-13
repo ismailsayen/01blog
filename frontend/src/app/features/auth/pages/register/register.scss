@@ -6,7 +6,9 @@ input:focus {
   box-shadow: none;
   border: 1px solid vars.$my-green;
 }
-
+.form-child{
+  background-color: #212529;
+}
 .pass {
   cursor: pointer;
   right: 10px;

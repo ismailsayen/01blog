@@ -16,6 +16,10 @@ input:focus {
   height: 100%;
 }
 
+.form-child{
+  background-color: #212529;
+}
+
 @media screen and (max-width: 700px) {
   .form-child {
     border-radius: 10px;

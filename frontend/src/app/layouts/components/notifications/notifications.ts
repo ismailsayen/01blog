@@ -41,9 +41,7 @@ export class Notifications implements OnInit {
   ReadOrUnread(id: number) {
     this.notifService.ReadOrUnread(id).subscribe({
       next: res => {
-
         this.notifs.update(not =>
-
           not.map(notif => {
             return notif.id === res.id ? { ...notif, readed: res.status } : notif
           })

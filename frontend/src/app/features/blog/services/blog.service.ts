@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { API_URL } from '../../../core/shared/api-url';
 import { BlogInterface, BlogUpdateOutput, commentInterface, ReactionResponse } from '../../../core/shared/interfaces/BlogInterface';
-import { catchError, defaultIfEmpty, delay, map, of, tap } from 'rxjs';
+import { catchError, defaultIfEmpty, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

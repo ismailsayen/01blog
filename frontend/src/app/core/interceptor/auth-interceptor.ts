@@ -36,12 +36,17 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           'Banned',
           'Your account has been banned. Please contact support.'
         );
+        router.navigateByUrl('/auth/login')
+        token.clearToken()
+
       } else if (status === 500) {
         errService.showPopUp(
           'server',
           'Server Error 500!',
           'Something went wrong on our server. Please refresh the page and try again.'
         );
+        router.navigateByUrl('/auth/login')
+        token.clearToken()
       } else if (status === 401) {
         token.clearToken()
         router.navigateByUrl('/auth/login')

@@ -26,14 +26,7 @@
   backdrop-filter: blur(8px);
 }
 
-// @media screen and (max-width: 850px) {
-// .side-parent {
-//     width: 40% !important;
-//   }  
-//   .form {
-//     width: 60%;
-//   }
-// }
+
 @media screen and (max-width: 700px) {
   .side-parent {
     display: none;
